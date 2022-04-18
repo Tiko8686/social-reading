@@ -1,9 +1,12 @@
-import './App.css';
+import React from "react";
+import "./App.css";
+import MyRoute from "./components/Router.js";
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <>
+      <MyRoute></MyRoute>
+    </>
   );
 }
 
