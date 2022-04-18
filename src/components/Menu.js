@@ -8,7 +8,7 @@ function Menu() {
           <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hover me</span>
+                <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Կատեգորիա</span>
                 <ul class="dropdown-menu fade-up">
                   <li>
                     <Link class="dropdown-item" to="/category/professional">Մասնագիտական</Link>
