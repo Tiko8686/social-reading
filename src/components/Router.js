@@ -11,6 +11,10 @@ function MyRoute() {
     <Menu></Menu>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/category/historical" element={<Home />} />
+          <Route path="/category/artistic" element={<Home />} />
+          <Route path="/category/historical "element={<Home />} />
+          <Route path="/category/motivational" element={<Home />} />
         </Routes>
   
       </BrowserRouter>
