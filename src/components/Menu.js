@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
-
+import { Modal } from "./Upload";
 
 function Menu() {
   return (
-
     <>
       <div className="dropdown">
         <h2> Կատեգորիաներ</h2>
-       
         <nav className="dropdown-content">
           <li>
             <Link to="/category/professional">Մասնագիտական</Link>
@@ -22,17 +20,16 @@ function Menu() {
           </li>
           <br></br>
           <li>
-        
             <Link to="/category/motivational">Մոտիվացիոն</Link>
           </li>
           <br></br>
-         <li> <Link to="/category/hogebanakan">Հոգեբանական</Link></li>
-          
+          <li>
+            <Link to="/category/hogebanakan">Հոգեբանական</Link>
+          </li>
         </nav>
-
       </div>
-      <button className="myBtn">UPLOAD</button> 
+      <Modal />
     </>
-
-  )}
+  );
+}
 export default Menu;
