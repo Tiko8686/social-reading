@@ -1,6 +1,6 @@
 import React from "react";
 
-function Masnagitakan() {
+function Professional() {
   return (
     <div>
       <h1>Masnagitakan</h1>
@@ -8,4 +8,4 @@ function Masnagitakan() {
   );
 }
 
-export default Masnagitakan;
+export default Professional;
