@@ -7,16 +7,7 @@
 }
 .category_menu {
     border: 1px solid;
-    /* display: none; */
 }
-/* 
-.category:hover + .category_menu {
-    display: block;
-}
-
-.category_menu:hover {
-    display: block;
-} */
 
  @media all and (min-width: 992px) {
 	.navbar .dropdown-menu-end{ right:0; left: auto;  }
