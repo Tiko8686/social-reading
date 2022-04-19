@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./menu.css"
+import "./menu.css";
 function Menu() {
   return (
     <header class="section-header">
@@ -8,19 +8,32 @@ function Menu() {
           <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Կատեգորիա</span>
+                <span
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
+                  Կատեգորիա
+                </span>
                 <ul class="dropdown-menu fade-up">
                   <li>
-                    <Link class="dropdown-item" to="/category/professional">Մասնագիտական</Link>
+                    <Link class="dropdown-item" to="/category/professional">
+                      Մասնագիտական
+                    </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item" to="/category/artistic">Գեղարվեստական</Link>
+                    <Link class="dropdown-item" to="/category/artistic">
+                      Գեղարվեստական
+                    </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item" to="/category/historical">Պատմական</Link>
+                    <Link class="dropdown-item" to="/category/historical">
+                      Պատմական
+                    </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item" to="/category/motivational">Մոտիվացիոն</Link>
+                    <Link class="dropdown-item" to="/category/motivational">
+                      Մոտիվացիոն
+                    </Link>
                   </li>
                 </ul>
               </li>
@@ -29,7 +42,6 @@ function Menu() {
         </div>
       </nav>
     </header>
-
   );
 }
 export default Menu;

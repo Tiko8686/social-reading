@@ -6,13 +6,11 @@ import Menu from "./Menu";
 function MyRoute() {
   return (
     <>
-   
-    <BrowserRouter>
-    <Menu></Menu>
+      <BrowserRouter>
+        <Menu></Menu>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
-  
       </BrowserRouter>
     </>
   );
