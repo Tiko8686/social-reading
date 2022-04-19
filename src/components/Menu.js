@@ -4,9 +4,9 @@ function Menu() {
   return (
     <nav>
 
-      <ul>
+      <ul >
         <li>
-          <Link to="/">Գլխավոր</Link>
+          <Link to="/" >Գլխավոր</Link>
         </li>
         <li className="dropdown">
           <span>Կատեգորիաներ</span>
@@ -28,13 +28,24 @@ function Menu() {
               <Link to="/category/motivational">Մոտիվացիոն</Link>
             </li>
             <br></br>
-            <li> <Link to="/category/hogebanakan">Հոգեբանական</Link></li>
+            <li> <Link to="/category/psychological">Հոգեբանական</Link></li>
           </ul>
 
         </li>
-
+        <li>
+          <Link to="#" >Մեր մասին</Link>
+        </li>
       </ul>
-      <button className="myBtn">UPLOAD</button>
+      <ul>
+        <li>
+          <button className="myBtn">UPLOAD</button>
+
+        </li>
+        <li>
+          <input placeholder="Որոնել" />
+        </li>
+      </ul>
+
     </nav>
   )
 }
