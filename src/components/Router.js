@@ -3,7 +3,6 @@ import Historical from "../container/Historical";
 
 import Home from "../container/Home/Home";
 import Professional from "../container/Professional";
-import Masnagitakan from "../container/Professional";
 import Menu from "./Menu";
 
 function MyRoute() {
