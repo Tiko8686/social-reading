@@ -1,5 +1,7 @@
+
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import Historical from "../container/Historical";
+
 
 import Home from "../container/Home/Home";
 import Professional from "../container/Professional";
@@ -8,9 +10,8 @@ import Menu from "./Menu";
 function MyRoute() {
   return (
     <>
-   
-    <BrowserRouter>
-    <Menu></Menu>
+      <BrowserRouter>
+        <Menu></Menu>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category/professional" element={<Professional/>} />

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-
+import "./menu.css";
 function Menu() {
   return (
+
     <>
       <div className="dropdown">
         <h2> Կատեգորիաներ</h2>
@@ -31,6 +32,7 @@ function Menu() {
       </div>
       <button className="myBtn">UPLOAD</button> 
     </>
+
   );
 }
 export default Menu;
