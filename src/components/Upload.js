@@ -10,14 +10,13 @@ export function Modal() {
   };
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("bookName", data.bookName);
-    formData.append("image", data.image[0]);
+    formData.append("author", data.bookName);
+    formData.append("quote", data.image[0]);
     const requestOptions = {
       method: "POST",
       body: formData,
     };
-    fetch("", requestOptions).then((res) => console.log(res));
-    console.log(11);
+    fetch("http://192.168.1.30:8000/quotes/", requestOptions).then((res) => console.log(res));
   };
   return (
     <>

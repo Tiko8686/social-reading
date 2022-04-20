@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Historical from "../container/Historical";
-import Home from "../container/Home/Home";
+import Home from "../container/Home";
 import Professional from "../container/Professional";
 import Menu from "./Menu";
 
-function MyRoute() {
+function AllRoutes() {
   return (
     <>
       <BrowserRouter>
-        <Menu></Menu>
+        <Menu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category/professional" element={<Professional />} />
@@ -20,4 +20,4 @@ function MyRoute() {
     </>
   );
 }
-export default MyRoute;
+export default AllRoutes;
