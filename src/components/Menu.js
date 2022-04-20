@@ -11,7 +11,8 @@ function Menu() {
       </ul>
       <ul >
         <li className="dropdown">
-          <span>Կատեգորիաներ</span>
+          <span className="category">Կատեգորիաներ</span>
+
           <ul className="dropdown-content">
             <li>
               <Link to="/category/professional">Մասնագիտական</Link>

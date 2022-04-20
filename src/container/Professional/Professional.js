@@ -2,7 +2,7 @@
 function Professional() {
   return (
     <div>
-      <h1>Masnagitakan</h1>
+      <h1>Professional</h1>
     </div>
   );
 }
