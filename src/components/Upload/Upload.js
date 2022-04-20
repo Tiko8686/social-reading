@@ -20,8 +20,8 @@ export function Modal() {
   };
   return (
     <>
-      <button onClick={toggleModal} className="btn-modal">
-        Upload
+      <button onClick={toggleModal} className="btn-modal fa fa-upload">
+        &nbsp;&nbsp;Վերբեռնել
       </button>
       {modal && (
         <div className="modal">
