@@ -4,7 +4,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 200px
+  gap: 200px;
 }
 
 nav>ul {
@@ -20,15 +20,31 @@ nav>ul>li>a {
   text-decoration: none;
 
 }
+<<<<<<< Updated upstream
+=======
+.search{
+  padding-left: 23px;
+  width: 258px;
+  height: 48px;
+  border-radius: 30px;
+}
+nav>ul>li>ul{
+  list-style: none;
+}
+>>>>>>> Stashed changes
 
 nav>ul>li>ul>li>a {
   color: black;
   text-decoration: none;
 
 }
-
-
-
+.signin{
+  background-color:#9832FE;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+}
 .dropdown {
   position: relative;
   display: inline-block;
@@ -51,4 +67,10 @@ nav>ul>li>ul>li>a {
   list-style: none;
 
 }
+<<<<<<< Updated upstream
 
+=======
+.category{
+  
+}
+>>>>>>> Stashed changes
