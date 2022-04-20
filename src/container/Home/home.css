@@ -5,3 +5,29 @@
     width: 228px;
     border:none;
 }
+.section_1{
+    padding-top: 218px;
+    padding-left: 120px;
+    padding-right: 719px;
+    padding-bottom: 504px;
+}
+.ancolortxt{
+    color:#9832FE;
+    font-family: 'Montserrat arm';
+font-style: normal;
+font-weight: 500;
+font-size: 56px;
+line-height: 74px;
+}
+div>h1{
+    
+    font-family: 'Montserrat arm';
+font-style: normal;
+font-weight: 500;
+font-size: 56px;
+line-height: 74px;
+}
+.hometext{
+    width: 889px;
+    height: 221px;
+}

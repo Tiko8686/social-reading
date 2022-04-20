@@ -31,5 +31,6 @@
 .btn-modal {
     border: none;
     background: none;
+    cursor: pointer;
 
 }
