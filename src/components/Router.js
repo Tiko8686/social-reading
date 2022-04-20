@@ -6,7 +6,7 @@ import Professional from "../container/Professional/Professional";
 import Psychological from "../container/Psychological/Psychological";
 import Motivation from "../container/Motivation/Motivation";
 
-import Menu from "./Menu";
+import Menu from "./Menu/Menu";
 
 function AllRoutes() {
   return (

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Modal } from "../components/Upload";
+import { Modal } from "../Upload/Upload";
 import "./menu.css"
 function Menu() {
   return (
@@ -8,6 +8,7 @@ function Menu() {
         <li>
           <Link to="/" >Գլխավոր</Link>
         </li>
+       
       </ul>
       <ul >
         <li className="dropdown">
@@ -39,10 +40,9 @@ function Menu() {
       <ul>
         <li>
           <Modal />
-
         </li>
         <li>
-          <input placeholder="Որոնել" />
+          <input placeholder="Որոնել" className="search"/>
         </li>
       </ul>
     </nav>
