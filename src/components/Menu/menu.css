@@ -20,23 +20,17 @@ nav>ul>li>a {
   text-decoration: none;
 
 }
-<<<<<<< Updated upstream
-=======
-.search{
-  padding-left: 23px;
-  width: 258px;
-  height: 48px;
-  border-radius: 30px;
-}
-nav>ul>li>ul{
-  list-style: none;
-}
->>>>>>> Stashed changes
 
 nav>ul>li>ul>li>a {
   color: black;
   text-decoration: none;
 
+}
+.search{
+  border-radius: 30px;
+  padding-left: 22px;
+  width: 258px;
+  height: 48px;
 }
 .signin{
   background-color:#9832FE;
@@ -67,10 +61,3 @@ nav>ul>li>ul>li>a {
   list-style: none;
 
 }
-<<<<<<< Updated upstream
-
-=======
-.category{
-  
-}
->>>>>>> Stashed changes
