@@ -6,7 +6,9 @@ function Menu() {
     <nav>
       <ul>
         <li>
-          <Link to="/" >Գլխավոր</Link>
+          <Link to="/" >
+            <img src="http://localhost:3000/images/book.png" width="35px"/>
+          </Link>
         </li>
        
       </ul>
@@ -17,19 +19,15 @@ function Menu() {
             <li>
               <Link to="/category/professional">Մասնագիտական</Link>
             </li>
-            <br></br>
             <li>
               <Link to="/category/artistic">Գեղարվեստական</Link>
             </li>
-            <br></br>
             <li>
               <Link to="/category/historical">Պատմական</Link>
             </li>
-            <br></br>
             <li>
               <Link to="/category/motivational">Մոտիվացիոն</Link>
             </li>
-            <br></br>
             <li> <Link to="/category/psychological">Հոգեբանական</Link></li>
           </ul>
         </li>

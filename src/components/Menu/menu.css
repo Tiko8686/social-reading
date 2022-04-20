@@ -21,12 +21,10 @@ nav>ul>li>a {
 
 }
 
-nav>ul>li>ul{
-  list-style: none;
-}
-
 nav>ul>li>ul>li>a {
-  color: black
+  color: black;
+  text-decoration: none;
+
 }
 
 
@@ -47,5 +45,9 @@ nav>ul>li>ul>li>a {
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+
 }
