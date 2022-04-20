@@ -16,7 +16,7 @@ export function Modal() {
       method: "POST",
       body: formData,
     };
-    fetch("http://192.168.1.30:8000/quotes/", requestOptions).then((res) => console.log(res));
+    fetch("http://192.168.0.124:8000/quotes/", requestOptions).then((res) => console.log(res));
   };
   return (
     <>
