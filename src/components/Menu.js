@@ -6,7 +6,7 @@ function Menu() {
     <nav>
       <ul>
         <li>
-          <Link to="/">Գլխավոր</Link>
+          <Link to="/" >Գլխավոր</Link>
         </li>
         <li className="dropdown">
           <span>Կատեգորիաներ</span>
@@ -29,7 +29,6 @@ function Menu() {
             </li>
             <br></br>
             <li>
-              {" "}
               <Link to="/category/hogebanakan">Հոգեբանական</Link>
             </li>
           </ul>
