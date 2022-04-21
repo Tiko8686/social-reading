@@ -20,7 +20,7 @@ const Image = () => {
         return content.reverse();
     };
     return (
-        <div>
+        <div >
             {getImgUrl(image)}
         </div>
     )
