@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Modal } from "../Upload/Upload";
 import "./menu.css";
-function Menu() {
+export function Menu() {
   return (
     <nav>
       <ul>
