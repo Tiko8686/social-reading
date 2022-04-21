@@ -13,24 +13,100 @@
 }
 .modal-content {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: #f1f1f1;
-    padding: 14px 28px;
-    border-radius: 3px;
-    max-width: 600px;
-    min-width: 300px;
+    width: 552px;
+    height: 539px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
+    border-radius: 20px;
 }
 .submit {
-    margin-top: 5px;
-    padding: 5px 7px;
+    position: absolute;
+    width: 356px;
+    height: 64px;
+    left: 98px;
+    top: 378px;
+    background: #9832FE;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    font-size: 25px;
+    cursor: pointer;
 }
-
+.bookNameLabel{
+    position: absolute;
+    width: 147px;
+    height: 18px;
+    left: 98px;
+    top: 98px;
+    font-family: 'Montserrat arm';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+}
+.BookNameInput{
+    padding: 15px;
+    font-size: 20px;
+    position: absolute;
+    width: 356px;
+    height: 64px;
+    left: 98px;
+    top: 134px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px 3px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    border: none;
+    outline: none;
+}
+.fileLabel{
+    position: absolute;
+    height: 18px;
+    left: 98px;
+    top: 222px;
+    font-family: 'Montserrat arm';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+}
+.fileButton{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 98px;
+    top: 258px;
+    width: 200px;
+    height: 60px;
+    background: #9832FE;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    font-size: 20px;
+}
+.fileInput{
+    display: none;
+}
 .btn-modal {
     border: none;
     background: none;
     cursor: pointer;
-
+}
+.close{
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 20px;
 }
