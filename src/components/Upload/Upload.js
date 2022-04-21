@@ -7,6 +7,8 @@ export function Modal() {
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
+    reset({ bookName: "" });
+    reset({ image: "" });
   };
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -20,8 +22,6 @@ export function Modal() {
       console.log(res)
     );
     toggleModal();
-    reset({ bookName: "" });
-    reset({ image: "" });
   };
   return (
     <>
