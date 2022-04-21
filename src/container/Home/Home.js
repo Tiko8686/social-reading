@@ -18,11 +18,11 @@ function Home() {
             լավ գիրք ունենալով, մարդ երբեք չի կարող միայնակ լինել:
           </p>
           <button className="seeAll">Իմանալ ավելին</button>
-          <Image/>
         </div>
         <div>
           <img src="http://localhost:3000/images/section_1.png" width="300px" />
         </div>
+        <Image/>
       </div>
     </>
   );
