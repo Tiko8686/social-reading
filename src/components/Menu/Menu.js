@@ -42,11 +42,12 @@ function Menu() {
         <li>
           <Modal />
         </li>
-        <li>
+        <li className="search_input" >
+          <img src="http://localhost:3000/images/search.svg"/>
           <input placeholder="Որոնել" className="search" />
         </li>
         <li>
-          <button className="signin bi-person"></button>
+          <button className="signin bi-person" style={{color:"white"}}></button>
         </li>
       </ul>
     </nav>
