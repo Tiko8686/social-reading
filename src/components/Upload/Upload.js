@@ -20,8 +20,8 @@ export function Modal() {
       console.log(res)
     );
     toggleModal();
-    reset({ bookName: '' })
-    reset({ image: '' })
+    reset({ bookName: "" });
+    reset({ image: "" });
   };
   return (
     <>
@@ -32,7 +32,9 @@ export function Modal() {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <button className="close" onClick={toggleModal}>X</button>
+            <button className="close" onClick={toggleModal}>
+              X
+            </button>
             <form onSubmit={handleSubmit(onSubmit)}>
               <label for="name" className="bookNameLabel">
                 Գրքի անուն
