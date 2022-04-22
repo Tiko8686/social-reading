@@ -6,8 +6,8 @@ export function Menu() {
     <nav>
       <ul>
         <li>
-          <Link to="/">
-            <img src="http://localhost:3000/images/book.png" width="35px" />
+          <Link className="book" to="/">
+            <img src="http://localhost:3000/images/book.png" width="35px"  />
           </Link>
         </li>
       </ul>
@@ -31,6 +31,10 @@ export function Menu() {
             <li>
               {" "}
               <Link to="/category/psychological">Հոգեբանական</Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/category/psychological">AYL</Link>
             </li>
           </ul>
         </li>
