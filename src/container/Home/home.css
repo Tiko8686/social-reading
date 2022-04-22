@@ -1,48 +1,51 @@
 .seeAll {
-    background-color: #9832FE;
-    border-radius: 30px;
-    height: 48px;
-    width: 228px;
-    border: none;
-    color: white;
-
+  background-color: #9832fe;
+  border-radius: 30px;
+  height: 48px;
+  width: 228px;
+  border: none;
+  color: white;
 }
 
 .section_1 {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .ancolortxt {
-    color: #9832FE;
-    font-size: 56px;
-    line-height: 74px;
+  color: #9832fe;
+  font-size: 56px;
+  line-height: 74px;
 }
 
-div>h1 {
-    font-size: 56px;
-    line-height: 74px;
+div > h1 {
+  font-size: 56px;
+  line-height: 74px;
 }
 
 .hometext {
-    padding: 61px 0 61px 0;
-    min-width: 300px;
-    max-width: 889px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    font-family: 'Montserrat arm';
-    font-style: normal;
-
+  padding: 61px 0 61px 0;
+  min-width: 300px;
+  max-width: 889px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-family: "Montserrat arm";
+  font-style: normal;
 }
 
 .hometext > p {
-    max-width: 722px;
-    min-width: 300px;
-    font-size: 24px;
-    line-height: 29px;
-    font-weight: 400;
+  max-width: 722px;
+  min-width: 300px;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 400;
+}
+.section_2 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
