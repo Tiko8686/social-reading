@@ -97,7 +97,8 @@ nav>ul>li>ul>li>a {
   flex-direction: column;
   gap: 3px;
 }
-.menu> span {
+
+.menu>span {
   width: 16px;
   height: 2px;
   background-color: black
@@ -121,50 +122,60 @@ nav>ul>li>ul>li>a {
   gap: 30px;
   list-style: none;
 }
-.responsive_menu > ul > li> span {
+
+.responsive_menu>ul>li>span {
   font-size: 24px;
 
 }
-.responsive_menu > ul > li> a {
+
+.responsive_menu>ul>li>a {
   font-size: 24px;
   text-decoration: none;
-  color:black
+  color: black
 }
+
 .closeMenu {
   font-size: 30px;
   font-family: "Arial";
-  cursor: pointer;
-  
-
 }
+
 @media (min-width: 300px) and (max-width: 600px) {
-  .menu-list, .upload-btn, .login-btn {
+
+  .menu-list,
+  .upload-btn,
+  .login-btn {
     display: none;
   }
- nav > ul {
-    gap:0
+
+  nav>ul {
+    gap: 0px
   }
+
   nav {
-    gap:30px
+    gap: 30px
   }
+
   .search {
-    width: 180px;
+    width: 200px;
     height: 32px;
-    padding-left: 40px;
+    padding-left: 30px;
   }
-  .search_input>img  {
-    left: 15px;
-  top: 5px;
+
+  .search_input>img {
+    left: 5px;
+    top: 5px;
   }
+
   .book-icon {
     width: 24px;
   }
+
   .right-list {
     gap: 0px;
   }
+
   .menu {
     display: flex;
   }
-  
+
 }
-  
