@@ -10,6 +10,7 @@ function Motivational() {
       </div>
     );
   }
+  // todo 
   
   export default Motivational
   
