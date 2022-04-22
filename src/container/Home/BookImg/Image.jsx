@@ -8,13 +8,14 @@ const Image = () => {
             .then((response) => response.json())
             .then((response) => setImage(response));
     }, []);
-    // console.log(image);
     const getImgUrl = (array) => {
         let content = [];
         for (let link of array) {
-            content.push(<div>
-                <img src={link.quote} width='500px' height='500px' />
-                <p>{link.author}</p>
+            content.push(<div key={Date.now()}>
+                <img src={link.quote_file} width='500px' height='500px' />
+                <p>{link.book_author}</p>
+                <p>{link.book_title}</p>
+                <p>{link.book_category}</p>
             </div>);
         }
         return content.reverse();

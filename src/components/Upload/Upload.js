@@ -1,27 +1,58 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios  from "axios";
 import "./Modal.css";
 
 export function Modal() {
   const { register, handleSubmit, reset } = useForm();
   const [modal, setModal] = useState(false);
+  const [baseImage, setBaseImage] = useState("");
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setBaseImage(base64);
+  };
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   const toggleModal = () => {
     setModal(!modal);
   };
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("author", data.bookName);
-    formData.append("quote", data.image[0]);
-    const requestOptions = {
-      method: "POST",
-      body: formData,
-    };
-    fetch("http://192.168.0.124:8000/quotes/", requestOptions).then((res) =>
-      console.log(res)
-    );
+    formData.append("book_author", data.authorName);
+    formData.append("book_title", data.bookName);
+    formData.append("book_category", data.bookCategory);
+    formData.append("quote_file", data.image[0]);
+    axios.post("http://192.168.0.124:8000/quotes/", formData).then(resp =>{
+      console.log(resp.data);
+    }).catch((error) => {
+      if (error.response) {
+          console.log("error.response ", error.response);
+      } else if (error.request) {
+          console.log("error.request ", error.request);
+      } else if (error.message) {
+          console.log("error.request ", error.message);
+      }
+  })
     toggleModal();
     reset({ bookName: "" });
     reset({ image: "" });
+    reset({ bookCategory: "" });
+    console.log(123);
   };
   return (
     <>
@@ -35,29 +66,44 @@ export function Modal() {
             <button className="close" onClick={toggleModal}>
               X
             </button>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <label for="name" className="bookNameLabel">
-                Գրքի անուն
+            <div className="imageDiv">
+              <img src={baseImage} className="img"/>
+              <label for="files" className="fileLabel ">
+                Վերբեռնել Նկար
               </label>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <input
-                className="BookNameInput"
+                className="authorName"
+                placeholder="Գրքի հեղինակ"
+                id="name"
+                type="text"
+                {...register("authorName")}
+              />
+              <input
+                className="bookName"
+                placeholder="Գրքի անուն"
                 id="name"
                 type="text"
                 {...register("bookName")}
               />
-              <label for="files" className="fileLabel">
-                Հատված գրքից
-              </label>
               <input
+                className="bookCategory"
+                placeholder="Կատեգորիա"
+                id="name"
+                type="text"
+                {...register("bookCategory")}
+              />
+              <input
+                onChange={(e) => {
+                  uploadImage(e);
+                }}
                 type="file"
                 id="files"
-                accept="image/png,image/jpeg"
-                class="fileInput"
+                accept="image/png,image/jpeg, image/jpg"
+                className="fileInput"
                 {...register("image")}
               />
-              <label for="files" className="fileButton">
-                <span>Ընտրել նկար</span>
-              </label>
               <input className="submit" type="submit" value="Վերբեռնել" />
             </form>
           </div>
