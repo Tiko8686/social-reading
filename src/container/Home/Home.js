@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./home.css";
+
 function Home() {
   let [image, setImage] = useState([]);
 
