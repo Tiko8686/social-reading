@@ -8,6 +8,9 @@
     bottom: 0;
     position: fixed;
 }
+.modal{
+    z-index: 100;
+}
 .overlay{
     background-color:rgba(49,49,49,0.8);
 }
@@ -16,8 +19,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 552px;
-    height: 539px;
+    width: 732px;
+    height: 880px;
     background: #FFFFFF;
     box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
     border-radius: 20px;
@@ -25,72 +28,46 @@
 .submit {
     position: absolute;
     width: 356px;
-    height: 64px;
-    left: 98px;
-    top: 378px;
+    height: 48px;
+    left: 188px;
+    top: 674px;
     background: #9832FE;
     box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
     border-radius: 30px;
-    color: #FFFFFF;
     border: none;
     outline: none;
     font-size: 25px;
     cursor: pointer;
+    color: #FFFFFF;
 }
-.bookNameLabel{
-    position: absolute;
-    width: 147px;
-    height: 18px;
-    left: 98px;
-    top: 98px;
-    font-family: 'Montserrat arm';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-}
-.BookNameInput{
+.authorName{
     padding: 15px;
     font-size: 20px;
     position: absolute;
     width: 356px;
-    height: 64px;
-    left: 98px;
-    top: 134px;
+    height: 48px;
+    left: 188px;
+    top: 298px;
     background: #FFFFFF;
-    box-shadow: 0px 4px 50px 3px rgba(0, 67, 101, 0.08);
+    box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
     border-radius: 30px;
     border: none;
     outline: none;
 }
-.fileLabel{
-    position: absolute;
-    height: 18px;
-    left: 98px;
-    top: 222px;
-    font-family: 'Montserrat arm';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-}
-.fileButton{
-    position: absolute;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 98px;
-    top: 258px;
-    width: 200px;
-    height: 60px;
-    background: #9832FE;
-    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
-    border-radius: 30px;
-    color: #FFFFFF;
+.bookName{
     border: none;
     outline: none;
+    padding: 15px;
     font-size: 20px;
+    position: absolute;
+    width: 356px;
+    height: 48px;
+    left: 188px;
+    top: 378px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+
 }
 .fileInput{
     display: none;
@@ -109,4 +86,50 @@
     right: 15px;
     top: 10px;
     font-size: 20px;
+}
+.imageDiv{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 306px;
+    top: 96px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+}
+.fileLabel{
+    position: absolute;
+    width: 146px;
+    height: 16px;
+    top: 135px;
+    left: -8px;
+    font-family: 'Montserrat arm';
+    font-style: normal;
+    font-weight: 400;
+    font-weight: bolder;
+    font-size: 16px;
+    line-height: 16px;
+    cursor: pointer;
+}
+.bookCategory{
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+    position: absolute;
+    width: 356px;
+    height: 48px;
+    left: 188px;
+    top: 458px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+}
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .btn-modal  {
+        font-size: 24px;
+        text-decoration: none;
+        color:black
+    }
 }
