@@ -1,10 +1,11 @@
 .seeAll {
-  background-color: #9832fe;
-  border-radius: 30px;
-  height: 48px;
-  width: 228px;
-  border: none;
-  color: white;
+    background-color: #9832FE;
+    border-radius: 30px;
+    height: 48px;
+    width: 228px;
+    border: none;
+    color: white;
+    cursor: pointer;
 }
 
 .section_1 {

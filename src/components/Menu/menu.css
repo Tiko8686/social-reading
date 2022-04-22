@@ -4,7 +4,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 150px;
+  gap: 200px;
 }
 
 
@@ -19,7 +19,6 @@ nav>ul {
 nav>ul>li>a {
   color: black;
   text-decoration: none;
-  padding-left: 135px;
 
 }
 
@@ -90,3 +89,84 @@ img{
   width: 26px;
   height: 26px;
 }
+
+.menu {
+  width: 40px;
+  height: 40px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+}
+.menu> span {
+  width: 16px;
+  height: 2px;
+  background-color: black
+}
+
+.responsive_menu {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+  background: linear-gradient(179.25deg, #EDCFFF -35.86%, rgba(226, 214, 255) 26.04%, rgba(249, 216, 255) 55.24%, #FFFFFF 94.1%);
+  top:60px;
+  left: 0;
+  padding-top: 30px;
+}
+.responsive_menu > ul{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+}
+.responsive_menu > ul > li> span {
+  font-size: 24px;
+
+}
+.responsive_menu > ul > li> a {
+  font-size: 24px;
+  text-decoration: none;
+  color:black
+}
+.closeMenu {
+  font-size: 30px;
+  font-family: "Arial";
+  cursor: pointer;
+  
+
+}
+@media (min-width: 300px) and (max-width: 600px) {
+  .menu-list, .upload-btn, .login-btn {
+    display: none;
+  }
+ nav > ul {
+    gap:0
+  }
+  nav {
+    gap:50px
+  }
+  .search {
+    width: 212px;
+    height: 32px;
+    padding-left: 40px;
+  }
+  .search_input>img  {
+    left: 15px;
+  top: 5px;
+  }
+  .book-icon {
+    width: 24px;
+  }
+  .right-list {
+    gap: 10px;
+  }
+  .menu {
+    display: flex;
+  }
+  
+}
+  

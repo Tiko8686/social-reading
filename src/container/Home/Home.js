@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./home.css";
 function Home() {
   let [image, setImage] = useState([]);
@@ -24,7 +24,6 @@ function Home() {
   return (
     <>
       <div className="section_1">
-
         <div className="hometext">
           <h1>
             Ձեռքին լավ գիրք ունենալով, մարդ երբեք չի կարող
