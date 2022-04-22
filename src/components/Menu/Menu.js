@@ -1,7 +1,25 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "../Upload/Upload";
 import "./menu.css";
 export function Menu() {
+  useEffect(() => {
+    axios.post(`http://192.168.0.124:8000/categories/`,{name: "Barev"},
+    )
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch((error) => {
+            if (error.response) {
+                console.log("error.response ", error.response);
+            } else if (error.request) {
+                console.log("error.request ", error.request);
+            } else if (error.message) {
+                console.log("error.request ", error.message);
+            }
+        })
+}, [])
   return (
     <nav>
       <ul>
