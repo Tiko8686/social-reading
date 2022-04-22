@@ -16,7 +16,7 @@ export function Menu() {
           <span className="category">Կատեգորիաներ</span>
 
           <ul className="dropdown-content">
-            <li>
+            <li >
               <Link to="/category/professional">Մասնագիտական</Link>
             </li>
             <li>
