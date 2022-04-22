@@ -28,7 +28,7 @@ function Home() {
         <div className="hometext">
           <h1>
             Ձեռքին լավ գիրք ունենալով, մարդ երբեք չի կարող
-            <span className="ancolortxt"><br />միայնակ լինել:</span>
+            <span className="ancolortxt"> միայնակ լինել:</span>
           </h1>
           <p>
             Ձեռքին լավ գիրք ունենալով, մարդ երբեք չի կարող միայնակ լինել: Ձեռքին
