@@ -51,13 +51,10 @@ export function Modal() {
       }
   })
     toggleModal();
-<<<<<<< HEAD
     reset({ bookName: "" });
     reset({ image: "" });
     reset({ bookCategory: "" });
     console.log(123);
-=======
->>>>>>> 6d0d9b3ed7e4861ca16236da558623437385a2f2
   };
   return (
     <>

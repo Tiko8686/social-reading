@@ -8,11 +8,7 @@
     bottom: 0;
     position: fixed;
 }
-<<<<<<< HEAD
 .modal{
-=======
-.modal {
->>>>>>> 6d0d9b3ed7e4861ca16236da558623437385a2f2
     z-index: 100;
 }
 .overlay{
