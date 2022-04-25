@@ -28,11 +28,11 @@ export function Signin() {
             console.log("error.request ", error.message);
         }
     })
-    //   toggleModal();
-    //   reset({ bookName: "" });
-    //   reset({ image: "" });
-    //   reset({ bookCategory: "" });
-    //   console.log(123);
+      toggleModal();
+      reset({ bookName: "" });
+      reset({ image: "" });
+      reset({ bookCategory: "" });
+      // console.log(123);
     };
     return (
       <>
@@ -62,9 +62,6 @@ export function Signin() {
                   type="text"
                   {...register("bookName")}
                 />
-                
-               
-            
                 <input className="submit" type="submit" value="sign in" />
               </form>
             </div>

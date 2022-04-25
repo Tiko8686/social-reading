@@ -59,7 +59,7 @@ export function Modal() {
   };
   return (
     <>
-      <button onClick={toggleModal} className="fa fa-cloud-upload btn-modal">
+      <button onClick={toggleModal} className="">
         &nbsp;&nbsp;Վերբեռնել
       </button>
       {modal && (

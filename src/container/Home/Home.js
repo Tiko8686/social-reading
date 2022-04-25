@@ -46,9 +46,6 @@ function Home() {
         <div className="img" >
             {getImgUrl(image)}
         </div>
-        <div className="section_2">
-          {getImgUrl(image)}
-        </div>
       </div>
     </>
   );
