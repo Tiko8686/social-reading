@@ -41,8 +41,8 @@ function Home() {
           <img src="http://localhost:3000/images/section_1.png" alt="img" width="300px" className="section_1_img"/>
         </div>
       </div>
-      <div className="section_2" >
-        <div className="img" >
+      <div className="section_2">
+        <div className="img">
             {getImgUrl(image)}
         </div>
       </div>
