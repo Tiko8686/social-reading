@@ -34,6 +34,7 @@ export function Modal() {
     reset({ image: "" });
   };
   const onSubmit = (data) => {
+    
     const formData = new FormData();
     formData.append("book_author", data.authorName);
     formData.append("book_title", data.bookName);
