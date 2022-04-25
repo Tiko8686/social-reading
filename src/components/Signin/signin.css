@@ -8,6 +8,13 @@
     bottom: 0;
     position: fixed;
 }
+.signuph1{
+    position: absolute;
+width: 302px;
+height: 74px;
+left: 278px;
+top: 156px;
+}
 .modal{
     z-index: 100;
 }
@@ -40,21 +47,21 @@
     cursor: pointer;
     color: #FFFFFF;
 }
-.authorName{
+ .nameSurname{
     padding: 15px;
     font-size: 20px;
     position: absolute;
     width: 356px;
     height: 48px;
     left: 188px;
-    top: 298px;
+    top: 202px;
     background: #FFFFFF;
     box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
     border-radius: 30px;
     border: none;
     outline: none;
 }
-.bookName{
+.email{
     border: none;
     outline: none;
     padding: 15px;
@@ -63,11 +70,42 @@
     width: 356px;
     height: 48px;
     left: 188px;
-    top: 378px;
+    top: 322px;
+   
     background: #FFFFFF;
     box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
     border-radius: 30px;
 
+}
+.password{
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+    position: absolute;
+    width: 356px;
+    height: 48px; 
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    left: 188px;
+    top: 442px;
+   
+}
+.password_2{
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+    position: absolute;
+    width: 356px;
+    height: 48px; 
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    left: 188px;
+  
+    top: 562px;
 }
 .fileInput{
     display: none;
@@ -132,4 +170,4 @@
         text-decoration: none;
         color:black
     }
-}
+} 
