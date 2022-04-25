@@ -39,7 +39,7 @@ export function Modal() {
     formData.append("book_title", data.bookName);
     formData.append("book_category", data.bookCategory);
     formData.append("quote_file", data.image[0]);
-    axios.post("http://192.168.0.124:8000/quotes/", formData).then(resp =>{
+    axios.post("http://www.socialreading.xyz/categories/", formData).then(resp =>{
       console.log(resp.data);
     }).catch((error) => {
       if (error.response) {

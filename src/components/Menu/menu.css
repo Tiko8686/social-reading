@@ -4,12 +4,14 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 215px;
+  gap: 180px;
 }
+
 ul {
   margin: 0;
   padding: 0;
 }
+
 nav>ul {
   display: flex;
   align-items: center;
@@ -98,7 +100,8 @@ nav>ul>li>ul>li>a {
   flex-direction: column;
   gap: 3px;
 }
-.menu> span {
+
+.menu>span {
   width: 16px;
   height: 2px;
   background-color: black
@@ -110,11 +113,12 @@ nav>ul>li>ul>li>a {
   position: absolute;
   z-index: 100;
   background: linear-gradient(179.25deg, #EDCFFF -35.86%, rgba(226, 214, 255) 26.04%, rgba(249, 216, 255) 55.24%, #FFFFFF 94.1%);
-  top:60px;
+  top: 60px;
   left: 0;
   padding-top: 30px;
 }
-.responsive_menu > ul{
+
+.responsive_menu>ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,50 +126,92 @@ nav>ul>li>ul>li>a {
   gap: 30px;
   list-style: none;
 }
-.responsive_menu > ul > li> span {
+
+.responsive_menu>ul>li>span {
   font-size: 24px;
 
 }
-.responsive_menu > ul > li> a {
+
+.responsive_menu>ul>li>a {
   font-size: 24px;
   text-decoration: none;
-  color:black
+  color: black
 }
+
 .closeMenu {
   font-size: 30px;
   font-family: "Arial";
   cursor: pointer;
-  
+
 
 }
+
+.resp_menu {
+  display: none;
+}
+
+
+.category_submenu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  list-style: none;
+
+}
+
+.category_submenu>li>a {
+  font-size: 16px;
+  text-decoration: none;
+  color: black
+}
+
+.resp_category:hover .category_submenu {
+  display: flex;
+}
+
 @media (min-width: 300px) and (max-width: 600px) {
-  .menu-list, .upload-btn, .login-btn {
+
+  .menu-list,
+  .upload-btn,
+  .login-btn {
     display: none;
   }
- nav > ul {
-    gap:0px
+
+  nav>ul {
+    gap: 0px
   }
+
   nav {
-    gap:35px
+    gap: 25px
   }
+
   .search {
     width: 200px;
     height: 32px;
     padding-left: 40px;
   }
-  .search_input>img  {
+
+  .search_input>img {
     left: 15px;
-  top: 5px;
+    top: 5px;
   }
+
   .book-icon {
     width: 24px;
   }
+
   .right-list {
     gap: 0px;
   }
+
   .menu {
     display: flex;
   }
-  
+
+  .resp_menu {
+    display: block;
+  }
 }
-  

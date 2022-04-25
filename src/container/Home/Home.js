@@ -5,7 +5,7 @@ function Home() {
   let [image, setImage] = useState([]);
 
     useEffect(() => {
-        fetch("http://192.168.0.124:8000/quotes/")
+        fetch("http://www.socialreading.xyz/quotes/")
             .then((response) => response.json())
             .then((response) => setImage(response));
     }, []);
@@ -13,7 +13,7 @@ function Home() {
         let content = [];
         for (let link of array) {
             content.push(<div key={Date.now()}>
-                <img src={link.quote_file} width='500px' height='500px' />
+                <img src={link.quote_file} width='500px' height='500px' className="quote_image"/>
                 <p>{link.book_author}</p>
                 <p>{link.book_title}</p>
                 <p>{link.book_category}</p>
@@ -37,11 +37,11 @@ function Home() {
           <button className="seeAll">Իմանալ ավելին</button>
         </div>
         <div>
-          <img src="http://localhost:3000/images/section_1.png" width="300px" />
+          <img src="http://localhost:3000/images/section_1.png" width="300px" className="section_1_img"/>
         </div>
       </div>
-      <div className="section_2">
-        <div className="img">
+      <div className="section_2" >
+        <div className="img" >
             {getImgUrl(image)}
         </div>
       </div>
