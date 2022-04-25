@@ -98,6 +98,7 @@ export function Modal() {
                 type="text"
                 {...register("bookCategory")}
               />
+              
               <input
                 onChange={(e) => {
                   uploadImage(e);

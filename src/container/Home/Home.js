@@ -4,7 +4,6 @@ import "./home.css";
 function Home() {
   let [image, setImage] = useState([]);
 
-  let [image, setImage] = useState([]);
 
   useEffect(() => {
     fetch("http://www.socialreading.xyz/quotes/")
@@ -24,7 +23,6 @@ function Home() {
     return content.reverse();
   };
 
-  return (
 
   return (
     <>
