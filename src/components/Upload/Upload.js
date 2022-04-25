@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import "./Modal.css";
+import "./Upload.css";
 
 export function Modal() {
   const { register, handleSubmit, reset } = useForm();
@@ -33,6 +33,7 @@ export function Modal() {
     setModal(!modal);
     reset({ bookName: "" });
     reset({ image: "" });
+    reset({ bookCategory: "" });
   };
   const onSubmit = (data) => {
     
@@ -54,13 +55,10 @@ export function Modal() {
       }
     })
     toggleModal();
-    reset({ bookName: "" });
-    reset({ image: "" });
-    reset({ bookCategory: "" });
   };
   return (
     <>
-      <button onClick={toggleModal} className="fa fa-upload btn-modal">
+      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
         &nbsp;&nbsp;Վերբեռնել
       </button>
       {modal && (
@@ -73,7 +71,7 @@ export function Modal() {
             <div className="imageDiv">
               {baseImage &&
                 <img src={baseImage} className="img" />}
-              <label for="files" className="fileLabel ">
+              <label for="files" className="fileLabel bi bi-cloud-upload">
                 Վերբեռնել Նկար
               </label>
             </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import "./signin.css";
+import "./Signin.css";
 export function Signin() {
   const { register, handleSubmit, reset } = useForm();
   const [signin, setsigin] = useState(false);
@@ -30,11 +30,6 @@ export function Signin() {
           console.log("error.request ", error.message);
         }
       });
-    //   toggleModal();
-    //   reset({ bookName: "" });
-    //   reset({ image: "" });
-    //   reset({ bookCategory: "" });
-    //   console.log(123);
   };
   return (
     <>

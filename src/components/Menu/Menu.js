@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
 import { Modal } from "../Upload/Upload";
-import "./menu.css";
+import "./Menu.css";
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
   console.log(menuBool)
