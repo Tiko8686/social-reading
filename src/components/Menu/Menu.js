@@ -18,7 +18,6 @@ export function Menu() {
         <ul className="menu-list">
           <li className="dropdown">
             <span className="category">Կատեգորիաներ</span>
-
             <ul className="dropdown-content">
               <li>
                 <Link to="/category/professional">Մասնագիտական</Link>
@@ -33,7 +32,6 @@ export function Menu() {
                 <Link to="/category/motivational">Մոտիվացիոն</Link>
               </li>
               <li>
-                {" "}
                 <Link to="/category/psychological">Հոգեբանական</Link>
               </li>
             </ul>
@@ -67,38 +65,41 @@ export function Menu() {
             </div>
           </li>
         </ul>
-
       </nav>
-      {menuBool && (<div className="responsive_menu">
-        <ul>
-          <li className="dropdown">
-            <span className="category">Կատեգորիաներ</span>
-            <ul className="dropdown-content">
-              <li>
-                <Link to="/category/professional">Մասնագիտական</Link>
+      {menuBool && (
+        <div className="resp_menu">
+          <div className="responsive_menu">
+            <ul>
+              <li className="resp_category">
+                <span className="category">Կատեգորիաներ</span>
+                <ul className="category_submenu">
+                  <li>
+                    <Link to="/category/professional">Մասնագիտական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/artistic">Գեղարվեստական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/historical">Պատմական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/motivational">Մոտիվացիոն</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/psychological">Հոգեբանական</Link>
+                  </li>
+                </ul>
               </li>
               <li>
-                <Link to="/category/artistic">Գեղարվեստական</Link>
+                <Link to="#">Մեր մասին</Link>
               </li>
               <li>
-                <Link to="/category/historical">Պատմական</Link>
-              </li>
-              <li>
-                <Link to="/category/motivational">Մոտիվացիոն</Link>
-              </li>
-              <li>
-                <Link to="/category/psychological">Հոգեբանական</Link>
+                <Modal />
               </li>
             </ul>
-          </li>
-          <li>
-            <Link to="#">Մեր մասին</Link>
-          </li>
-          <li>
-            <Modal />
-          </li>
-        </ul>
-      </div>)}
+          </div>
+        </div>
+      )}
 
     </>
 
