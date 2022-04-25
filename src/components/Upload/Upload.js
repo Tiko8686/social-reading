@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios  from "axios";
+import axios from "axios";
 import "./Modal.css";
 
 export function Modal() {
@@ -9,9 +9,10 @@ export function Modal() {
   const [baseImage, setBaseImage] = useState("");
 
   const uploadImage = async (e) => {
-    const file = e.target.files[0];
+    const file = await e.target.files[0];
     const base64 = await convertBase64(file);
-    setBaseImage(base64);
+    await setBaseImage(base64);
+    console.log(baseImage);
   };
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -34,31 +35,32 @@ export function Modal() {
     reset({ image: "" });
   };
   const onSubmit = (data) => {
+    
     const formData = new FormData();
     formData.append("book_author", data.authorName);
     formData.append("book_title", data.bookName);
     formData.append("book_category", data.bookCategory);
     formData.append("quote_file", data.image[0]);
+
     axios.post("http://www.socialreading.xyz/quotes/", formData).then(resp =>{
       console.log(resp.data);
     }).catch((error) => {
       if (error.response) {
-          console.log("error.response ", error.response);
+        console.log("error.response ", error.response);
       } else if (error.request) {
-          console.log("error.request ", error.request);
+        console.log("error.request ", error.request);
       } else if (error.message) {
-          console.log("error.request ", error.message);
+        console.log("error.request ", error.message);
       }
-  })
+    })
     toggleModal();
     reset({ bookName: "" });
     reset({ image: "" });
     reset({ bookCategory: "" });
-    console.log(123);
   };
   return (
     <>
-      <button onClick={toggleModal} className="fa fa-cloud-upload btn-modal">
+      <button onClick={toggleModal} className="">
         &nbsp;&nbsp;Վերբեռնել
       </button>
       {modal && (
@@ -69,7 +71,8 @@ export function Modal() {
               X
             </button>
             <div className="imageDiv">
-              <img src={baseImage} className="img"/>
+              {baseImage &&
+                <img src={baseImage} className="img" />}
               <label for="files" className="fileLabel ">
                 Վերբեռնել Նկար
               </label>
@@ -96,6 +99,7 @@ export function Modal() {
                 type="text"
                 {...register("bookCategory")}
               />
+              
               <input
                 onChange={(e) => {
                   uploadImage(e);

@@ -4,6 +4,7 @@ import "./home.css";
 function Home() {
   let [image, setImage] = useState([]);
 
+
     useEffect(() => {
         fetch("http://www.socialreading.xyz/quotes/")
             .then((response) => response.json())
