@@ -42,7 +42,7 @@ export function Modal() {
     formData.append("book_category", data.bookCategory);
     formData.append("quote_file", data.image[0]);
 
-    axios.post("http://www.socialreading.xyz/quotes/", formData).then(resp =>{
+    axios.post("https://www.socialreading.xyz/quotes/", formData).then(resp =>{
       console.log(resp.data);
     }).catch((error) => {
       if (error.response) {
@@ -60,8 +60,8 @@ export function Modal() {
   };
   return (
     <>
-      <button onClick={toggleModal} className="">
-        &nbsp;&nbsp;Վերբեռնել
+      <button onClick={toggleModal} className="btn-modal ">
+        Վերբեռնել
       </button>
       {modal && (
         <div className="modal">
@@ -72,7 +72,7 @@ export function Modal() {
             </button>
             <div className="imageDiv">
               {baseImage &&
-                <img src={baseImage} className="img" />}
+                <img src={baseImage} className="img" alt="quoteImg"/>}
               <label for="files" className="fileLabel ">
                 Վերբեռնել Նկար
               </label>

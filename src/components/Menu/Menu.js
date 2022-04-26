@@ -12,7 +12,7 @@ export function Menu() {
         <ul>
           <li>
             <Link to="/">
-              <img src="http://localhost:3000/images/book.png" width="35px" className="book-icon" />
+              <img src="http://localhost:3000/images/book.png" width="35px" className="book-icon" alt="HomeIcon" />
             </Link>
           </li>
         </ul>
@@ -48,13 +48,13 @@ export function Menu() {
             <Modal />
           </li>
           <li className="search_input" >
-            <img src="http://localhost:3000/images/search.svg" />
+            <img src="http://localhost:3000/images/search.svg" alt="searchIcon" />
             <input placeholder="Որոնել" className="search" />
           </li>
           <li className="login-btn">
             <Signin></Signin>
           </li>
-         
+
           <li>
             <div className="menu" onClick={() => setMenuBool(!menuBool)}>
               {!menuBool &&
@@ -71,37 +71,41 @@ export function Menu() {
         </ul>
 
       </nav>
-      {menuBool && (<div className="responsive_menu">
-        <ul>
-          <li className="dropdown">
-            <span className="category">Կատեգորիաներ</span>
-            <ul className="dropdown-content">
-              <li>
-                <Link to="/category/professional">Մասնագիտական</Link>
+      {menuBool && (
+        <div className="resp_menu">
+          <div className="responsive_menu">
+            <ul>
+              <li className="dropdown-resp">
+                <span className="category">Կատեգորիաներ</span>
+                <ul className="dropdown-content-resp">
+                  <li>
+                    <Link to="/category/professional">Մասնագիտական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/artistic">Գեղարվեստական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/historical">Պատմական</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/motivational">Մոտիվացիոն</Link>
+                  </li>
+                  <li>
+                    <Link to="/category/psychological">Հոգեբանական</Link>
+                  </li>
+                </ul>
               </li>
               <li>
-                <Link to="/category/artistic">Գեղարվեստական</Link>
+                <Link to="#">Մեր մասին</Link>
               </li>
               <li>
-                <Link to="/category/historical">Պատմական</Link>
-              </li>
-              <li>
-                <Link to="/category/motivational">Մոտիվացիոն</Link>
-              </li>
-              <li>
-                <Link to="/category/psychological">Հոգեբանական</Link>
+                <Modal />
+                <Signin />
               </li>
             </ul>
-          </li>
-          <li>
-            <Link to="#">Մեր մասին</Link>
-          </li>
-          <li>
-            <Modal />
-            <Signin/>
-          </li>
-        </ul>
-      </div>)}
+          </div>
+        </div>
+      )}
 
     </>
 

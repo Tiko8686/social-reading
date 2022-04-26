@@ -76,6 +76,8 @@
     border: none;
     background: none;
     cursor: pointer;
+    font-family: 'Montserrat arm';
+    font-style: normal;
 }
 .close{
     background: none;
@@ -132,4 +134,5 @@
         text-decoration: none;
         color:black
     }
+    
 }

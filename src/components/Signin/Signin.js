@@ -1,41 +1,61 @@
-import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./signin.css";
+import React, { useState } from 'react'
+import axios from 'axios';
+import validator from 'validator';
+
+
 export function Signin() {
   const { register, handleSubmit, reset } = useForm();
-  const [signin, setsigin] = useState(false);
+  const [login, setLogin] = useState({ email: "", password: "" })
+  const [signup, setSignup] = useState(false);
+  const [signin, setSigin] = useState(false);
+
+
 
   const toggleModal = () => {
-    setsigin(!signin);
-    reset({ email: "" });
-    reset({ password: "" });
+    setSigin(false)
+    setSignup(!signup);
+    // reset({ email: "" });
+    // reset({ password: "" });
   };
+  const toggleModalSignIn = () => {
+    setSignup(false)
+    setSigin(!signin)
+  }
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("user_name", data.email);
-    formData.append("user_password", data.password);
+    axios.post("")
+    console.log(data)
 
-    axios
-      .post("http://192.168.0.124:8000/quotes/", formData)
-      .then((resp) => {
-        console.log(resp.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log("error.response ", error.response);
-        } else if (error.request) {
-          console.log("error.request ", error.request);
-        } else if (error.message) {
-          console.log("error.request ", error.message);
-        }
-      });
-    //   toggleModal();
-    //   reset({ bookName: "" });
-    //   reset({ image: "" });
-    //   reset({ bookCategory: "" });
-    //   console.log(123);
-  };
+    }
+  //   // axios
+  //   //   .post("http://192.168.0.124:8000/quotes/", formData)
+  //   //   .then((resp) => {
+  //   //     console.log(resp.data);
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     if (error.response) {
+  //   //       console.log("error.response ", error.response);
+  //   //     } else if (error.request) {
+  //   //       console.log("error.request ", error.request);
+  //   //     } else if (error.message) {
+  //   //       console.log("error.request ", error.message);
+  //   //     }
+  //   //   });
+  //   //   toggleModal();
+  //   //   reset({ bookName: "" });
+  //   //   reset({ image: "" });
+  //   //   reset({ bookCategory: "" });
+  //   //   console.log(123);
+  // };
+
+
+const submitChackin = event => {
+  event.preventDefault();
+  
+     console.log(login)
+  
+}
   return (
     <>
       <button
@@ -44,26 +64,24 @@ export function Signin() {
         style={{ color: "white" }}
       ></button>
 
-      {signin && (
-        <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
-            <button className="close" onClick={toggleModal}>
-              X
-            </button>
-            <h1 className="signuph1"> Գրանցվել</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <ul>
-                {" "}
-                <li className="">
-                  <input
-                    className="nameSurname"
-                    placeholder="Անուն Ազգանուն"
-                    id="namesurname"
-                    type="text"
-                    {...register("nameSurname")}
-                  />
-                </li>
+      {signup ? <div className="modal">
+        <div onClick={toggleModal} className="overlay"></div>
+        <div className="modal-content">
+          <button className="close" onClick={toggleModal}>
+            X
+          </button>
+          <form onSubmit={handleSubmit(signup)}>
+            <ul>
+              <li >
+                <input
+                  className="nameSurname"
+                  placeholder="Անուն Ազգանուն"
+                  id="namesurname"
+                  type="text"
+                  {...register("nameSurname")}
+                />
+              </li>
+              <li>
                 <input
                   className="email"
                   placeholder="Էլ․հասցե"
@@ -71,6 +89,8 @@ export function Signin() {
                   type="email"
                   {...register("email")}
                 />
+              </li>
+              <li>
                 <input
                   className="password"
                   placeholder="Գաղտնաբառ"
@@ -78,19 +98,62 @@ export function Signin() {
                   type="password"
                   {...register("password")}
                 />
+              </li>
+              <li>
                 <input
-                  className="password_2 "
-                  placeholder="ԿրկնելԳաղտնաբառը"
-                  id="password"
+                  className="password_2"
+                  placeholder="Կրկնել գաղտնաբառը"
+                  id="password_2"
                   type="password"
-                  {...register("password")}
+                  {...register("password_2")}
                 />
-              </ul>
-              <input className="submit" type="submit" value="sign in" />
-            </form>
-          </div>
+              </li>
+            </ul>
+            <input className="submit" type="submit" value="Գրանցվել" />
+          </form>
+          <button onClick={toggleModalSignIn}>Already have an account?</button>
+
         </div>
-      )}
+      </div>
+        : signin ? <div className="modal">
+          <div onClick={toggleModalSignIn} className="overlay"></div>
+          <div className="modal-content">
+            <button className="close" onClick={toggleModalSignIn}>
+              X
+            </button>
+            <form onSubmit={submitChackin}>
+            <ul>
+              <li>
+                <input
+                  className="email"
+                  placeholder="Էլ․հասցե"
+                  id="emailLogin"
+                  type="email"
+                  value={login.email}
+                  onChange={(e) => setLogin({ ...login, email: e.target.value })}
+                />
+              </li>
+              <li>
+                <input
+                  className="password"
+                  placeholder="Գաղտնաբառ"
+                  id="passwordLogin"
+                  type="password"
+                  value={login.password}
+                  onChange={(e) => setLogin({ ...login, password: e.target.value })}
+
+                />
+              </li>
+              <li>
+                <input className="submit" type="submit" value="Մուտք գործել"/>
+              </li>
+            </ul>
+            </form>
+              
+
+            <button onClick={toggleModal}>Don't have an account?</button>
+          </div>
+        </div> : ""}
     </>
   );
 }

@@ -168,10 +168,33 @@ nav>ul>li>ul>li>a {
   color: black
 }
 
+
 .resp_category:hover .category_submenu {
   display: flex;
 }
 
+.dropdown-content-resp {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+  padding-top: 10px;
+  flex-direction: column;
+  list-style: none;
+
+}
+.dropdown-content-resp  > li > a {
+  font-size: 16px;
+  text-decoration: none;
+  color: black;
+}
+.dropdown-resp:hover .dropdown-content-resp  {
+  display: flex;
+
+}
+.dropdown-content-resp  > li > a:hover {
+color:#9832FE
+}
 @media (min-width: 300px) and (max-width: 600px) {
 
   .menu-list,
