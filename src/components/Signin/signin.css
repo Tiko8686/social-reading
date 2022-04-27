@@ -30,15 +30,18 @@
 }
 
 .form_style div input {
+    font-family: 'Montserrat arm';
+    font-style: normal;
     width: 354px;
     height: 48px;
+    padding: 10px 20px;
     overflow: hidden;
     border-radius: 30px;
     border: 1px solid #A3B0BC;
     outline: none;
     font-size: 25px;
     cursor: pointer;
-    color: #FFFFFF;
+    color:#3D424E;
 }
 
 #submit-btn {
