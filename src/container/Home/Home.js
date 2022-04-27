@@ -6,7 +6,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch("http://www.socialreading.xyz/quotes/")
+    fetch("https://www.socialreading.xyz/quotes/")
       .then((response) => response.json())
       .then((response) => setImage(response));
   }, []);
