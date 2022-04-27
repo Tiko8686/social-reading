@@ -65,102 +65,131 @@ export function Signin() {
       {signup ? (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
+          <div className="modal-content-sign">
             <button className="close" onClick={toggleModal}>
               X
             </button>
-            <form onSubmit={signUp}>
+            <form onSubmit={signUp} className="form_style">
+              <h2>Գրանցվել</h2>
+              <div>
+                <label>Անուն Ազգանուն</label>
 
-              <input
-                className="nameSurname"
-                placeholder="Անուն Ազգանուն"
-                id="namesurname"
-                type="text"
-                value={register.username}
-                onChange={(e) => {
-                  setRegister({ ...register, username: e.target.value });
-                }}
-              />
+                <input
+                  className="nameSurname"
+                  id="namesurname"
+                  type="text"
+                  value={register.username}
+                  onChange={(e) => {
+                    setRegister({ ...register, username: e.target.value });
+                  }}
+                />
+              </div>
 
-              <input
-                className="email"
-                placeholder="Էլ․հասցե"
-                id="email"
-                type="email"
-                value={register.email}
-                onChange={(e) => {
-                  setRegister({ ...register, email: e.target.value });
-                }}
-              />
+              <div>
+                <label>Էլ․հասցե</label>
 
-              <input
-                className="password"
-                placeholder="Գաղտնաբառ"
-                id="password"
-                type="password"
-                value={register.password1}
-                onChange={(e) => {
-                  setRegister({ ...register, password1: e.target.value });
-                }}
-              />
+                <input
+                  className="email"
+                  id="email"
+                  type="email"
+                  value={register.email}
+                  onChange={(e) => {
+                    setRegister({ ...register, email: e.target.value });
+                  }}
+                />
+              </div>
 
-              <input
-                className="password_2"
-                placeholder="Կրկնել գաղտնաբառը"
-                id="password_2"
-                type="password"
-                value={register.password2}
-                onChange={(e) => {
-                  setRegister({ ...register, password2: e.target.value });
-                }}
-              />
+              <div>
+                <label>Գաղտնաբառ</label>
 
-              <input className="submit" type="submit" value="Գրանցվել" />
+
+                <input
+                  className="password"
+                  id="password"
+                  type="password"
+                  value={register.password1}
+                  onChange={(e) => {
+                    setRegister({ ...register, password1: e.target.value });
+                  }}
+                />
+              </div>
+
+              <div>
+                <label>Կրկնել գաղտնաբառը</label>
+
+                <input
+                  className="password_2"
+                  id="password_2"
+                  type="password"
+                  value={register.password2}
+                  onChange={(e) => {
+                    setRegister({ ...register, password2: e.target.value });
+                  }}
+                />
+              </div>
+              <div>
+                <input type="submit" value="Գրանցվել" id="submit-btn" />
+              </div>
+              <div>
+                <button onClick={toggleModalSignIn} className="btn-acc">
+                  Already have an account?
+                </button>
+              </div>
             </form>
-            <button onClick={toggleModalSignIn}>
-              Already have an account?
-            </button>
+
           </div>
         </div>
       ) : signin ? (
         <div className="modal">
           <div onClick={toggleModalSignIn} className="overlay"></div>
-          <div className="modal-content">
+          <div className="modal-content-sign">
             <button className="close" onClick={toggleModalSignIn}>
               X
             </button>
-            <form onSubmit={submitChackin}>
 
-              <input
-                className="email"
-                placeholder="Էլ․հասցե"
-                id="emailLogin"
-                type="email"
-                value={login.email}
-                onChange={(e) =>
-                  setLogin({ ...login, email: e.target.value })
-                }
-              />
+            <form onSubmit={submitChackin} className="form_style">
+              <h2>Մուտք գործել</h2>
+              <div>
+                <label>Էլ․հասցե</label>
 
-              <input
-                className="password"
-                placeholder="Գաղտնաբառ"
-                id="passwordLogin"
-                type="password"
-                value={login.password}
-                onChange={(e) =>
-                  setLogin({ ...login, password: e.target.value })
-                }
-              />
+                <input
+                  className="email"
+                  id="emailLogin"
+                  type="email"
+                  value={login.email}
+                  onChange={(e) =>
+                    setLogin({ ...login, email: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Գաղտնաբառ</label>
 
-              <input
-                className="submit"
-                type="submit"
-                value="Մուտք գործել"
-              />
+                <input
+                  className="password"
+                  id="passwordLogin"
+                  type="password"
+                  value={login.password}
+                  onChange={(e) =>
+                    setLogin({ ...login, password: e.target.value })
+                  }
+                />
+              </div>
 
+              <div>
+                <input
+                  type="submit"
+                  value="Մուտք գործել"
+                  id="submit-btn"
+                />
+              </div>
+
+
+              <div>
+                <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
+              </div>
             </form>
-            <button onClick={toggleModal}>Don't have an account?</button>
+
           </div>
         </div>
       ) : (
