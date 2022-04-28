@@ -1,38 +1,26 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import "./Modal.css";
+import "./Upload.css";
 
 export function Modal() {
   const { register, handleSubmit, reset } = useForm();
   const [modal, setModal] = useState(false);
-  const [baseImage, setBaseImage] = useState("");
 
-  const uploadImage = async (e) => {
-    const file = await e.target.files[0];
-    const base64 = await convertBase64(file);
-    await setBaseImage(base64);
-    console.log(baseImage);
-  };
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  const createURL = (event) =>{
+    if (event.target.files.length > 0) {
+      let file = event.target.files[0];
+      let src =URL.createObjectURL(file);
 
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+      console.log(src);
+    }
+  }
 
   const toggleModal = () => {
     setModal(!modal);
     reset({ bookName: "" });
     reset({ image: "" });
+    reset({ bookCategory: "" });
   };
   const onSubmit = (data) => {
     
@@ -54,13 +42,10 @@ export function Modal() {
       }
     })
     toggleModal();
-    reset({ bookName: "" });
-    reset({ image: "" });
-    reset({ bookCategory: "" });
   };
   return (
     <>
-      <button onClick={toggleModal} className="fa fa-cloud-upload upload_quote">
+      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
         &nbsp;&nbsp;Վերբեռնել
       </button>
       {modal && (
@@ -71,9 +56,8 @@ export function Modal() {
               X
             </button>
             <div className="imageDiv">
-              {baseImage &&
-                <img src={baseImage} className="img" />}
-              <label for="files" className="fileLabel ">
+                <img className="img" />
+              <label for="files" className="fileLabel bi bi-cloud-upload">
                 Վերբեռնել Նկար
               </label>
             </div>
@@ -101,9 +85,7 @@ export function Modal() {
               />
               
               <input
-                onChange={(e) => {
-                  uploadImage(e);
-                }}
+                onClick={createURL}
                 type="file"
                 id="files"
                 accept="image/png,image/jpeg, image/jpg"
