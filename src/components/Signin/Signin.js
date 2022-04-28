@@ -24,11 +24,13 @@ export function Signin() {
         "Password must consist of one lowercase, uppercase letter and number, at least 8 characters"
       );
     } else {
-      axios.post("http://192.168.0.107:8000/accounts/signin/", register)
-        .then((resp) => {
-          console.log(resp.data);
-        })
-        .catch((error) => {
+      axios.post("http://192.168.0.107:8000/auth/users/", {
+        username: register.username,
+        first_name: "Yelena",
+        last_name: "Mkrtchyan",
+        email: register.email,
+        password: register.password1
+      }).catch((error) => {
           if (error.response) {
             console.log("error.response ", error.response);
           } else if (error.request) {
