@@ -121,19 +121,22 @@
     .suggestions{
         position: absolute;
         overflow: scroll;
+        overflow-x: hidden;
         width: 317px;
-        height: 272px;
+        height: 200px;
         left: 84px;
         top: 441px;
         background: #FFFFFF;
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
+    .suggestions::-webkit-scrollbar{
+        width: 0;
+    }
     .searchedWords{
         padding: 16px 0 16px  16px;
         display: flex;
         align-items: center;
-        width: 317px;
         height: 38px;
         font-size: 19px;
     }
