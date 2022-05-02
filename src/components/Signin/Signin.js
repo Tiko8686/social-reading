@@ -7,10 +7,13 @@ export function Signin() {
   const [login, setLogin] = useState({ email: "", password: "" });
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
-  const [register, setRegister] = useState({ username: "", email: "", password1: "", password2: "" });
+  const [register, setRegister] = useState({ first_name: "", last_name: "", email: "", password1: "", password2: "" });
   const signUp = (event) => {
     event.preventDefault();
-    if (register.username.length < 1) {
+    if (register.first_name.length < 1) {
+      alert("You did not enter your Name")
+    }
+    if (register.last_name.length < 1) {
       alert("You did not enter your Name")
     }
     if (!validator.isEmail(register.email)) {
@@ -24,22 +27,21 @@ export function Signin() {
         "Password must consist of one lowercase, uppercase letter and number, at least 8 characters"
       );
     } else {
-      axios.post("http://192.168.0.107:8000/auth/users/", {
-        username: register.username,
-        first_name: "Yelena",
-        last_name: "Mkrtchyan",
+      axios.post("http://192.168.1.30:8000/auth/users/", {
+        first_name: register.first_name,
+        last_name: register.last_name,
         email: register.email,
         password: register.password1
       }).catch((error) => {
-          if (error.response) {
-            console.log("error.response ", error.response);
-          } else if (error.request) {
-            console.log("error.request ", error.request);
-          } else if (error.message) {
-            console.log("error.request ", error.message);
-          }
-        });
-      setRegister({ username: "", email: "", password1: "", password2: "" })
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
+      setRegister({ first_name: "", last_name: "", email: "", password1: "", password2: "" })
     }
   };
 
@@ -54,9 +56,21 @@ export function Signin() {
 
   const submitChackin = (event) => {
     event.preventDefault();
-    axios.post("http://192.168.0.107:8000/accounts/login/", login)
+    axios.post("http://192.168.1.30:8000/auth/token/login/",
+      { email: login.email, password: login.password })
       .then((resp) => {
-        console.log(resp.data);
+        axios.post("http://192.168.1.30:8000/auth/users/me/",
+          { headers: { "authorization": "token " + resp.data } }).then(resp => {
+            console.log(resp.data)
+          }).catch((error) => {
+            if (error.response) {
+              console.log("error.response ", error.response);
+            } else if (error.request) {
+              console.log("error.request ", error.request);
+            } else if (error.message) {
+              console.log("error.request ", error.message);
+            }
+          });
       })
       .catch((error) => {
         if (error.response) {
@@ -86,19 +100,30 @@ export function Signin() {
             <form onSubmit={signUp} className="form_style">
               <h2>Գրանցվել</h2>
               <div>
-                <label>Անուն Ազգանուն</label>
+                <label>Անուն</label>
 
                 <input
                   className="nameSurname"
-                  id="namesurname"
+                  id="name"
                   type="text"
-                  value={register.username}
+                  value={register.first_name}
                   onChange={(e) => {
-                    setRegister({ ...register, username: e.target.value });
+                    setRegister({ ...register, first_name: e.target.value });
                   }}
                 />
               </div>
-
+              <div>
+                <label>Ազգանուն</label>
+                <input
+                  className="nameSurname"
+                  id="surname"
+                  type="text"
+                  value={register.last_name}
+                  onChange={(e) => {
+                    setRegister({ ...register, last_name: e.target.value });
+                  }}
+                />
+              </div>
               <div>
                 <label>Էլ․հասցե</label>
 
@@ -115,8 +140,6 @@ export function Signin() {
 
               <div>
                 <label>Գաղտնաբառ</label>
-
-
                 <input
                   className="password"
                   id="password"
@@ -130,7 +153,6 @@ export function Signin() {
 
               <div>
                 <label>Կրկնել գաղտնաբառը</label>
-
                 <input
                   className="password_2"
                   id="password_2"
