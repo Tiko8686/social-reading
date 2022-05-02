@@ -1,5 +1,4 @@
 /* PC */
-
 @media(min-width: 601px){    
     .btn-modal {
     border: none;
@@ -67,6 +66,12 @@
         line-height: 16px;
         cursor: pointer;
     }
+    .imageErr{
+        position: absolute;
+        top: 175px;
+        left: 164px;
+        color: red;
+    }
     .authorName{
         padding: 15px;
         font-size: 20px;
@@ -81,6 +86,12 @@
         border: none;
         outline: none;
     }
+    .authorNameErr{
+        position: absolute;
+        top: 280px;
+        left: 90px;
+        color: red;
+    }
     .bookName{
         border: none;
         outline: none;
@@ -90,21 +101,28 @@
         width: 317px;
         height: 48px;
         left: 84px;
-        top: 304px;        
+        top: 314px;        
         background: #FFFFFF;
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px
+    }
+    .bookNameErr{
+        position: absolute;
+        top: 364px;
+        left: 90px;
+        color: red;
     }
     .bookCategory{
         border: none;
         outline: none;
         padding: 15px;
+        padding-right: 40px;
         font-size: 20px;
         position: absolute;
         width: 317px;
         height: 48px;
         left: 84px;
-        top: 376px;
+        top: 394px;
         background: #FFFFFF;
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
@@ -114,9 +132,10 @@
     }
     .search_img{
         position: absolute;
-        top: 384px;
+        top: 400px;
         left: 360px;
         z-index: 200;
+        pointer-events: none;
     }
     .suggestions{
         position: absolute;
@@ -142,6 +161,12 @@
     }
     .searchedWords:hover{
         background-color:rgba(152, 50, 254, 0.16);;
+    }
+    .categoryErr{
+        position: absolute;
+        top: 444px;
+        left: 90px;
+        color: red
     }
     .submit {
         position: absolute;
@@ -217,8 +242,9 @@
         border-radius: 30px;
     }
     .fileLabel{
+        color: black;
         position: absolute;
-        width: 150px;
+        width: 200px;
         height: 16px;
         top: 90px;
         left: -33px;
@@ -226,6 +252,13 @@
         font-size: 16px;
         line-height: 16px;
         cursor: pointer;
+    }
+    .imageErr{
+        font-size: 10px;
+        position: absolute;
+        top: 140px;
+        left: 100px;
+        color: red;
     }
     .authorName{
         padding: 15px;
@@ -240,7 +273,14 @@
         border-radius: 30px;
         border: none;
         outline: none;
-    }
+    }   
+    .authorNameErr{
+        font-size: 10px;
+        position: absolute;
+        top: 233px;
+        left: 55px;
+        color: red;
+    } 
     .bookName{
         border: none;
         outline: none;
@@ -250,15 +290,25 @@
         width: 256px;
         height: 48px;
         left: 44px;
-        top: 244px;
+        top: 245px;
         background: #FFFFFF;
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
+    }
+    .bookNameErr{
+        font-size: 10px;
+        position: absolute;
+        top: 295px;
+        left: 55px;
+        color: red;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
     .bookCategory{
         border: none;
         outline: none;
         padding: 15px;
+        padding-right: 45px;
         font-size: 15px;
         position: absolute;
         width: 256px;
@@ -274,12 +324,47 @@
     }
     .search_img{
         position: absolute;
-        top: 315px;
+        top: 325px;
         left: 262px;
         z-index: 200;
     }
     .fileInput{
         display: none;
+    }
+    .categoryErr{
+        font-size: 10px;
+        position: absolute;
+        top: 360px;
+        left: 55px;
+        color: red;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .suggestions{
+        position: absolute;
+        overflow: scroll;
+        overflow-x: hidden;
+        width: 265px;
+        height: 200px;
+        left: 40px;
+        top: 360px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+        border-radius: 30px;
+    }
+    .suggestions::-webkit-scrollbar{
+        width: 0;
+    }
+    .searchedWords{
+        color: black;
+        padding: 16px 0 16px  16px;
+        display: flex;
+        align-items: center;
+        height: 38px;
+        font-size: 19px;
+    }
+    .searchedWords:hover{
+        background-color:rgba(152, 50, 254, 0.16);;
     }
     .submit {
         position: absolute;

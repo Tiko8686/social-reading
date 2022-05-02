@@ -7,7 +7,6 @@ export function Signin() {
   const [login, setLogin] = useState({ email: "", password: "" });
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
-  // const [signinAnswer, setSigninAnswer] = useState("");
 
   const [register, setRegister] = useState({ first_name: "", last_name: "", email: "", password1: "", password2: "" });
   const [validate, setValidate] = useState({ first_name: false, last_name: false, email: false, password1: false, password2: false })
@@ -75,7 +74,6 @@ export function Signin() {
       { email: login.email, password: login.password })
       .then((resp) => {
         let a = "JWT "+resp.data.access
-        // console.log(a)
         axios.get("http://192.168.0.99:8000/auth/users/me",{headers:{"Authorization": a}})
         .then (resp => {
           console.log("act", resp.data)
@@ -88,8 +86,6 @@ export function Signin() {
             console.log("error.request ", error.message);
           }
         });
-        // resp.datan pahel localStorageum
-        // setSigninAnswer(resp.data)
         console.log(resp.data);
       })
       .catch((error) => {
@@ -103,23 +99,6 @@ export function Signin() {
       });
     setLogin({ email: "", password: "" })
   };
-
-  // useEffect(() => {
-  //   axios.post("http://192.168.0.99:8000/auth/users/activation/",
-  //   { email: login.email, password: login.password })
-  //   .then((resp) => {
-  //     console.log(resp.data);
-  //   })
-  //   .catch((error) => {
-  //     if (error.response) {
-  //       console.log("error.response ", error.response);
-  //     } else if (error.request) {
-  //       console.log("error.request ", error.request);
-  //     } else if (error.message) {
-  //       console.log("error.request ", error.message);
-  //     }
-  //   });
-  // }, [signinAnswer]);
   return (
     <>
       <button

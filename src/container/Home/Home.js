@@ -14,7 +14,7 @@ function Home() {
     let content = [];
     for (let link of array) {
       content.push(<div >
-        <img src={link.quote_file.replace("http://localhost:8000/", "http://www.socialreading.xyz/")} alt="img"  width='500px' height='500px' />
+        <img src={link.quote_file.replace("http://localhost:8000/", "http://www.socialreading.xyz/")} alt="img"  width='400px' height='500px' />
         <p>{link.book_author}</p>
         <p>{link.book_title}</p>
         <p>{link.book_category}</p>

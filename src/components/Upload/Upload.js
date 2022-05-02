@@ -5,10 +5,11 @@ import axios from "axios";
 import "./Upload.css";
 
 export function Modal() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [modal, setModal] = useState(false);
   const [categories, setCategories] = useState([])
-  const [inputValue, setInputValue] = useState("")
+  const [categoryValue, setCategoryValue] = useState("")
+  const [categoryErr, setCategoryErr] = useState({required: false, minLength: false, maxLength: false})
   const [filteredCategories, setFilteredCategories] = useState([])
   const [searchModal, setSearchModal] = useState(false)
   const searchWindow = () => {
@@ -22,8 +23,9 @@ export function Modal() {
     })
   }, []);
 
-  const inputValueChange = (event) => {
-    setInputValue(event.target.value)
+  const categoryValueChange = (event) => {
+    setCategoryErr(({required: false, minLength: false, maxLength: false}))
+    setCategoryValue(event.target.value)
     if (event.target.value !== "") {
       setSearchModal(true)
     } else {
@@ -35,7 +37,7 @@ export function Modal() {
       }
     })
     searchedWords.push(...categories.filter((category) => {
-      if (category.toLowerCase().includes(event.target.value.toLowerCase())) {
+      if (category.toLowerCase().includes(event.target.value.toLowerCase()) && !searchedWords.includes(category)) {
         return category
       }
     }))
@@ -48,32 +50,41 @@ export function Modal() {
       setSearchModal(false)
     }
     setFilteredCategories(searchedWords)
-
   }
   const toggleModal = () => {
     setModal(!modal);
+    setCategoryErr(({required: false, minLength: false, maxLength: false}))
     setSearchModal(false)
+    setCategoryValue("")
     reset({ bookName: "" });
     reset({ image: "" });
-    reset({ bookCategory: "" });
   };
+  const checkCategory = () => {
+    if (categoryValue === "") {
+      setCategoryErr({...categoryErr, required: true})
+    }else if(categoryValue.length<2 && categoryValue.length !== ""){
+      setCategoryErr({...categoryErr, minLength: true})
+    }else if(categoryValue.length>20){
+      setCategoryErr({...categoryErr, maxLength: true})
+    }
+  }
   const onSubmit = (data) => {
-    console.log(categories);
-    const formData = new FormData();
-    formData.append("book_author", data.authorName);
-    formData.append("book_title", data.bookName);
-    formData.append("book_category", inputValue);
-    formData.append("quote_file", data.image[0]);
-
-    axios.post("https://www.socialreading.xyz/quotes/", formData).then(resp => {
-      console.log(resp.data);
-    })
-    axios.post("https://socialreading.xyz/categories/", {
-      name: inputValue
-    }).then(resp => {
-      console.log(resp.data);
-    })
-    toggleModal();
+    if (categoryValue) {
+      const formData = new FormData();
+      formData.append("book_author", data.authorName);
+      formData.append("book_title", data.bookName);
+      formData.append("book_category", categoryValue);
+      formData.append("quote_file", data.image[0]);
+      axios.post("https://www.socialreading.xyz/quotes/", formData).then(resp => {
+        console.log(resp.data);
+      })
+      axios.post("https://socialreading.xyz/categories/", {
+        name: categoryValue
+      }).then(resp => {
+        console.log(resp.data);
+      })
+      toggleModal();
+    }
   };
   return (
     <>
@@ -100,41 +111,55 @@ export function Modal() {
                 placeholder="Գրքի հեղինակ"
                 id="name"
                 type="text"
-                {...register("authorName")}
+                {...register("authorName", {
+                  required: true, maxLength: 20, minLength: 2
+                })}
               />
+              {errors.authorName && errors.authorName.type === "required" && <span className="authorNameErr">This is required*</span>}
+              {errors.authorName && errors.authorName.type === "maxLength" && <span className="authorNameErr">Author name can't be more than 20 characters</span>}
+              {errors.authorName && errors.authorName.type === "minLength" && <span className="authorNameErr">Author name can't be less than 2 characters</span>}
               <input
                 autocomplete="off"
                 className="bookName"
                 placeholder="Գրքի անուն"
                 id="name"
                 type="text"
-                {...register("bookName")}
+                {...register("bookName", {
+                  required: true, maxLength: 20, minLength: 2
+                })}
               />
+              {errors.bookName && errors.bookName.type === "maxLength" && <span className="bookNameErr">Book name can't be more than 20 characters</span>}
+              {errors.bookName && errors.bookName.type === "minLength" && <span className="bookNameErr">Book name can't be less than 2 characters</span>}
+              {errors.bookName && errors.bookName.type === "required" && <span className="bookNameErr">This is required*</span>}
               <div className="category_search" >
                 <img src="http://localhost:3000/images/search.svg" className="search_img" />
                 <input
-                  onChange={(event) => inputValueChange(event)}
+                  value={categoryValue}
+                  onChange={(event) => categoryValueChange(event)}
                   autocomplete="off"
                   className="bookCategory"
                   placeholder="Կատեգորիա"
                   id="name"
                   type="text"
-                  value={inputValue}
                 />
+                {categoryErr.required && <p className="categoryErr">This is required*</p>}
+                {categoryErr.minLength && <p className="categoryErr">Author name can't be less than 2 characters</p>}
+                {categoryErr.maxLength && <p className="categoryErr">Book name can't be more than 20 characters</p>}
               </div>
               <input
                 type="file"
                 id="files"
-                accept="image/png,image/jpeg, image/jpg"
+                accept="image/png, image/jpeg, image/jpg"
                 className="fileInput"
-                {...register("image")}
+                {...register("image", { required: "This is required." })}
               />
-              <input className="submit" type="submit" value="Վերբեռնել" />
+              {errors.image && errors.image.type === "required" && <span className="imageErr">This is required*</span>}
+              <input className="submit" type="submit" value="Վերբեռնել" onClick={checkCategory} />
             </form>
             {searchModal &&
               <div className="suggestions">
                 {filteredCategories.map((category) => {
-                  return <p className="searchedWords" onClick={() => { setInputValue(category); searchWindow() }}>{category}</p>
+                  return <p className="searchedWords" onClick={() => { setCategoryValue(category); searchWindow() }}>{category}</p>
                 })}
               </div>
             }
@@ -144,5 +169,3 @@ export function Modal() {
     </>
   );
 }
-
-

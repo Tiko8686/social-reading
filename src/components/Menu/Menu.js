@@ -93,12 +93,12 @@ export function Menu() {
                 </ul>
               </li>
               <li onClick={() => setMenuBool(false)}>
-                <Link to="#">Մեր մասին</Link>
+                <Link to="/aboutus">Մեր մասին</Link>
               </li>
-              <li onClick={() => setMenuBool(false)}>
+              <li >
                 <Modal/>
               </li>
-              <li onClick={() => setMenuBool(false)}>
+              <li >
                 <Signin/>
               </li>
             </ul>
