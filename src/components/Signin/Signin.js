@@ -1,5 +1,5 @@
 import "./signin.css";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 import validator from "validator";
 
@@ -7,6 +7,8 @@ export function Signin() {
   const [login, setLogin] = useState({ email: "", password: "" });
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
+  // const [signinAnswer, setSigninAnswer] = useState("");
+
   const [register, setRegister] = useState({ first_name: "", last_name: "", email: "", password1: "", password2: "" });
   const [validate, setValidate] = useState({ first_name: false, last_name: false, email: false, password1: false, password2: false })
   const signUp = (event) => {
@@ -27,12 +29,12 @@ export function Signin() {
       setValidate({ ...validate, password1: true })
     }
     if (
-      register.first_name.length >= 2 && 
+      register.first_name.length >= 2 &&
       register.last_name.length >= 2 &&
       validator.isEmail(register.email) &&
       register.password1 === register.password2 && validator.isStrongPassword(register.password1, { minSymbols: 0 })
     ) {
-      axios.post("http://192.168.0.107:8000/auth/users/", {
+      axios.post("http://192.168.0.99:8000/auth/users/", {
         first_name: register.first_name,
         last_name: register.last_name,
         email: register.email,
@@ -53,6 +55,8 @@ export function Signin() {
     }
   };
 
+
+
   const toggleModal = () => {
     setSigin(false);
     setSignup(!signup);
@@ -66,9 +70,26 @@ export function Signin() {
 
   const submitChackin = (event) => {
     event.preventDefault();
-    axios.post("http://192.168.0.107:8000/accounts/login/",
+   
+    axios.post("http://192.168.0.99:8000/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
       .then((resp) => {
+        let a = "JWT "+resp.data.access
+        // console.log(a)
+        axios.get("http://192.168.0.99:8000/auth/users/me",{headers:{"Authorization": a}})
+        .then (resp => {
+          console.log("act", resp.data)
+        }).catch((error) => {
+          if (error.response) {
+            console.log("error.response ", error.response);
+          } else if (error.request) {
+            console.log("error.request ", error.request);
+          } else if (error.message) {
+            console.log("error.request ", error.message);
+          }
+        });
+        // resp.datan pahel localStorageum
+        // setSigninAnswer(resp.data)
         console.log(resp.data);
       })
       .catch((error) => {
@@ -82,7 +103,23 @@ export function Signin() {
       });
     setLogin({ email: "", password: "" })
   };
-  console.log(validate)
+
+  // useEffect(() => {
+  //   axios.post("http://192.168.0.99:8000/auth/users/activation/",
+  //   { email: login.email, password: login.password })
+  //   .then((resp) => {
+  //     console.log(resp.data);
+  //   })
+  //   .catch((error) => {
+  //     if (error.response) {
+  //       console.log("error.response ", error.response);
+  //     } else if (error.request) {
+  //       console.log("error.request ", error.request);
+  //     } else if (error.message) {
+  //       console.log("error.request ", error.message);
+  //     }
+  //   });
+  // }, [signinAnswer]);
   return (
     <>
       <button
