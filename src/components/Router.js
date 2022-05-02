@@ -7,6 +7,7 @@ import Psychological from "../container/Psychological/Psychological";
 import Motivation from "../container/Motivation/Motivation";
 
 import {Menu} from "./Menu/Menu";
+import AboutUs from "../container/AboutUs/AboutUs";
 
 function AllRoutes() {
   return (
@@ -20,6 +21,7 @@ function AllRoutes() {
           <Route path="/category/historical" element={<Historical />} />
           <Route path="/category/motivational" element={<Motivation/>} />
           <Route path="/category/psychological" element={<Psychological />} />
+          <Route path="/aboutus" element={<AboutUs />} />
         </Routes>
       </BrowserRouter>
     </>

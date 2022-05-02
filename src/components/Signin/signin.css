@@ -21,6 +21,10 @@
     width: 354px;
 }
 
+.form_style >div span {
+    color: red;
+    padding-top: 10px;
+}
 .form_style div label {
     font-family: 'Montserrat arm';
     font-style: normal;

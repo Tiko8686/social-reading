@@ -3,23 +3,23 @@ import { Link } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
 import { Modal } from "../Upload/Upload";
 import "./menu.css";
+
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
-  console.log(menuBool)
+
   return (
     <>
       <nav>
         <ul>
           <li>
             <Link to="/">
-              <img src="http://localhost:3000/images/book.png" width="35px" className="book-icon" />
+              <img src="http://localhost:3000/images/book.png" width="35px" className="book-icon" alt="book_icon"/>
             </Link>
           </li>
         </ul>
         <ul className="menu-list">
           <li className="dropdown">
             <span className="category">Կատեգորիաներ</span>
-
             <ul className="dropdown-content">
               <li>
                 <Link to="/category/professional">Մասնագիտական</Link>
@@ -34,13 +34,12 @@ export function Menu() {
                 <Link to="/category/motivational">Մոտիվացիոն</Link>
               </li>
               <li>
-                {" "}
                 <Link to="/category/psychological">Հոգեբանական</Link>
               </li>
             </ul>
           </li>
           <li>
-            <Link to="#">Մեր մասին</Link>
+            <Link to="/aboutus">Մեր մասին</Link>
           </li>
         </ul>
         <ul className="right-list">
@@ -48,13 +47,12 @@ export function Menu() {
             <Modal />
           </li>
           <li className="search_input" >
-            <img src="http://localhost:3000/images/search.svg" />
+            <img src="http://localhost:3000/images/search.svg" alt="search_icon"/>
             <input placeholder="Որոնել" className="search" />
           </li>
           <li className="login-btn">
-            <Signin></Signin>
+            <Signin />
           </li>
-
           <li>
             <div className="menu" onClick={() => setMenuBool(!menuBool)}>
               {!menuBool &&
@@ -69,15 +67,14 @@ export function Menu() {
             </div>
           </li>
         </ul>
-
       </nav>
       {menuBool && (
         <div className="resp_menu">
           <div className="responsive_menu">
-            <ul>
-              <li className="dropdown">
-                <span className="category">Կատեգորիաներ</span>
-                <ul className="dropdown-content">
+            <ul className="resp_ul">
+              <li className="dropdown_resp">
+                <span className="resp_category">Կատեգորիաներ</span>
+                <ul className="category_submenu" onClick={() => setMenuBool(false)}>
                   <li>
                     <Link to="/category/professional">Մասնագիտական</Link>
                   </li>
@@ -95,20 +92,21 @@ export function Menu() {
                   </li>
                 </ul>
               </li>
-              <li>
+              <li onClick={() => setMenuBool(false)}>
                 <Link to="#">Մեր մասին</Link>
               </li>
-              <li>
-                <Modal />
-                <Signin />
+              <li onClick={() => setMenuBool(false)}>
+                <Modal/>
+              </li>
+              <li onClick={() => setMenuBool(false)}>
+                <Signin/>
               </li>
             </ul>
           </div>
         </div>
       )}
-
     </>
-
   );
 }
+
 export default Menu;
