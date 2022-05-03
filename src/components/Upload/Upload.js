@@ -111,9 +111,7 @@ export function Modal() {
   };
   return (
     <>
-      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
-        &nbsp;&nbsp;Վերբեռնել
-      </button>
+      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">&nbsp;&nbsp;Վերբեռնել</button>
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
