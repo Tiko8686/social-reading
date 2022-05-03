@@ -4,6 +4,7 @@ import { Signin } from "../Signin/Signin";
 import { Modal } from "../Upload/Upload";
 import "./menu.css";
 
+
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
 
@@ -13,7 +14,7 @@ export function Menu() {
         <ul>
           <li>
             <Link to="/">
-              <img src="http://localhost:3000/images/book.png" width="35px" className="book-icon" alt="book_icon"/>
+              <img src="https://blooming-forest-92426.herokuapp.com/images/book.png" width="35px" className="book-icon" alt="book_icon"/>
             </Link>
           </li>
         </ul>
@@ -47,7 +48,7 @@ export function Menu() {
             <Modal />
           </li>
           <li className="search_input" >
-            <img src="http://localhost:3000/images/search.svg" alt="search_icon"/>
+            <img src="https://blooming-forest-92426.herokuapp.com/images/search.svg" alt="search_icon"/>
             <input placeholder="Որոնել" className="search" />
           </li>
           <li className="login-btn">
