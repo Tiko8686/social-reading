@@ -38,7 +38,7 @@ function Home() {
           <button className="seeAll">Իմանալ ավելին</button>
         </div>
         <div>
-          <img src="http://localhost:3000/images/section_1.png" alt="img" width="300px" className="section_1_img"/>
+          <img src="https://blooming-forest-92426.herokuapp.com/images/section_1.png" alt="img" width="300px" className="section_1_img"/>
         </div>
       </div>
       <div className="section_2">
