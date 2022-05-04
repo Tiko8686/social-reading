@@ -1,64 +1,9 @@
-
-// const [register, setRegister] = useState({ first_name: "", last_name: "", email: "", password1: "", password2: "" });
-// const [validate, setValidate] = useState({ first_name: false, last_name: false, email: false, password1: false, password2: false })
-// const signUp = (event) => {
-//   event.preventDefault();
-//   if (register.first_name.length < 2) {
-//     setValidate({ ...validate, first_name: true })
-//     console.log("f n", validate)
-//   }
-//   else if (register.last_name.length < 2) {
-//     setValidate({ ...validate, last_name: true })
-//     console.log("l n", validate)
-
-//   }
-//   else if (!validator.isEmail(register.email)) {
-//     setValidate({ ...validate, email: true })
-//     console.log("e", validate)
-
-//   }
-//   else if (!validator.isStrongPassword(register.password1, { minSymbols: 0 })) {
-//     setValidate({ ...validate, password1: true })
-//     console.log(" p1", validate)
-
-//   }
-//   else if (register.password1 !== register.password2) {
-//     setValidate({ ...validate, password2: true })
-//     console.log("p2", validate)
-
-//   }
-
-//   else if (
-//     register.first_name.length >= 2 &&
-//     register.last_name.length >= 2 &&
-//     validator.isEmail(register.email) &&
-//     register.password1 === register.password2 && validator.isStrongPassword(register.password1, { minSymbols: 0 })
-//   ) {
-//     console.log("okay")
-//     axios.post("http://192.168.0.99:8000/auth/users/", {
-//       first_name: register.first_name,
-//       last_name: register.last_name,
-//       email: register.email,
-//       password: register.password1
-//     }).then(resp => {
-//       console.log(resp.data)
-//     })
-//       .catch((error) => {
-//         if (error.response) {
-//           console.log("error.response ", error.response);
-//         } else if (error.request) {
-//           console.log("error.request ", error.request);
-//         } else if (error.message) {
-//           console.log("error.request ", error.message);
-//         }
-//       });
-//     setRegister({ first_name: "", last_name: "", email: "", password1: "", password2: "" })
-//   }
-// };
+import GoogleButton from 'react-google-button'
 import "./signin.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import GoogleLoginPage from './google';
 
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -74,7 +19,7 @@ export function Signin() {
     if (data.password1 !== data.password2) {
       setConfPasswordErr(true)
     } else {
-      axios.post("http://192.168.0.99:8000/auth/users/", {
+      axios.post("http://192.168.1.103:8000/auth/users/", {
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,
@@ -97,60 +42,6 @@ export function Signin() {
 
     
   }
-  // const signUp = (event) => {
-  //   event.preventDefault();
-  //   if (register.first_name.length < 2) {
-  //     setValidate({ ...validate, first_name: true })
-  //     console.log("f n", validate)
-  //   }
-  //   else if (register.last_name.length < 2) {
-  //     setValidate({ ...validate, last_name: true })
-  //     console.log("l n", validate)
-
-  //   }
-  //   else if (!validator.isEmail(register.email)) {
-  //     setValidate({ ...validate, email: true })
-  //     console.log("e", validate)
-
-  //   }
-  //   else if (!validator.isStrongPassword(register.password1, { minSymbols: 0 })) {
-  //     setValidate({ ...validate, password1: true })
-  //     console.log(" p1", validate)
-
-  //   }
-  //   else if (register.password1 !== register.password2) {
-  //     setValidate({ ...validate, password2: true })
-  //     console.log("p2", validate)
-
-  //   }
-
-  //   else if (
-  //     register.first_name.length >= 2 &&
-  //     register.last_name.length >= 2 &&
-  //     validator.isEmail(register.email) &&
-  //     register.password1 === register.password2 && validator.isStrongPassword(register.password1, { minSymbols: 0 })
-  //   ) {
-  //     console.log("okay")
-  //     axios.post("http://192.168.0.99:8000/auth/users/", {
-  //       first_name: register.first_name,
-  //       last_name: register.last_name,
-  //       email: register.email,
-  //       password: register.password1
-  //     }).then(resp => {
-  //       console.log(resp.data)
-  //     })
-  //       .catch((error) => {
-  //         if (error.response) {
-  //           console.log("error.response ", error.response);
-  //         } else if (error.request) {
-  //           console.log("error.request ", error.request);
-  //         } else if (error.message) {
-  //           console.log("error.request ", error.message);
-  //         }
-  //       });
-  //     setRegister({ first_name: "", last_name: "", email: "", password1: "", password2: "" })
-  //   }
-  // };
 
   const toggleModal = () => {
     setSigin(false);
@@ -166,11 +57,11 @@ export function Signin() {
   const submitChackin = (event) => {
     event.preventDefault();
 
-    axios.post("http://192.168.0.99:8000/auth/djoser/jwt/create/",
+    axios.post("http://192.168.1.103:8000/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
       .then((resp) => {
         let a = "JWT " + resp.data.access
-        axios.get("http://192.168.0.99:8000/auth/users/me", { headers: { "Authorization": a } })
+        axios.get("http://192.168.1.103:8000/auth/users/me", { headers: { "Authorization": a } })
           .then(resp => {
             console.log("act", resp.data)
           }).catch((error) => {
@@ -316,7 +207,9 @@ export function Signin() {
                 />
               </div>
               <div>
+                <button><GoogleLoginPage ></GoogleLoginPage></button>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
+                
               </div>
             </form>
           </div>

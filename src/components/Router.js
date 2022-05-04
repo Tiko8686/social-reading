@@ -8,6 +8,7 @@ import Motivation from "../container/Motivation/Motivation";
 
 import {Menu} from "./Menu/Menu";
 import AboutUs from "../container/AboutUs/AboutUs";
+import GoogleLoginPage from "./Signin/google";
 
 function AllRoutes() {
   return (
@@ -22,6 +23,7 @@ function AllRoutes() {
           <Route path="/category/motivational" element={<Motivation/>} />
           <Route path="/category/psychological" element={<Psychological />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/google" element={< GoogleLoginPage />} />
         </Routes>
       </BrowserRouter>
     </>
