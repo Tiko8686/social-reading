@@ -26,7 +26,7 @@ import ReactDOM from "react-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 const GoogleLoginPage = () => {
   const client_id =
-    "233345635594-km0tlqqrv2difnjgovf2jn11sgg7117c.apps.googleusercontent.com";
+    "157706975933-nvq52acbacqmqp26c7b976r9pe55u46l.apps.googleusercontent.com";
   const [showLoginButton, setLoginButton] = useState(true);
   const [showLogoutButton, setLogoutButton] = useState(false);
   const loginHandler = (res) => {
@@ -65,7 +65,7 @@ const GoogleLoginPage = () => {
                 <img  /> Sign Up with Google
               </button>
             )}
-            onSuccess={loginHandler}
+           
             onFailure={failureHandler}
             cookiePolicy={"single_host_origin"}
           />

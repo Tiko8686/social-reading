@@ -98,12 +98,7 @@ export function Modal() {
       formData.append("book_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("https://www.socialreading.xyz/quotes/", formData).then(resp => {
-        console.log(resp.data);
-      })
-      axios.post("https://socialreading.xyz/categories/", {
-        name: categoryValue
-      }).then(resp => {
+      axios.post("https://socialreading.xyz/quotes/", formData).then(resp => {
         console.log(resp.data);
       })
       toggleModal();
