@@ -1,5 +1,5 @@
 .seeAll {
-  background-color: #9832FE;
+  background-color: #9832fe;
   border-radius: 30px;
   height: 48px;
   width: 228px;
@@ -21,7 +21,7 @@
   font-size: 56px;
 }
 
-.hometext>h1 {
+.hometext > h1 {
   font-size: 56px;
 }
 
@@ -35,7 +35,7 @@
   font-style: normal;
 }
 
-.hometext>p {
+.hometext > p {
   max-width: 722px;
   font-size: 24px;
   line-height: 29px;
@@ -49,7 +49,7 @@
 }
 
 @media (min-width: 300px) and (max-width: 600px) {
-  .section_1>div {
+  .section_1 > div {
     text-align: center;
   }
 
@@ -62,11 +62,10 @@
   }
 
   .section_1_img {
-    display: none;
     width: 284px;
   }
 
-  .section_1>div>h1 {
+  .section_1 > div > h1 {
     font-size: 16px;
   }
 
@@ -74,10 +73,97 @@
     font-size: 16px;
   }
 
-  .section_1>div>p {
+  .section_1 > div > p {
     font-size: 12px;
   }
   .quote_image {
     width: 290px;
   }
+}
+
+.post__item {
+  display: block;
+  width: 1080px;
+  height: 1600px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 30px;
+}
+
+.post__text {
+  display: flex;
+  position: relative;
+  width: 750px;
+  height: 90px;
+  padding-top: 50px;
+  padding-left: 80px;
+  font-family: "Montserrat arm";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #878787;
+}
+
+.post__img {
+  padding-top: 80px;
+}
+.post__header {
+  display: flex;
+  align-items: stretch;
+  width: 1080px;
+  text-align: center;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+div.user_img {
+  /* background-color: rgb(0, 0, 0); */
+  margin-left: 35px;
+}
+
+.user__name {
+  margin-left: 35px;
+}
+
+.user__name .name {
+  padding-bottom: 10px;
+  font-family: "Montserrat arm";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.user__name .time {
+  padding-right: 55px;
+  font-family: "Montserrat arm";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;
+}
+
+img.user_img {
+  width: 110px;
+  height: 110px;
+  border-radius: 55px;
+}
+
+.post__time {
+  margin-left: 600px;
+}
+
+.post__time button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  font-family: "Montserrat arm";
+  cursor: pointer;
 }
