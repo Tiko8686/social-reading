@@ -19,7 +19,7 @@ export function Signin() {
     if (data.password1 !== data.password2) {
       setConfPasswordErr(true)
     } else {
-      axios.post("http://192.168.1.103:8000/auth/users/", {
+      axios.post("https://socialreading.xyz/auth/users/", {
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,
@@ -57,11 +57,11 @@ export function Signin() {
   const submitChackin = (event) => {
     event.preventDefault();
 
-    axios.post("http://192.168.1.103:8000/auth/djoser/jwt/create/",
+    axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
       .then((resp) => {
         let a = "JWT " + resp.data.access
-        axios.get("http://192.168.1.103:8000/auth/users/me", { headers: { "Authorization": a } })
+        axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
           .then(resp => {
             console.log("act", resp.data)
           }).catch((error) => {

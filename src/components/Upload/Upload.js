@@ -148,7 +148,7 @@ export function Modal() {
               {errors.bookName && errors.bookName.type === "minLength" && <span className="bookNameErr">Դաշտը պետք է ներառի ամենաքիչը 2 նիշ</span>}
               {errors.bookName && errors.bookName.type === "required" && <span className="bookNameErr">Այս դաշտը պարտադիր է լրացման</span>}
               <div className="category_search" >
-                <img src="http://localhost:3000/images/search.svg" className="search_img" />
+                <img src="https://blooming-forest-92426.herokuapp.com/images/search.svg" className="search_img" />
                 <input
                   value={categoryValue}
                   onChange={(event) => categoryValueChange(event)}

@@ -62,6 +62,7 @@
   }
 
   .section_1_img {
+    display: none;
     width: 284px;
   }
 
