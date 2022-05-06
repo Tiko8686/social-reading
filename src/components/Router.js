@@ -5,10 +5,10 @@ import Home from "../container/Home/Home";
 import Professional from "../container/Professional/Professional";
 import Psychological from "../container/Psychological/Psychological";
 import Motivation from "../container/Motivation/Motivation";
-
 import {Menu} from "./Menu/Menu";
 import AboutUs from "../container/AboutUs/AboutUs";
 import GoogleLoginPage from "./Signin/google";
+import VerifyEmail from "../container/VerifyEmail/VerifyEmail";
 
 function AllRoutes() {
   return (
@@ -24,6 +24,7 @@ function AllRoutes() {
           <Route path="/category/psychological" element={<Psychological />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/google" element={< GoogleLoginPage />} />
+          <Route path="/activate/:uid/:token" element={< VerifyEmail />} />
         </Routes>
       </BrowserRouter>
     </>
