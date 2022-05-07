@@ -1,10 +1,12 @@
 import GoogleButton from 'react-google-button'
 import "./signin.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import GoogleLoginPage from './google';
-
+import { gapi } from 'gapi-script';
+import LogoutButton from './googleLogout.js';
+import LoginButton from './googleLogin.js';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -87,6 +89,16 @@ export function Signin() {
     setLogin({ email: "", password: "" })
     toggleModalSignIn()
   };
+  const clientId="157706975933-3k09hckmf5hnuqtg46ejgvf3g14pibh1.apps.googleusercontent.com"
+  useEffect(()=>{
+    function start(){
+      gapi.client.init({
+        clientId: clientId,
+        scope:""
+      })
+    };
+    gapi.load('client:auth2',start);
+  });
   return (
     <>
       <button onClick={toggleModal} className="signin bi-person" style={{ color: "white" }}></button>
@@ -207,7 +219,10 @@ export function Signin() {
                 />
               </div>
               <div>
-                <button><GoogleLoginPage ></GoogleLoginPage></button>
+               <div>
+                 <LoginButton></LoginButton>
+                 <LogoutButton></LogoutButton>
+               </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
                 
               </div>
