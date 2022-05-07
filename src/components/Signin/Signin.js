@@ -29,6 +29,7 @@ export function Signin() {
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
+          alert (error.response.data.email)
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
