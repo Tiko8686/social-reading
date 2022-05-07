@@ -92,7 +92,7 @@ export function Signin() {
     setLogin({ email: "", password: "" })
     toggleModalSignIn()
   };
-  const clientId="157706975933-3k09hckmf5hnuqtg46ejgvf3g14pibh1.apps.googleusercontent.com"
+  // const clientId="157706975933-3k09hckmf5hnuqtg46ejgvf3g14pibh1.apps.googleusercontent.com"
   // useEffect(()=>{
   //   function start(){
   //     gapi.client.init({
