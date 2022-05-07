@@ -7,6 +7,8 @@ import GoogleLoginPage from './google';
 import { gapi } from 'gapi-script';
 import LogoutButton from './googleLogout.js';
 import LoginButton from './googleLogin.js';
+import Login from './googleLogin.js';
+import Logout from './googleLogout.js';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -91,15 +93,15 @@ export function Signin() {
     toggleModalSignIn()
   };
   const clientId="157706975933-3k09hckmf5hnuqtg46ejgvf3g14pibh1.apps.googleusercontent.com"
-  useEffect(()=>{
-    function start(){
-      gapi.client.init({
-        clientId: clientId,
-        scope:""
-      })
-    };
-    gapi.load('client:auth2',start);
-  });
+  // useEffect(()=>{
+  //   function start(){
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope:""
+  //     })
+  //   };
+  //   gapi.load('client:auth2',start);
+  // });
   return (
     <>
       <button onClick={toggleModal} className="signin bi-person" style={{ color: "white" }}></button>
@@ -221,8 +223,8 @@ export function Signin() {
               </div>
               <div>
                <div>
-                 <LoginButton></LoginButton>
-                 <LogoutButton></LogoutButton>
+                 <Login></Login>
+                 <Logout></Logout>
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
                 
