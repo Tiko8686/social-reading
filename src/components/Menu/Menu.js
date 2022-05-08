@@ -4,7 +4,6 @@ import { Signin } from "../Signin/Signin";
 import { Modal } from "../Upload/Upload";
 import "./menu.css";
 
-
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
 
@@ -14,7 +13,12 @@ export function Menu() {
         <ul>
           <li>
             <Link to="/">
-              <img src="https://blooming-forest-92426.herokuapp.com/images/book.png" width="35px" className="book-icon" alt="book_icon"/>
+              <img
+                src="https://blooming-forest-92426.herokuapp.com/images/book.png"
+                width="35px"
+                className="book-icon"
+                alt="book_icon"
+              />
             </Link>
           </li>
         </ul>
@@ -47,8 +51,11 @@ export function Menu() {
           <li className="upload-btn">
             <Modal />
           </li>
-          <li className="search_input" >
-            <img src="https://blooming-forest-92426.herokuapp.com/images/search.svg" alt="search_icon"/>
+          <li className="search_input">
+            <img
+              src="https://blooming-forest-92426.herokuapp.com/images/search.svg"
+              alt="search_icon"
+            />
             <input placeholder="Որոնել" className="search" />
           </li>
           <li className="login-btn">
@@ -56,15 +63,14 @@ export function Menu() {
           </li>
           <li>
             <div className="menu" onClick={() => setMenuBool(!menuBool)}>
-              {!menuBool &&
-                (<>
+              {!menuBool && (
+                <>
                   <span></span>
                   <span></span>
                   <span></span>
                 </>
-                )
-              }
-              {menuBool && (<div className="closeMenu">x</div>)}
+              )}
+              {menuBool && <div className="closeMenu">x</div>}
             </div>
           </li>
         </ul>
@@ -75,7 +81,10 @@ export function Menu() {
             <ul className="resp_ul">
               <li className="dropdown_resp">
                 <span className="resp_category">Կատեգորիաներ</span>
-                <ul className="category_submenu" onClick={() => setMenuBool(false)}>
+                <ul
+                  className="category_submenu"
+                  onClick={() => setMenuBool(false)}
+                >
                   <li>
                     <Link to="/category/professional">Մասնագիտական</Link>
                   </li>
@@ -96,11 +105,11 @@ export function Menu() {
               <li onClick={() => setMenuBool(false)}>
                 <Link to="/aboutus">Մեր մասին</Link>
               </li>
-              <li >
-                <Modal/>
+              <li>
+                <Modal />
               </li>
-              <li >
-                <Signin/>
+              <li>
+                <Signin />
               </li>
             </ul>
           </div>
