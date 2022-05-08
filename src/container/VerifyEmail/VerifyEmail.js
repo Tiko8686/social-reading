@@ -7,12 +7,12 @@ function VerifyEmail() {
     const navigate = useNavigate()
     console.log(params)
     useEffect(() => {
-        axios.post("https://socialreading.xyz​/auth​/users​/activation​/",
+        axios.post("https://socialreading.xyz/auth/users/activation/",
             { uid: params.uid, token: params.token }
         ).then(resp => {
             console.log(resp.data)
             navigate("/")
-            alert("Email verified. You can Login")
+            alert("Email verified. You can Login.")
         }).catch((error) => {
             if (error.response) {
                 console.log("error.response ", error.response);

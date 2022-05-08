@@ -157,8 +157,8 @@ export function Signin() {
                 />
                 {errors.password1 && errors.password1.type === "required" && <span>This is required*</span>}
                 {errors.password1 && errors.password1.type === "maxLength" && <span>Password can't be more than 15 characters*</span>}
-                {errors.password1 && errors.password1.type === "minLength" && <span>Password can't be less than 8 characters</span>}
-                {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase and number</span>}
+                {errors.password1 && errors.password1.type === "minLength" && <span>Password can't be less than 8 characters*</span>}
+                {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase, lowercase and number*</span>}
               </div>
 
               <div>
