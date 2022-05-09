@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
-import { Modal } from "../Upload/Upload";
+import { Upload } from "../Upload/Upload";
 import "./menu.css";
 
 export function Menu() {
@@ -49,7 +49,7 @@ export function Menu() {
         </ul>
         <ul className="right-list">
           <li className="upload-btn">
-            <Modal />
+            <Upload />
           </li>
           <li className="search_input">
             <img
@@ -106,7 +106,7 @@ export function Menu() {
                 <Link to="/aboutus">Մեր մասին</Link>
               </li>
               <li>
-                <Modal />
+                <Upload />
               </li>
               <li>
                 <Signin />
