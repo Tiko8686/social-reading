@@ -1,43 +1,27 @@
+import axios from "axios";
+import { useState } from "react";
 import GoogleLogin from "react-google-login";
 
 const clientId =
-  "699412387887-1pae7suk9l9bstfdaer6826gjc118k0m.apps.googleusercontent.com";
-  // function useAuth0() {
- 
-  //       gravatar: string;
-  //       getAccessToken: () => Promise<void>;
-  //       accessToken: string;
-  //     }
-    
- 
-    
-     // const [accessToken, setAccessToken] = useState("");
-    
- 
-    
-    //   async function getAccessToken(): Promise<void> {
-    //     try {
-    //       const token = await auth0Client?.getTokenSilently();
-    //       setAccessToken(token);
-    //     } catch (e) {
-    //       console.log(e);
-    //     }
-    //   }
-    
-    // ...
-    
-    //   return {
-    //  accessToken,
-    //     getAccessToken,
-  //    };
+  "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
+
 function Login() {
-    
+  const [accessToken, setAccessToken] = useState();
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
+    console.log(res.accessToken);
+    setAccessToken(res.accessToken);
+    axios
+      .post("https://socialreading.xyz/social_auth/google/", accessToken)
+      .then((res) => console.log(res.accessToken));
   };
   const onFailure = (res) => {
     console.log("failed login", res);
   };
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
   return (
     <div id="signInButton">
       <GoogleLogin

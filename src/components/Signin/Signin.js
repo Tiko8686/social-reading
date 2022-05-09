@@ -224,7 +224,7 @@ export function Signin() {
               <div>
                <div>
                  <Login></Login>
-                 <Logout></Logout>
+                 {/* <Logout></Logout> */}
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
                 
