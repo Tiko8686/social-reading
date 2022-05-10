@@ -1,15 +1,9 @@
-import GoogleButton from 'react-google-button'
 import "./signin.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-// import GoogleLoginPage from './google';
-// import { gapi } from 'gapi-script';
-// import LogoutButton from './googleLogout.js';
-// import LoginButton from './googleLogin.js';
 import Login from './googleLogin.js';
 import { useNavigate } from 'react-router-dom';
-// import Logout from './googleLogout.js';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 const navigate = useNavigate()
@@ -66,6 +60,7 @@ const navigate = useNavigate()
     axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
       .then((resp) => {
+        console.log(resp.data)
         let a = "JWT " + resp.data.access
         axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
           .then(response => {
@@ -95,16 +90,6 @@ const navigate = useNavigate()
     setLogin({ email: "", password: "" })
     toggleModalSignIn()
   };
-  // const clientId="157706975933-3k09hckmf5hnuqtg46ejgvf3g14pibh1.apps.googleusercontent.com"
-  // useEffect(()=>{
-  //   function start(){
-  //     gapi.client.init({
-  //       clientId: clientId,
-  //       scope:""
-  //     })
-  //   };
-  //   gapi.load('client:auth2',start);
-  // });
   return (
     <>
       <button onClick={toggleModal} className="signin bi-person" style={{ color: "white" }}></button>
@@ -177,8 +162,7 @@ const navigate = useNavigate()
               </div>
 
               <div>
-                <input type="submit" value="Գրանցվել" id="submit-btn" onClick={() => {
-                }} />
+                <input type="submit" value="Գրանցվել" id="submit-btn" />
               </div>
               <div>
                 <button onClick={toggleModalSignIn} className="btn-acc">Already have an account?</button>
@@ -227,7 +211,6 @@ const navigate = useNavigate()
               <div>
                <div>
                  <Login></Login>
-                 {/* <Logout></Logout> */}
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
                 

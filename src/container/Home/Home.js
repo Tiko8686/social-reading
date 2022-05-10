@@ -19,10 +19,7 @@ function Home() {
               <div className="user_img">
                 <img
                   className="user_img"
-                  src={link.quote_file.replace(
-                    "http://localhost:8000/",
-                    "http://www.socialreading.xyz/"
-                  )}
+                  src={link.quote_file}
                 />
               </div>
             </div>

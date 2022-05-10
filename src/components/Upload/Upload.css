@@ -386,6 +386,32 @@
     .suggestions::-webkit-scrollbar{
         width: 0;
     }
+    .suggestedWords{
+        color: black;
+        padding: 16px 0 16px  16px;
+        display: flex;
+        align-items: center;
+        height: 38px;
+        font-size: 19px;
+    }
+    .suggestedWords:hover{
+        background-color:rgba(152, 50, 254, 0.16);;
+    }
+    .searches{
+        position: absolute;
+        overflow: scroll;
+        overflow-x: hidden;
+        width: 265px;
+        height: 200px;
+        left: 40px;
+        top: 360px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
+        border-radius: 30px;
+    }
+    .searches::-webkit-scrollbar{
+        width: 0;
+    }
     .searchedWords{
         color: black;
         padding: 16px 0 16px  16px;

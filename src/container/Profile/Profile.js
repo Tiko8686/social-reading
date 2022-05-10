@@ -11,7 +11,7 @@ function Profile() {
     }, [])
     return (
         <>
-            <div >
+            <div>
                 <h1>Profile</h1>
                 <button onClick={() => {
                     localStorage.removeItem("token")
