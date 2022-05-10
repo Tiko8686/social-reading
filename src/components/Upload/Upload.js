@@ -55,7 +55,6 @@ export function Upload() {
       );
     });
   }, []);
-
   const categoryValueChange = (event) => {
     setCategoryErr({
       required: false,
