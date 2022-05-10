@@ -9,6 +9,7 @@ import {Menu} from "./Menu/Menu";
 import AboutUs from "../container/AboutUs/AboutUs";
 import GoogleLoginPage from "./Signin/google";
 import VerifyEmail from "../container/VerifyEmail/VerifyEmail";
+import Profile from "../container/Profile/Profile";
 
 function AllRoutes() {
   return (
@@ -23,6 +24,8 @@ function AllRoutes() {
           <Route path="/category/motivational" element={<Motivation/>} />
           <Route path="/category/psychological" element={<Psychological />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/profile" element={<Profile />} />
+
           <Route path="/google" element={< GoogleLoginPage />} />
           <Route path="/activate/:uid/:token" element={< VerifyEmail />} />
         </Routes>

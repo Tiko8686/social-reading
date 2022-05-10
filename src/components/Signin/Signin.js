@@ -3,15 +3,16 @@ import "./signin.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import GoogleLoginPage from './google';
-import { gapi } from 'gapi-script';
-import LogoutButton from './googleLogout.js';
-import LoginButton from './googleLogin.js';
+// import GoogleLoginPage from './google';
+// import { gapi } from 'gapi-script';
+// import LogoutButton from './googleLogout.js';
+// import LoginButton from './googleLogin.js';
 import Login from './googleLogin.js';
-import Logout from './googleLogout.js';
+import { useNavigate } from 'react-router-dom';
+// import Logout from './googleLogout.js';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-
+const navigate = useNavigate()
   const [login, setLogin] = useState({ email: "", password: "" });
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
@@ -67,8 +68,10 @@ export function Signin() {
       .then((resp) => {
         let a = "JWT " + resp.data.access
         axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
-          .then(resp => {
-            console.log("act", resp.data)
+          .then(response => {
+            console.log("act", response.data)
+            localStorage.setItem('token', JSON.stringify(resp.data));
+            navigate("/profile")
           }).catch((error) => {
             if (error.response) {
               console.log("error.response ", error.response);
