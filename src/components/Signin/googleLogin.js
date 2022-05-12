@@ -39,6 +39,20 @@ function Login() {
       })
       .then((res) => {
         console.log(res.data);
+        let a = "JWT " + res.data.access
+        axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
+          .then(response => {
+            console.log("act", response.data)
+            // TODO: save in state or local storage 
+          }).catch((error) => {
+            if (error.response) {
+              console.log("error.response ", error.response);
+            } else if (error.request) {
+              console.log("error.request ", error.request);
+            } else if (error.message) {
+              console.log("error.request ", error.message);
+            }
+          });
       })
       .catch((error) => {
         if (error.response) {
@@ -63,16 +77,7 @@ function Login() {
       <GoogleLogin className="google"
         clientId={googleClientId}
         buttonText=""
-        style={{
-          borderWidth:1,
-          borderColor:'rgba(0,0,0,0.2)',
-          alignItems:'center',
-          justifyContent:'center',
-          width:100,
-          height:100,
-          backgroundColor:'#fff',
-          borderRadius:50,
-        }}
+     
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
