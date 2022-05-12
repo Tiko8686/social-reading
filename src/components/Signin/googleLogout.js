@@ -1,6 +1,6 @@
 import { GoogleLogout } from "react-google-login";
 
-const clientId="699412387887-1pae7suk9l9bstfdaer6826gjc118k0m.apps.googleusercontent.com"
+const clientId="157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com"
 function Logout() {
     const onSuccess=()=>{
         console.log("logout succesfully");

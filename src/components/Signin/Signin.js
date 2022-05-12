@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Login from './googleLogin.js';
+import Logout from './googleLogout.js';
 import { useNavigate } from 'react-router-dom';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -211,6 +212,7 @@ const navigate = useNavigate()
               <div>
                <div>
                  <Login></Login>
+                 {/* <Logout></Logout> */}
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
                 

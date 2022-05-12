@@ -1,33 +1,46 @@
+import "./google.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
-import { gapi } from 'gapi-script'
+import { gapi } from "gapi-script";
 const googleClientId =
   "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
 
 function Login() {
-  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [url, setUrl] = useState("");
+  const responseGoogle = (response) => {
+    console.log(response);
+    setName(response.profileObj.name);
+    setEmail(response.profileObj.email);
+    setUrl(response.profileObj.imageUrl);
+  };
+
   useEffect(() => {
     function start() {
       gapi.client.init({
         clientId: googleClientId,
-        scope: ""
-      })
+        scope: "",
+      });
     }
 
-    gapi.load('client:auth2', start)
- })
+    gapi.load("client:auth2", start);
+  });
   const [tokenId, settokenId] = useState();
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
-   
+
     settokenId(res.tokenId);
     console.log(tokenId);
     axios
-      .post("https://socialreading.xyz/social_auth/google/", {auth_token:tokenId})
+      .post("https://socialreading.xyz/social_auth/google/", {
+        auth_token: tokenId,
+      })
       .then((res) => {
-        console.log(res.data)
-      }).catch((error) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
         } else if (error.request) {
@@ -35,33 +48,40 @@ function Login() {
         } else if (error.message) {
           console.log("error.message ", error.message);
         }
-      });;
+      });
   };
   const onFailure = (res) => {
     console.log("failed login", res);
   };
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
 
   return (
     <div id="signInButton">
-      <GoogleLogin
+      {/* <h1>Login with Google</h1>
+<h2>Welcome: {name}</h2>
+<h2>Email: {email}</h2> */}
+      <img src={url} alt={name} />
+      <GoogleLogin className="google"
         clientId={googleClientId}
-        buttonText="Login"
+        buttonText=""
+        style={{
+          borderWidth:1,
+          borderColor:'rgba(0,0,0,0.2)',
+          alignItems:'center',
+          justifyContent:'center',
+          width:100,
+          height:100,
+          backgroundColor:'#fff',
+          borderRadius:50,
+        }}
         onSuccess={onSuccess}
         onFailure={onFailure}
-        cookiePolicy={'single_host_origin'}
+        cookiePolicy={"single_host_origin"}
         isSignedIn={true}
       />
     </div>
   );
 }
 export default Login;
-
-
-
-
 
 //  import '.../google.css'
 // import GoogleLogin from 'react-google-login'
@@ -70,7 +90,6 @@ export default Login;
 // import axios from 'axios'
 
 // import FacebookLogin from 'react-facebook-login'
-
 
 // const googleClientId = "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com"
 
@@ -137,7 +156,6 @@ export default Login;
 //           cookiePolicy={'single_host_origin'}
 //         />
 //       </div>
-
 
 //       {/* <h1>Login with facebook</h1> */}
 //       <FacebookLogin
