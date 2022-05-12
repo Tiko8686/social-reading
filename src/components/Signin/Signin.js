@@ -149,7 +149,6 @@ const navigate = useNavigate()
                 {errors.password1 && errors.password1.type === "minLength" && <span>Password can't be less than 8 characters*</span>}
                 {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase, lowercase and number*</span>}
               </div>
-
               <div>
                 <label htmlFor="password2">Կրկնել գաղտնաբառը</label>
                 <input
@@ -161,7 +160,6 @@ const navigate = useNavigate()
                 {errors.password2 && errors.password2.type === "required" && <span>This is required*</span>}
                 {confPasswordErr && <span>The password and confirmation password do not match*</span>}
               </div>
-
               <div>
                 <input type="submit" value="Գրանցվել" id="submit-btn" />
               </div>
