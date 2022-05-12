@@ -161,6 +161,7 @@ const navigate = useNavigate()
                 {confPasswordErr && <span>The password and confirmation password do not match*</span>}
               </div>
               <div>
+              <Login></Login>
                 <input type="submit" value="Գրանցվել" id="submit-btn" />
               </div>
               <div>
@@ -209,7 +210,7 @@ const navigate = useNavigate()
               </div>
               <div>
                <div>
-                 <Login></Login>
+               
                  {/* <Logout></Logout> */}
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>

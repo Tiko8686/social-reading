@@ -14,7 +14,7 @@ export function Menu() {
           <li>
             <Link to="/">
               <img
-                src="https://blooming-forest-92426.herokuapp.com/images/book.png"
+                src="https://social-reading-application.herokuapp.com/images/book.png"
                 width="35px"
                 className="book-icon"
                 alt="book_icon"
@@ -53,7 +53,7 @@ export function Menu() {
           </li>
           <li className="search_input">
             <img
-              src="https://blooming-forest-92426.herokuapp.com/images/search.svg"
+              src="https://social-reading-application.herokuapp.com/images/search.svg"
               alt="search_icon"
             />
             <input placeholder="Որոնել" className="search" />

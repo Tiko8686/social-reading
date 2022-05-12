@@ -75,7 +75,7 @@ function Home() {
         </div>
         <div>
           <img
-            src="https://blooming-forest-92426.herokuapp.com/images/section_1.png"
+            src="https://social-reading-application.herokuapp.com/images/section_1.png"
             alt="img"
             width="300px"
             className="section_1_img"
