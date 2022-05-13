@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
+import { FacebookLogin } from "react-facebook-login";
+import { useNavigate } from "react-router-dom";
 const googleClientId =
   "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
 
@@ -16,6 +18,7 @@ function Login() {
     setEmail(response.profileObj.email);
     setUrl(response.profileObj.imageUrl);
   };
+const navigate = useNavigate("")
 
   useEffect(() => {
     function start() {
@@ -26,8 +29,8 @@ function Login() {
     }
 
     gapi.load("client:auth2", start);
-  });
-  const [tokenId, settokenId] = useState();
+  }, []);
+  const [tokenId, settokenId] = useState("");
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
 
@@ -39,12 +42,18 @@ function Login() {
       })
       .then((res) => {
         console.log(res.data);
-        let a = "JWT " + res.data.access
-        axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
-          .then(response => {
-            console.log("act", response.data)
-            // TODO: save in state or local storage 
-          }).catch((error) => {
+        let a = "JWT " + res.data.access;
+        axios
+          .get("https://socialreading.xyz/auth/users/me", {
+            headers: { Authorization: a },
+          })
+          .then((response) => {
+            console.log("act", response.data);
+            localStorage.setItem("a", JSON.stringify(res.data));
+            navigate("/profile");
+            // TODO: save in state or local storage
+          })
+          .catch((error) => {
             if (error.response) {
               console.log("error.response ", error.response);
             } else if (error.request) {
@@ -68,16 +77,35 @@ function Login() {
     console.log("failed login", res);
   };
 
+  async function responseFacebook(response) {
+    console.log("Facebook success:");
+
+    const data = await axios({
+      method: "POST",
+      url: "",
+      data: { accessToken: response.accessToken, userId: response.userID },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.data;
+        }
+      })
+      .then((data) => {
+        console.log("Login with facebook success: ", data);
+      });
+  }
+
   return (
-    <div id="signInButton">
-      {/* <h1>Login with Google</h1>
-<h2>Welcome: {name}</h2>
-<h2>Email: {email}</h2> */}
-      <img src={url} alt={name} />
-      <GoogleLogin className="google"
+    <div className="App">
+      {/* <FacebookLogin appId="538845831203436" callback={responseFacebook} />
+     <div id="signInButton">
+        </div> */}
+      {/* <img src={url} alt={name} /> */}
+
+      <GoogleLogin
+        className="google"
         clientId={googleClientId}
         buttonText=""
-     
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
@@ -86,6 +114,7 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
 
 //  import '.../google.css'
@@ -137,7 +166,7 @@ export default Login;
 
 //     const data = await axios({
 //       method: "POST",
-//       url: 'http://localhost:4000/facebookLogin',
+//       url: '',
 //       data: { accessToken: response.accessToken, userId: response.userID }
 //     }).then(res => {
 //       if (res.status === 200) {

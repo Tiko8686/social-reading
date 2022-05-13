@@ -7,8 +7,12 @@ function Profile() {
     // const [token, setToken] = useState("")
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem('token'));
+        const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
+
         // setToken(tokenn)
         if (!tokenn) {
+            navigate("/")
+        } else if(!tokenGoogle){
             navigate("/")
         }
         setInterval(() => {
@@ -50,6 +54,7 @@ function Profile() {
 
                 <button onClick={() => {
                     localStorage.removeItem("token")
+                    localStorage.removeItem("tokenGoogle")
                     navigate("/")
                 }}>Log out</button>
             </div>

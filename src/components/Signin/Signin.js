@@ -210,7 +210,7 @@ const navigate = useNavigate()
               </div>
               <div>
                <div>
-               
+               <button>reset  password</button>
                  {/* <Logout></Logout> */}
                </div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
