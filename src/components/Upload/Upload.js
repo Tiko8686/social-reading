@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -31,7 +31,19 @@ export function Upload() {
     "Հոգեբանական",
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
+<<<<<<< Updated upstream
 
+=======
+  const [user , setUser] =  useState("")
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setUser(JSON.parse(localStorage.getItem("token")))
+    }else{
+      setUser("")
+    }
+  }, []);
+  const a = "JWT " + user.access
+>>>>>>> Stashed changes
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -124,14 +136,29 @@ export function Upload() {
     }
   };
   const onSubmit = (data) => {
+    // console.log(user.id);
+    console.log(a);
     if (categoryValue && file) {
       const formData = new FormData();
       formData.append("book_author", data.authorName);
       formData.append("book_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
+<<<<<<< Updated upstream
       axios.post("https://socialreading.xyz/quotes/", formData).then((resp) => {
         console.log(resp.data);
+=======
+      axios.post("http://192.168.1.103:8000/quotes/", formData, { headers: { "Authorization": a } }).then((resp) => {
+        console.log(resp.data);
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+>>>>>>> Stashed changes
       });
       toggleModal();
     }
