@@ -79,9 +79,9 @@ function Home() {
           />
         </div>
       </div>
-      {/* <div className="section_2">
+      <div className="section_2">
         <div className="img">{getImgUrl(image)}</div>
-      </div> */}
+      </div>
     </>
   );
 }

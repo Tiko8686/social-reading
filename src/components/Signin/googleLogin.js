@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
-import { FacebookLogin } from "react-facebook-login";
+// import { FacebookLogin } from "react-facebook-login";
 import { useNavigate } from "react-router-dom";
 const googleClientId =
   "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";

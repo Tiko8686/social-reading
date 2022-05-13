@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function Profile() {
     const navigate = useNavigate()
     useEffect(() => {
@@ -9,11 +10,11 @@ function Profile() {
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
 
         // setToken(tokenn)
-        if (!tokenn) {
-            navigate("/")
-        } else if(!tokenGoogle){
-            navigate("/")
-        }
+        // if (!tokenn) {
+        //     navigate("/")
+        // } else if(!tokenGoogle){
+        //     navigate("/")
+        // }
         
     }, [])
     
