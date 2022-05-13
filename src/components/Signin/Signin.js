@@ -162,8 +162,10 @@ export function Signin() {
                 {confPasswordErr && <span>The password and confirmation password do not match*</span>}
               </div>
               <div>
-                <Login></Login>
                 <input type="submit" value="Գրանցվել" id="submit-btn" />
+              </div>
+              <div>
+                <Login></Login>
               </div>
               <div>
                 <button onClick={toggleModalSignIn} className="btn-acc">Already have an account?</button>
