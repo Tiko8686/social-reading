@@ -54,15 +54,15 @@ export function Upload() {
     }
   }
 
-  // useEffect(() => {
-  //   axios.get("https://socialreading.xyz/categories/").then((resp) => {
-  //     setCategories(
-  //       resp.data.map((category) => {
-  //         return category.name;
-  //       })
-  //     );
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios.get("https://socialreading.xyz/categories/").then((resp) => {
+      setCategories(
+        resp.data.map((category) => {
+          return category.name;
+        })
+      );
+    });
+  }, []);
   const categoryValueChange = (event) => {
     setCategoryErr({
       required: false,
