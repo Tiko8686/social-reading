@@ -4,10 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
     const navigate = useNavigate()
-    // const [token, setToken] = useState("")
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem('token'));
-        // setToken(tokenn)
         if (!tokenn) {
             navigate("/")
         }
@@ -24,7 +22,7 @@ function Profile() {
                         } else if (error.request) {
                             console.log("error.request ", error.request);
                         } else if (error.message) {
-                            console.log("error.request ", error.message);
+                            console.log("error.message ", error.message);
                         }
                     });
                 console.log(resp.data)
@@ -35,7 +33,7 @@ function Profile() {
                 } else if (error.request) {
                     console.log("error.request ", error.request);
                 } else if (error.message) {
-                    console.log("error.request ", error.message);
+                    console.log("error.message ", error.message);
                 }
             });
         }, 240000);

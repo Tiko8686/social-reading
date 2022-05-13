@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -31,15 +31,15 @@ export function Upload() {
     "Հոգեբանական",
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
-  const [user , setUser] =  useState("")
+  const [user, setUser] = useState("")
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setUser(JSON.parse(localStorage.getItem("token")))
-    }else{
+    } else {
       setUser("")
     }
   }, []);
-  const a = "JWT " + user.access
+  console.log(user)
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -54,15 +54,15 @@ export function Upload() {
     }
   }
 
-  useEffect(() => {
-    axios.get("https://socialreading.xyz/categories/").then((resp) => {
-      setCategories(
-        resp.data.map((category) => {
-          return category.name;
-        })
-      );
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("https://socialreading.xyz/categories/").then((resp) => {
+  //     setCategories(
+  //       resp.data.map((category) => {
+  //         return category.name;
+  //       })
+  //     );
+  //   });
+  // }, []);
   const categoryValueChange = (event) => {
     setCategoryErr({
       required: false,
@@ -132,7 +132,7 @@ export function Upload() {
     }
   };
   const onSubmit = (data) => {
-    // console.log(user.id);
+    const a = "JWT " + user.access
     console.log(a);
     if (categoryValue && file) {
       const formData = new FormData();
@@ -286,7 +286,7 @@ export function Upload() {
               type="text"
             />
             {suggestWindow && (
-              <div className="suggestions" onClick={()=>{setSuggestWindow(false)}}>
+              <div className="suggestions" onClick={() => { setSuggestWindow(false) }}>
                 {suggestions.map((suggest) => {
                   return (
                     <p
@@ -303,7 +303,7 @@ export function Upload() {
               </div>
             )}
             {searchModal && (
-              <div className="searches" onClick={()=>{setSearchModal(false)}}>
+              <div className="searches" onClick={() => { setSearchModal(false) }}>
                 {filteredCategories.map((category) => {
                   return (
                     <p
