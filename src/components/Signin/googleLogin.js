@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
-import { FacebookLogin } from "react-facebook-login";
+import FacebookLogin from "react-facebook-login";
 import { useNavigate } from "react-router-dom";
 const googleClientId =
   "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
@@ -18,7 +18,7 @@ function Login() {
     setEmail(response.profileObj.email);
     setUrl(response.profileObj.imageUrl);
   };
-const navigate = useNavigate("")
+  const navigate = useNavigate();
 
   useEffect(() => {
     function start() {
@@ -44,14 +44,13 @@ const navigate = useNavigate("")
         console.log(res.data);
         let a = "JWT " + res.data.access;
         axios
-          .get("https://socialreading.xyz/auth/users/me", {
+          .get("https://socialreading.xyz/auth/users/me/", {
             headers: { Authorization: a },
           })
           .then((response) => {
             console.log("act", response.data);
-            localStorage.setItem("a", JSON.stringify(res.data));
+            localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
             navigate("/profile");
-            // TODO: save in state or local storage
           })
           .catch((error) => {
             if (error.response) {
@@ -77,31 +76,22 @@ const navigate = useNavigate("")
     console.log("failed login", res);
   };
 
-  async function responseFacebook(response) {
-    console.log("Facebook success:");
-
-    const data = await axios({
-      method: "POST",
-      url: "",
-      data: { accessToken: response.accessToken, userId: response.userID },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.data;
-        }
-      })
-      .then((data) => {
-        console.log("Login with facebook success: ", data);
-      });
-  }
-
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+console.log(process.env.REACT_APP_BASE_URL);
   return (
     <div className="App">
-      {/* <FacebookLogin appId="538845831203436" callback={responseFacebook} />
-     <div id="signInButton">
-        </div> */}
-      {/* <img src={url} alt={name} /> */}
-
+      {/* <FacebookLogin appId="1042792122994981" callback={responseFacebook} /> */}
+      <FacebookLogin
+    appId="1042792122994981"
+    autoLoad={true}
+    fields="name,email,picture"
+    callback={responseFacebook}
+    cssClass="my-facebook-button-class"
+    icon="fa-facebook"
+    textButton=""
+  />
       <GoogleLogin
         className="google"
         clientId={googleClientId}
@@ -110,6 +100,7 @@ const navigate = useNavigate("")
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
+        
       />
     </div>
   );

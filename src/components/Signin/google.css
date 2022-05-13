@@ -14,3 +14,14 @@
     
     padding: 2px !important;
 }
+.my-facebook-button-class{
+    
+   color:blue ;
+   border-radius: 100%;
+   border: none;
+   width: 48px;
+   height: 48px;
+}
+.googleButton{
+    
+}
