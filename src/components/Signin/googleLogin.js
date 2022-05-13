@@ -9,6 +9,7 @@ const googleClientId =
   "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
 
 function Login() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [url, setUrl] = useState("");
@@ -18,7 +19,7 @@ function Login() {
     setEmail(response.profileObj.email);
     setUrl(response.profileObj.imageUrl);
   };
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     function start() {
@@ -31,6 +32,7 @@ function Login() {
     gapi.load("client:auth2", start);
   }, []);
   const [tokenId, settokenId] = useState("");
+  
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
 
@@ -50,7 +52,7 @@ function Login() {
           .then((response) => {
             console.log("act", response.data);
             localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            navigate("/profile");
+            navigate('/profile');
           })
           .catch((error) => {
             if (error.response) {
@@ -79,9 +81,52 @@ function Login() {
   const responseFacebook = (response) => {
     console.log(response);
   };
-console.log(process.env.REACT_APP_BASE_URL);
+// console.log(process.env.REACT_APP_BASE_URL);
+const [accessToken,setAccessToken]=useState("")
+const onFb = (res) => {
+  
+  console.log("sucess login", res.profileObj);
+
+  setAccessToken(res.accessToken);
+  console.log(accessToken);
+  axios
+    .post("https://socialreading.xyz/social_auth/facebook/ ", {
+      auth_token: accessToken,
+    })
+    .then((res) => {
+      console.log(res.data);
+      let a = "JWT " + res.data.access;
+      axios
+        .get("https://socialreading.xyz/auth/users/me/", {
+          headers: { Authorization: a },
+        })
+        .then((response) => {
+          console.log("act", response.data);
+          localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
+          navigate('/profile');
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log("error.response ", error.response);
+          } else if (error.request) {
+            console.log("error.request ", error.request);
+          } else if (error.message) {
+            console.log("error.request ", error.message);
+          }
+        });
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.message ", error.message);
+      }
+    });
+};
   return (
-    <div className="App">
+    <div className="googlefacebook">
       {/* <FacebookLogin appId="1042792122994981" callback={responseFacebook} /> */}
       <FacebookLogin
     appId="1042792122994981"
@@ -90,6 +135,7 @@ console.log(process.env.REACT_APP_BASE_URL);
     callback={responseFacebook}
     cssClass="my-facebook-button-class"
     icon="fa-facebook"
+    onClick={onFb}
     textButton=""
   />
       <GoogleLogin
@@ -137,7 +183,7 @@ export default Login;
 //     axios({
 //       method: "POST",
 //       url: 'http://192.168.1.103:8000/social_auth/google/',
-//       data: {auth_token:response.tokenId}
+//       data: {auth_token:response.accessToken}
 //     }).then(res => {
 //       if (res.status === 200) {
 //         return res.data
