@@ -31,6 +31,17 @@ function Login() {
 
     gapi.load("client:auth2", start);
   }, []);
+  const Fbid="1042792122994981";
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: Fbid,
+  //       scope: "",
+  //     });
+  //   }
+
+  //   gapi.load("client:auth2", start);
+  // }, []);
   const [tokenId, settokenId] = useState("");
   
   const onSuccess = (res) => {
@@ -130,7 +141,7 @@ const onFb = (res) => {
       {/* <FacebookLogin appId="1042792122994981" callback={responseFacebook} /> */}
       <FacebookLogin
     appId="1042792122994981"
-    autoLoad={true}
+    // autoLoad={true}
     fields="name,email,picture"
     callback={responseFacebook}
     cssClass="my-facebook-button-class"
