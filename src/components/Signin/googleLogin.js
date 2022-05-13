@@ -135,7 +135,7 @@ function Login() {
             className="google"
             onClick={renderProps.onClick} disabled={renderProps.disabled}
           >
-            <img src="https://social-reading-application.herokuapp.com/images/google.png" />
+            <img src="https://social-reading-application.herokuapp.com/images/google.png" width="18px"/>
           </button>
         )}
         clientId={googleClientId}

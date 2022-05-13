@@ -5,6 +5,12 @@
   background-color: white;
   border: 0.5px solid #A3B0BC;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+.google > img {
+  pointer-events: none;
 }
 .my-facebook-button-class {
   color: #3C79e6;
