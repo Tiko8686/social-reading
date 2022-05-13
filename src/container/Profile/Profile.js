@@ -8,6 +8,7 @@ function Profile() {
         const tokenn = JSON.parse(localStorage.getItem('token'));
         if (!tokenn) {
             navigate("/")
+
         }
         // setInterval(() => {
         // axios.post("https://socialreading.xyz/auth/djoser/jwt/refresh", { refresh: tokenn.refresh }).
@@ -38,15 +39,13 @@ function Profile() {
         //     });
         // }, 240000);
     }, [])
-    useEffect(() => {
-
-    }, []);
     return (
         <>
             <div>
                 <h1>Profile</h1>
                 <button onClick={() => {
                     localStorage.removeItem("token")
+                    window.location.reload()
                     navigate("/")
                 }}>Log out</button>
             </div>

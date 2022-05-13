@@ -32,14 +32,15 @@ export function Upload() {
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
-  // console.log(user)
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setUser(JSON.parse(localStorage.getItem("token")))
+    const token = JSON.parse(localStorage.getItem("token"))
+    if (token) {
+      setUser("JWT " + token.access)
     } else {
       setUser("")
     }
   }, []);
+  console.log(user);
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -131,16 +132,14 @@ export function Upload() {
       setCategoryErr({ ...categoryErr, maxLength: true });
     }
   };
-  const a = "JWT " + user.access
   const onSubmit = (data) => {
-    console.log(a);
     if (categoryValue && file) {
       const formData = new FormData();
       formData.append("book_author", data.authorName);
       formData.append("book_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("http://192.168.1.103:8000/quotes/", formData, { headers: { "Authorization": a } }).then((resp) => {
+      axios.post("http://192.168.1.103:8000/quotes/", formData, { headers: { "Authorization": user } }).then((resp) => {
         console.log(resp.data);
       }).catch((error) => {
         if (error.response) {
@@ -306,7 +305,7 @@ export function Upload() {
               <div className="searches" onClick={() => { setSearchModal(false) }}>
                 {filteredCategories.map((category, index) => {
                   return (
-                    <p key={index} 
+                    <p key={index}
                       className="searchedWords"
                       onClick={() => {
                         setCategoryValue(category);
