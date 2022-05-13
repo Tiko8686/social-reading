@@ -10,9 +10,10 @@ function Profile() {
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
 
         // setToken(tokenn)
-        // if (!tokenn) {
-        //     navigate("/")
-        // } else if(!tokenGoogle){
+        if (!tokenn) {
+            navigate("/")
+         }
+        // else if(!tokenGoogle){
         //     navigate("/")
         // }
         
@@ -54,7 +55,7 @@ function Profile() {
                 <button onClick={() => {
                     localStorage.removeItem("token")
                     localStorage.removeItem("tokenGoogle")
-                    window.location.reload()
+                    // window.location.reload()
                     navigate("/")
                 }}>Log out</button>
             </div>

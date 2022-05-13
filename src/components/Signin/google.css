@@ -1,16 +1,32 @@
-.google{
-    border-radius: 100% !important;
-    width: 48px;
-    height: 48px;
-    margin: 0 auto !important;
-    text-align: center !important;
-    display: flex;
-    /* justify-content: center; */
-    position: relative !important;
-    /* left: 10px !important; */
-    padding-left: 5px !important;
-    padding-top: 9px !important;
-    /* border: 0.5px solid #A3B0BC !important; */
-    
-    padding: 2px !important;
+.google {
+  border-radius: 100% !important;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto !important;
+  text-align: center !important;
+  /* display: flex; */
+  /* justify-content: center; */
+  position: relative !important;
+  /* left: 10px !important; */
+  padding-left: 5px !important;
+  padding-top: 9px !important;
+  /* border: 0.5px solid #A3B0BC !important; */
+
+  padding: 2px !important;
+}
+.my-facebook-button-class {
+  color: blue;
+  border-radius: 100%;
+  border: none;
+  width: 48px;
+  height: 48px;
+  /* display: flex;
+  justify-content: center;
+  position: relative; */
+}
+.googlefacebook {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
 }
