@@ -40,8 +40,6 @@ export function Signin() {
       setConfPasswordErr(false)
       toggleModal()
     }
-
-
   }
 
   const toggleModal = () => {
@@ -59,14 +57,18 @@ export function Signin() {
     event.preventDefault();
     axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
-      .then((resp) => {
+      .then(resp => {
+        const userInfo = "JWT " + resp.data.access
         console.log(resp.data)
-        let a = "JWT " + resp.data.access
-        axios.get("https://socialreading.xyz/auth/users/me", { headers: { "Authorization": a } })
+        axios.get("https://socialreading.xyz/auth/users/me",
+          {
+            headers: { "Authorization": userInfo }
+          })
           .then(response => {
             console.log("act", response.data)
             localStorage.setItem('token', JSON.stringify(resp.data));
-            navigate("/profile")
+            localStorage.setItem('user', JSON.stringify(response.data));
+            navigate("/")
             window.location.reload()
           }).catch((error) => {
             if (error.response) {
@@ -77,7 +79,6 @@ export function Signin() {
               console.log("error.request ", error.message);
             }
           });
-        console.log(resp.data);
       })
       .catch((error) => {
         if (error.response) {
@@ -209,12 +210,12 @@ export function Signin() {
                 />
               </div>
               <div>
-              <button>reset  password</button>
-                 {/* <Logout></Logout> */}
-               </div>
+                <button>reset  password</button>
+                {/* <Logout></Logout> */}
+              </div>
               <div>
-               
-            
+
+
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
 
               </div>

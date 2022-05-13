@@ -139,17 +139,21 @@ export function Upload() {
       formData.append("book_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("http://192.168.1.103:8000/quotes/", formData, { headers: { "Authorization": user } }).then((resp) => {
-        console.log(resp.data);
-      }).catch((error) => {
-        if (error.response) {
-          console.log("error.response ", error.response);
-        } else if (error.request) {
-          console.log("error.request ", error.request);
-        } else if (error.message) {
-          console.log("error.request ", error.message);
-        }
-      });
+      axios.post("https://socialreading.xyz/quotes/",
+        formData,
+        {
+          headers: { "Authorization": user }
+        }).then((resp) => {
+          console.log(resp.data);
+        }).catch((error) => {
+          if (error.response) {
+            console.log("error.response ", error.response);
+          } else if (error.request) {
+            console.log("error.request ", error.request);
+          } else if (error.message) {
+            console.log("error.request ", error.message);
+          }
+        });
       toggleModal();
     }
   };
