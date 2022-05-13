@@ -1,13 +1,13 @@
 import "./signin.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Login from './googleLogin.js';
-import Logout from './googleLogout.js';
+// import Logout from './googleLogout.js';
 import { useNavigate } from 'react-router-dom';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-const navigate = useNavigate()
+  const navigate = useNavigate()
   const [login, setLogin] = useState({ email: "", password: "" });
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
@@ -29,7 +29,7 @@ const navigate = useNavigate()
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
-          alert (error.response.data.email)
+          alert(error.response.data.email)
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
@@ -41,7 +41,7 @@ const navigate = useNavigate()
       toggleModal()
     }
 
-    
+
   }
 
   const toggleModal = () => {
@@ -57,7 +57,6 @@ const navigate = useNavigate()
 
   const submitChackin = (event) => {
     event.preventDefault();
-
     axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
       { email: login.email, password: login.password })
       .then((resp) => {
@@ -68,6 +67,7 @@ const navigate = useNavigate()
             console.log("act", response.data)
             localStorage.setItem('token', JSON.stringify(resp.data));
             navigate("/profile")
+            window.location.reload()
           }).catch((error) => {
             if (error.response) {
               console.log("error.response ", error.response);
@@ -142,7 +142,7 @@ const navigate = useNavigate()
                 <input
                   id="password1"
                   type="password"
-                  {...register("password1", { required: true, maxLength: 15, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/})}
+                  {...register("password1", { required: true, maxLength: 15, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/ })}
                 />
                 {errors.password1 && errors.password1.type === "required" && <span>This is required*</span>}
                 {errors.password1 && errors.password1.type === "maxLength" && <span>Password can't be more than 15 characters*</span>}
@@ -161,7 +161,7 @@ const navigate = useNavigate()
                 {confPasswordErr && <span>The password and confirmation password do not match*</span>}
               </div>
               <div>
-              <Login></Login>
+                <Login></Login>
                 <input type="submit" value="Գրանցվել" id="submit-btn" />
               </div>
               <div>
@@ -209,12 +209,14 @@ const navigate = useNavigate()
                 />
               </div>
               <div>
-               <div>
-               <button>reset  password</button>
+              <button>reset  password</button>
                  {/* <Logout></Logout> */}
                </div>
+              <div>
+               
+            
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
-                
+
               </div>
             </form>
           </div>

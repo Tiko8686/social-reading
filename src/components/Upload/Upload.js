@@ -31,7 +31,16 @@ export function Upload() {
     "Հոգեբանական",
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
-
+  const [user, setUser] = useState("")
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))
+    if (token) {
+      setUser("JWT " + token.access)
+    } else {
+      setUser("")
+    }
+  }, []);
+  console.log(user);
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -130,8 +139,16 @@ export function Upload() {
       formData.append("book_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("https://socialreading.xyz/quotes/", formData).then((resp) => {
+      axios.post("http://192.168.1.103:8000/quotes/", formData, { headers: { "Authorization": user } }).then((resp) => {
         console.log(resp.data);
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
       });
       toggleModal();
     }
@@ -156,7 +173,7 @@ export function Upload() {
               }}
             >
               <img className="img" id="file-id-1-preview" />
-              <label for="files" className="fileLabel bi bi-cloud-upload">
+              <label htmlFor="files" className="fileLabel bi bi-cloud-upload">
                 &nbsp; Վերբեռնել Նկար
               </label>
             </div>
@@ -168,7 +185,7 @@ export function Upload() {
               }}
             >
               <input
-                autocomplete="off"
+                autoComplete="off"
                 className="authorName"
                 placeholder="Գրքի հեղինակ"
                 id="name"
@@ -195,7 +212,7 @@ export function Upload() {
                 </span>
               )}
               <input
-                autocomplete="off"
+                autoComplete="off"
                 className="bookName"
                 placeholder="Գրքի անուն"
                 id="name"
@@ -223,7 +240,7 @@ export function Upload() {
               )}
               <div className="category_search">
                 <img
-                  src="https://blooming-forest-92426.herokuapp.com/images/search.svg"
+                  src="https://social-reading-application.herokuapp.com/images/search.svg"
                   className="search_img"
                 />
                 {categoryErr.required && (
@@ -261,14 +278,14 @@ export function Upload() {
               value={categoryValue}
               onChange={(event) => categoryValueChange(event)}
               onFocus={() => setSuggestWindow(true)}
-              autocomplete="off"
+              autoComplete="off"
               className="bookCategory"
               placeholder="Կատեգորիա"
               id="name"
               type="text"
             />
             {suggestWindow && (
-              <div className="suggestions" onClick={()=>{setSuggestWindow(false)}}>
+              <div className="suggestions" onClick={() => { setSuggestWindow(false) }}>
                 {suggestions.map((suggest) => {
                   return (
                     <p
@@ -285,10 +302,10 @@ export function Upload() {
               </div>
             )}
             {searchModal && (
-              <div className="searches" onClick={()=>{setSearchModal(false)}}>
-                {filteredCategories.map((category) => {
+              <div className="searches" onClick={() => { setSearchModal(false) }}>
+                {filteredCategories.map((category, index) => {
                   return (
-                    <p
+                    <p key={index}
                       className="searchedWords"
                       onClick={() => {
                         setCategoryValue(category);
