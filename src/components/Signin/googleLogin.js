@@ -32,7 +32,7 @@ function Login() {
     gapi.load("client:auth2", start);
   }, []);
   const [tokenId, settokenId] = useState("");
-  
+
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
 
@@ -79,74 +79,80 @@ function Login() {
   };
 
   const responseFacebook = (response) => {
+    console.log("hesa")
     console.log(response);
   };
-// console.log(process.env.REACT_APP_BASE_URL);
-const [accessToken,setAccessToken]=useState("")
-const onFb = (res) => {
-  
-  console.log("sucess login", res.profileObj);
+  // console.log(process.env.REACT_APP_BASE_URL);
+  const [accessToken, setAccessToken] = useState("")
 
-  setAccessToken(res.accessToken);
-  console.log(accessToken);
-  axios
-    .post("https://socialreading.xyz/social_auth/facebook/ ", {
-      auth_token: accessToken,
-    })
-    .then((res) => {
-      console.log(res.data);
-      let a = "JWT " + res.data.access;
-      axios
-        .get("https://socialreading.xyz/auth/users/me/", {
-          headers: { Authorization: a },
-        })
-        .then((response) => {
-          console.log("act", response.data);
-          localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-          // navigate('/profile');
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.log("error.response ", error.response);
-          } else if (error.request) {
-            console.log("error.request ", error.request);
-          } else if (error.message) {
-            console.log("error.request ", error.message);
-          }
-        });
-    })
-    .catch((error) => {
-      if (error.response) {
-        console.log("error.response ", error.response);
-      } else if (error.request) {
-        console.log("error.request ", error.request);
-      } else if (error.message) {
-        console.log("error.message ", error.message);
-      }
-    });
-};
+  const onFb = (res) => {
+    console.log("sucess login", res.profileObj);
+    setAccessToken(res.accessToken);
+    console.log(accessToken);
+    axios
+      .post("https://socialreading.xyz/social_auth/facebook/ ", {
+        auth_token: accessToken,
+      })
+      .then((res) => {
+        console.log(res.data);
+        let a = "JWT " + res.data.access;
+        axios
+          .get("https://socialreading.xyz/auth/users/me/", {
+            headers: { Authorization: a },
+          })
+          .then((response) => {
+            console.log("act", response.data);
+            localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
+            // navigate('/profile');
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log("error.response ", error.response);
+            } else if (error.request) {
+              console.log("error.request ", error.request);
+            } else if (error.message) {
+              console.log("error.request ", error.message);
+            }
+          });
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.message ", error.message);
+        }
+      });
+  };
   return (
     <div className="googlefacebook">
       {/* <FacebookLogin appId="1042792122994981" callback={responseFacebook} /> */}
-      <FacebookLogin
-    appId="1042792122994981"
-    autoLoad={true}
-    fields="name,email,picture"
-    callback={responseFacebook}
-    cssClass="my-facebook-button-class"
-    icon="fa-facebook"
-    onClick={onFb}
-    textButton=""
-  />
+
       <GoogleLogin
-        className="google"
+        render={renderProps => (
+          <button
+            className="google"
+            onClick={renderProps.onClick} disabled={renderProps.disabled}
+          >
+            <img src="https://social-reading-application.herokuapp.com/images/google.png" />
+          </button>
+        )}
         clientId={googleClientId}
         buttonText=""
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        
+      />
+      <FacebookLogin
+        appId="1042792122994981"
+        fields="name,email,picture"
+        callback={responseFacebook}
+        cssClass="my-facebook-button-class"
+        icon="fa-facebook"
+        onClick={onFb}
+        textButton=""
       />
     </div>
   );

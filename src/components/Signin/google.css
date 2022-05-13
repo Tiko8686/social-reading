@@ -1,32 +1,23 @@
 .google {
-  border-radius: 100% !important;
+  border-radius: 100%;
   width: 48px;
   height: 48px;
-  margin: 0 auto !important;
-  text-align: center !important;
-  /* display: flex; */
-  /* justify-content: center; */
-  position: relative !important;
-  /* left: 10px !important; */
-  padding-left: 5px !important;
-  padding-top: 9px !important;
-  /* border: 0.5px solid #A3B0BC !important; */
-
-  padding: 2px !important;
+  background-color: white;
+  border: 0.5px solid #A3B0BC;
+  margin-top: 10px;
 }
 .my-facebook-button-class {
-  color: blue;
+  color: #3C79e6;
+  background-color: white;
   border-radius: 100%;
-  border: none;
+  border:  0.5px solid #A3B0BC;
   width: 48px;
   height: 48px;
-  /* display: flex;
-  justify-content: center;
-  position: relative; */
+  font-size: 18px;
 }
 .googlefacebook {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 50px;
 }
