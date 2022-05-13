@@ -109,10 +109,9 @@ export function Menu() {
                 <Upload />
               </li>
               <li>
-                {JSON.parse(localStorage.getItem("user"))?
-                <img src={JSON.parse(localStorage.getItem("user")).avatar}/>:
+                
                 <Signin />
-                }
+                
               </li>
             </ul>
           </div>
