@@ -290,17 +290,16 @@ export function Upload() {
             />
             {suggestWindow && (
               <div className="suggestions" onClick={() => { setSuggestWindow(false) }}>
-                {suggestions.map((suggest) => {
+                {suggestions.map((suggest, index) => {
                   return (
                     <p
+                      key={index}
                       className="suggestedWords"
                       onClick={() => {
                         setCategoryValue(suggest);
                         setSuggestWindow(false);
                       }}
-                    >
-                      {suggest}
-                    </p>
+                    >{suggest}</p>
                   );
                 })}
               </div>
@@ -315,9 +314,7 @@ export function Upload() {
                         setCategoryValue(category);
                         setSearchModal(false);
                       }}
-                    >
-                      {category}
-                    </p>
+                    >{category}</p>
                   );
                 })}
               </div>

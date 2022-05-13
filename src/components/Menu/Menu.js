@@ -1,12 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
 import { Upload } from "../Upload/Upload";
 import "./menu.css";
 
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
-
+  const [user, setUser] = useState("");
+  const navigate = useNavigate()
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUser(user)
+  }, [])
   return (
     <>
       <nav>
@@ -59,7 +64,10 @@ export function Menu() {
             <input placeholder="Որոնել" className="search" />
           </li>
           <li className="login-btn">
-            <Signin />
+            {user ?
+              <img src={user.avatar} onClick={() => navigate("/profile")} className="profile_pic_menu"/> :
+              <Signin />
+            }
           </li>
           <li>
             <div className="menu" onClick={() => setMenuBool(!menuBool)}>
@@ -81,10 +89,7 @@ export function Menu() {
             <ul className="resp_ul">
               <li className="dropdown_resp">
                 <span className="resp_category">Կատեգորիաներ</span>
-                <ul
-                  className="category_submenu"
-                  onClick={() => setMenuBool(false)}
-                >
+                <ul className="category_submenu" onClick={() => setMenuBool(false)}>
                   <li>
                     <Link to="/category/professional">Մասնագիտական</Link>
                   </li>
@@ -109,9 +114,10 @@ export function Menu() {
                 <Upload />
               </li>
               <li>
-                
-                <Signin />
-                
+                {user ?
+                  <img src={user.avatar} onClick={() => navigate("/profile")} className="profile_pic_menu"/> :
+                  <Signin />
+                }
               </li>
             </ul>
           </div>

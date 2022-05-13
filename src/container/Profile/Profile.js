@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 function Profile() {
     const navigate = useNavigate()
     useEffect(() => {
-        const tokenn = JSON.parse(localStorage.getItem('token'));
+        const token = JSON.parse(localStorage.getItem('token'));
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
 
         // setToken(tokenn)
-        if (!tokenn) {
+        if (!token) {
             navigate("/")
          }
         // else if(!tokenGoogle){
@@ -54,8 +54,9 @@ function Profile() {
                 <h1>Profile</h1>
                 <button onClick={() => {
                     localStorage.removeItem("token")
+                    localStorage.removeItem("user")
                     localStorage.removeItem("tokenGoogle")
-                    // window.location.reload()
+                    window.location.reload()
                     navigate("/")
                 }}>Log out</button>
             </div>

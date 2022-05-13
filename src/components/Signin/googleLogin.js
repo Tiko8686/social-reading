@@ -103,7 +103,7 @@ const onFb = (res) => {
         .then((response) => {
           console.log("act", response.data);
           localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-          navigate('/profile');
+          // navigate('/profile');
         })
         .catch((error) => {
           if (error.response) {
