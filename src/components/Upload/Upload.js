@@ -32,6 +32,7 @@ export function Upload() {
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
+  // console.log(user)
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setUser(JSON.parse(localStorage.getItem("token")))
@@ -39,7 +40,6 @@ export function Upload() {
       setUser("")
     }
   }, []);
-  console.log(user)
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -131,8 +131,8 @@ export function Upload() {
       setCategoryErr({ ...categoryErr, maxLength: true });
     }
   };
+  const a = "JWT " + user.access
   const onSubmit = (data) => {
-    const a = "JWT " + user.access
     console.log(a);
     if (categoryValue && file) {
       const formData = new FormData();
@@ -174,7 +174,7 @@ export function Upload() {
               }}
             >
               <img className="img" id="file-id-1-preview" />
-              <label for="files" className="fileLabel bi bi-cloud-upload">
+              <label htmlFor="files" className="fileLabel bi bi-cloud-upload">
                 &nbsp; Վերբեռնել Նկար
               </label>
             </div>
@@ -186,7 +186,7 @@ export function Upload() {
               }}
             >
               <input
-                autocomplete="off"
+                autoComplete="off"
                 className="authorName"
                 placeholder="Գրքի հեղինակ"
                 id="name"
@@ -213,7 +213,7 @@ export function Upload() {
                 </span>
               )}
               <input
-                autocomplete="off"
+                autoComplete="off"
                 className="bookName"
                 placeholder="Գրքի անուն"
                 id="name"
@@ -241,7 +241,7 @@ export function Upload() {
               )}
               <div className="category_search">
                 <img
-                  src="https://blooming-forest-92426.herokuapp.com/images/search.svg"
+                  src="https://social-reading-application.herokuapp.com/images/search.svg"
                   className="search_img"
                 />
                 {categoryErr.required && (
@@ -279,7 +279,7 @@ export function Upload() {
               value={categoryValue}
               onChange={(event) => categoryValueChange(event)}
               onFocus={() => setSuggestWindow(true)}
-              autocomplete="off"
+              autoComplete="off"
               className="bookCategory"
               placeholder="Կատեգորիա"
               id="name"
@@ -304,9 +304,9 @@ export function Upload() {
             )}
             {searchModal && (
               <div className="searches" onClick={() => { setSearchModal(false) }}>
-                {filteredCategories.map((category) => {
+                {filteredCategories.map((category, index) => {
                   return (
-                    <p
+                    <p key={index} 
                       className="searchedWords"
                       onClick={() => {
                         setCategoryValue(category);

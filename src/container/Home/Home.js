@@ -13,7 +13,7 @@ function Home() {
     let content = [];
     for (let link of array) {
       content.push(
-        <div className="post__item">
+        <div className="post__item" >
           <div className="post__header">
             <div className="post__user">
               <div className="user_img">
@@ -44,10 +44,7 @@ function Home() {
           </div>
           <div className="post__img">
             <img
-              src={link.quote_file.replace(
-                "http://localhost:8000/",
-                "http://www.socialreading.xyz/"
-              )}
+              src={link.quote_file}
               alt="img"
               width="1080px"
               height="1080px"
@@ -82,9 +79,9 @@ function Home() {
           />
         </div>
       </div>
-      <div className="section_2">
+      {/* <div className="section_2">
         <div className="img">{getImgUrl(image)}</div>
-      </div>
+      </div> */}
     </>
   );
 }
