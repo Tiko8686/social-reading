@@ -29,7 +29,7 @@ function VerifyEmail() {
     return (
         <>
             <div>
-                <h1>Email activation​....</h1>
+                <h1>Email activation...</h1>
             </div>
         </>
 

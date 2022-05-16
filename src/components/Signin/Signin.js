@@ -55,7 +55,7 @@ export function Signin() {
 
   const submitChackin = (event) => {
     event.preventDefault();
-    axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
+    axios.post("https://socialreading.xyz/auth/jwt/create/",
       { email: login.email, password: login.password })
       .then(resp => {
         const userInfo = "JWT " + resp.data.access

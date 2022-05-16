@@ -136,7 +136,7 @@ export function Upload() {
     if (categoryValue && file) {
       const formData = new FormData();
       formData.append("book_author", data.authorName);
-      formData.append("book_title", data.bookName);
+      formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
       axios.post("https://socialreading.xyz/quotes/",
