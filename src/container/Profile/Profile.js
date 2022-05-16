@@ -10,9 +10,9 @@ function Profile() {
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
 
         // setToken(tokenn)
-        if (!token) {
-            navigate("/")
-         }
+        // if (!token) {
+        //     navigate("/")
+        //  }
         // else if(!tokenGoogle){
         //     navigate("/")
         // }

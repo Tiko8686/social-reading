@@ -63,7 +63,9 @@ function Login() {
           .then((response) => {
             console.log("act", response.data);
             localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            navigate('/profile');
+            console.log("redirecting");
+            navigate("/profile");
+            // window.location.reload()
           })
           .catch((error) => {
             if (error.response) {
