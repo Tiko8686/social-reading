@@ -43,7 +43,7 @@ function Login() {
   //   gapi.load("client:auth2", start);
   // }, []);
   const [tokenId, settokenId] = useState("");
-  const [accessToken, setAccessToken] = useState("")
+  // const [accessToken, setAccessToken] = useState("")
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
 
@@ -94,10 +94,10 @@ function Login() {
     console.log("hesa",response);
     console.log("token hesa",response.accessToken);
 
-    setAccessToken(response.accessToken);
-    console.log("token",accessToken);
+    // setAccessToken(response.accessToken);
+    // console.log("token",accessToken);
     axios.post("https://socialreading.xyz/social_auth/facebook/ ", {
-        auth_token: accessToken,
+        auth_token: response.accessToken,
       }).then((res) => {
         console.log(res.data);
         let a = "JWT " + res.data.access;
