@@ -24,11 +24,11 @@ export function Upload() {
   const [searchModal, setSearchModal] = useState(false);
   const [file, setFile] = useState(undefined);
   const [suggestions, setSugesstion] = useState([
-    "Մասնագիտական",
-    "Գեղարվեստական",
-    "Պատմական",
-    "Մոտիվացիոն",
-    "Հոգեբանական",
+    "Professional",
+    "Artistic",
+    "Historical",
+    "Motivational",
+    "Psychological",
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
@@ -160,7 +160,7 @@ export function Upload() {
   return (
     <>
       <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
-        &nbsp;&nbsp;Վերբեռնել
+        &nbsp;&nbsp;Upload
       </button>
       {modal && (
         <div className="modal">
@@ -178,7 +178,7 @@ export function Upload() {
             >
               <img className="img" id="file-id-1-preview" />
               <label htmlFor="files" className="fileLabel bi bi-cloud-upload">
-                &nbsp; Վերբեռնել Նկար
+                &nbsp; Upload Image
               </label>
             </div>
             <form
@@ -191,7 +191,7 @@ export function Upload() {
               <input
                 autoComplete="off"
                 className="authorName"
-                placeholder="Գրքի հեղինակ"
+                placeholder="Author of the book"
                 id="name"
                 type="text"
                 {...register("authorName", {
@@ -218,7 +218,7 @@ export function Upload() {
               <input
                 autoComplete="off"
                 className="bookName"
-                placeholder="Գրքի անուն"
+                placeholder="Name of the book"
                 id="name"
                 type="text"
                 {...register("bookName", {
@@ -274,7 +274,7 @@ export function Upload() {
               <input
                 className="submit"
                 type="submit"
-                value="Վերբեռնել"
+                value="Upload"
                 onClick={checkCategory}
               />
             </form>
@@ -284,7 +284,7 @@ export function Upload() {
               onFocus={() => setSuggestWindow(true)}
               autoComplete="off"
               className="bookCategory"
-              placeholder="Կատեգորիա"
+              placeholder="Category of the book"
               id="name"
               type="text"
             />
