@@ -1,0 +1,85 @@
+.profilePage {
+    width: 90%;
+    margin: auto;
+}
+
+.profile_background {
+    width: 100%;
+    height: 323px;
+    background: rgba(196, 196, 196, 0.63);
+    border-radius: 0px 0px 10px 10px;
+}
+
+.autor_pic {
+    width: 180px;
+    height: 180px;
+    background-color: rgb(196, 196, 196);
+    border-radius: 50%;
+    position: absolute;
+    top: -160px;
+    left: 50px;
+}
+
+.nameSurnameDiv {
+    width: 300px;
+    position: absolute;
+    top: -50px;
+    left: 250px;
+}
+
+.name_and_pic {
+    border: 1px solid red;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* gap: 50px; */
+}
+
+.my_info {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 500px; */
+}
+
+.edit_btn {
+    width: 310px;
+    height: 48px;
+    background: #9832FE;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    border: none;
+    color: white;
+}
+
+.profile_menu {
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.profile_menu>ul {
+    list-style: none;
+}
+
+.profile_menu>ul>li>a {
+    font-family: 'Montserrat arm';
+    font-style: normal;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 18px;
+    color: #878787;
+}
+
+.profile_menu_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
