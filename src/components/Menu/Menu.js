@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
+import { Unauthorized } from "../Upload/Unauthorized";
 import { Upload } from "../Upload/Upload";
 import "./menu.css";
 
@@ -58,7 +59,8 @@ export function Menu() {
         </ul>
         <ul className="right-list">
           <li className="upload-btn">
-            <Upload />
+            {user?<Upload />:<Unauthorized />}
+            
           </li>
           <li className="search_input">
             <img

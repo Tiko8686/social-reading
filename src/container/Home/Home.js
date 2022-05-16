@@ -38,9 +38,6 @@ function Home() {
               Հեղինակ Գրքի անուն, Հեղինակ Գրքի անուն, Հեղինակ Գրքի անուն,
               Հեղինակ
             </p>
-            {/* <p>{link.book_author}</p>
-            <p>{link.book_title}</p>
-            <p>{link.book_category}</p> */}
           </div>
           <div className="post__img">
             <img
@@ -53,7 +50,7 @@ function Home() {
         </div>
       );
     }
-    return content.reverse();
+    return content
   };
 
   return (
