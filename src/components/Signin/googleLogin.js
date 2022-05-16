@@ -43,7 +43,7 @@ function Login() {
   //   gapi.load("client:auth2", start);
   // }, []);
   const [tokenId, settokenId] = useState("");
-
+  const [accessToken, setAccessToken] = useState("")
   const onSuccess = (res) => {
     console.log("sucess login", res.profileObj);
 
@@ -91,25 +91,15 @@ function Login() {
   };
 
   const responseFacebook = (response) => {
-    console.log("hesa")
-    console.log(response);
-  };
-  // console.log(process.env.REACT_APP_BASE_URL);
-  const [accessToken, setAccessToken] = useState("")
-
-  const callback = (res) => {
-    console.log("sucess fb login", res.profileObj);
-    setAccessToken(res.accessToken);
+    console.log("hesa",response);
+    setAccessToken(response.accessToken);
     console.log(accessToken);
-    axios
-      .post("https://socialreading.xyz/social_auth/facebook/ ", {
+    axios.post("https://socialreading.xyz/social_auth/facebook/ ", {
         auth_token: accessToken,
-      })
-      .then((res) => {
+      }).then((res) => {
         console.log(res.data);
         let a = "JWT " + res.data.access;
-        axios
-          .get("https://socialreading.xyz/auth/users/me/", {
+        axios.get("https://socialreading.xyz/auth/users/me/", {
             headers: { Authorization: a },
           })
           .then((response) => {
@@ -137,7 +127,52 @@ function Login() {
           console.log("error.message ", error.message);
         }
       });
+
   };
+  // console.log(process.env.REACT_APP_BASE_URL);
+
+  // const onFb = (res) => {
+  //   console.log("sucess fb login", res.profileObj);
+  //   setAccessToken(res.accessToken);
+  //   console.log(accessToken);
+  //   axios
+  //     .post("https://socialreading.xyz/social_auth/facebook/ ", {
+  //       auth_token: accessToken,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       let a = "JWT " + res.data.access;
+  //       axios
+  //         .get("https://socialreading.xyz/auth/users/me/", {
+  //           headers: { Authorization: a },
+  //         })
+  //         .then((response) => {
+  //           console.log("act fb", response.data);
+  //           localStorage.setItem("tokenFb", JSON.stringify(res.data));
+  //           localStorage.setItem("userFb", JSON.stringify(response.data));
+  //           window.location.reload()
+  //         })
+  //         .catch((error) => {
+  //           if (error.response) {
+  //             console.log("error.response ", error.response);
+  //           } else if (error.request) {
+  //             console.log("error.request ", error.request);
+  //           } else if (error.message) {
+  //             console.log("error.request ", error.message);
+  //           }
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         console.log("error.response ", error.response);
+  //       } else if (error.request) {
+  //         console.log("error.request ", error.request);
+  //       } else if (error.message) {
+  //         console.log("error.message ", error.message);
+  //       }
+  //     });
+  // };
+  
   return (
     <div className="googlefacebook">
       {/* <FacebookLogin appId="1042792122994981" callback={responseFacebook} /> */}
@@ -163,7 +198,7 @@ function Login() {
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
         icon="fa-facebook"
-        onClick={callback}
+        // onClick={onFb}
         textButton=""
       />
     </div>
