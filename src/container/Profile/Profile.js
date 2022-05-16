@@ -75,7 +75,14 @@ function Profile() {
     const navigate = useNavigate()
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
+        const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
+        const tokenFb = JSON.parse(localStorage.getItem('tokenFb'));
+
         if (!token) {
+            navigate("/")
+        } else if (!tokenGoogle){
+            navigate("/")
+        }else if(!tokenFb){
             navigate("/")
         }
     }, [])
