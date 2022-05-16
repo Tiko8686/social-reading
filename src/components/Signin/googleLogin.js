@@ -97,7 +97,7 @@ function Login() {
   // console.log(process.env.REACT_APP_BASE_URL);
   const [accessToken, setAccessToken] = useState("")
 
-  const onFb = (res) => {
+  const callback = (res) => {
     console.log("sucess fb login", res.profileObj);
     setAccessToken(res.accessToken);
     console.log(accessToken);
@@ -113,7 +113,7 @@ function Login() {
             headers: { Authorization: a },
           })
           .then((response) => {
-            console.log("act", response.data);
+            console.log("act fb", response.data);
             localStorage.setItem("tokenFb", JSON.stringify(res.data));
             localStorage.setItem("userFb", JSON.stringify(response.data));
             window.location.reload()
@@ -163,7 +163,7 @@ function Login() {
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
         icon="fa-facebook"
-        onClick={onFb}
+        onClick={callback}
         textButton=""
       />
     </div>
