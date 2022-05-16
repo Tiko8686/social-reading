@@ -78,11 +78,7 @@ function Profile() {
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
         const tokenFb = JSON.parse(localStorage.getItem('tokenFb'));
 
-        if (!token) {
-            navigate("/")
-        } else if (!tokenGoogle){
-            navigate("/")
-        }else if(!tokenFb){
+        if (!token &&  !tokenGoogle && !tokenFb) {
             navigate("/")
         }
     }, [])
