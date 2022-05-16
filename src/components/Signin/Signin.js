@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Login from './googleLogin.js';
-// import Logout from './googleLogout.js';
 import { useNavigate } from 'react-router-dom';
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -55,7 +54,7 @@ export function Signin() {
 
   const submitChackin = (event) => {
     event.preventDefault();
-    axios.post("https://socialreading.xyz/auth/djoser/jwt/create/",
+    axios.post("https://socialreading.xyz/auth/jwt/create/",
       { email: login.email, password: login.password })
       .then(resp => {
         const userInfo = "JWT " + resp.data.access

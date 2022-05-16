@@ -66,7 +66,7 @@ function Profile() {
                                 localStorage.removeItem("userFb")
                                 navigate("/")
                                 window.location.reload()
-                            }}>Log out</button>
+                            }}>Log Out</button>
                         </li>
                     </ul>
                 }
