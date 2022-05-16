@@ -92,8 +92,10 @@ function Login() {
 
   const responseFacebook = (response) => {
     console.log("hesa",response);
+    console.log("token hesa",response.accessToken);
+
     setAccessToken(response.accessToken);
-    console.log(accessToken);
+    console.log("token",accessToken);
     axios.post("https://socialreading.xyz/social_auth/facebook/ ", {
         auth_token: accessToken,
       }).then((res) => {
