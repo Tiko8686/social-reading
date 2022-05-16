@@ -16,9 +16,9 @@
 //         // else if(!tokenGoogle){
 //         //     navigate("/")
 //         // }
-        
+
 //     }, [])
-    
+
 //         // setInterval(() => {
 //         // axios.post("https://socialreading.xyz/auth/djoser/jwt/refresh", { refresh: tokenn.refresh }).
 //         //     then(resp => {
@@ -47,7 +47,7 @@
 //         //         }
 //         //     });
 //         // }, 240000);
- 
+
 //     return (
 //         <>
 //             <div>
@@ -74,21 +74,13 @@ import "./profile.css"
 function Profile() {
     const navigate = useNavigate()
     useEffect(() => {
-        // const tokenn = JSON.parse(localStorage.getItem('token'));
-        // if (!tokenn) {
-        //     navigate("/")
-        // }
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (!token) {
+            navigate("/")
+        }
     }, [])
     return (<div className="profilePage" >
         <div className="profile_background" >
-            {/* {
-                <button onClick={() => {
-                    localStorage.removeItem("token")
-                    localStorage.removeItem("user")
-                    window.location.reload()
-                    navigate("/")
-                }}>Log out</button>
-            }  */}
         </div>
         <div className="my_info" >
             <div className="name_and_pic">
@@ -126,6 +118,13 @@ function Profile() {
                 </ul>
             </ul>
         </div>
+        <button onClick={() => {
+            localStorage.removeItem("token")
+            localStorage.removeItem("user")
+            localStorage.removeItem("tokenGoogle")
+            navigate("/")
+            window.location.reload()
+        }}>Log out</button>
     </div>
     );
 }
