@@ -63,7 +63,9 @@ function Login() {
           .then((response) => {
             console.log("act", response.data);
             localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            navigate('/profile');
+            console.log("redirecting");
+            navigate("/profile");
+            // window.location.reload()
           })
           .catch((error) => {
             if (error.response) {
@@ -97,7 +99,7 @@ function Login() {
   const [accessToken, setAccessToken] = useState("")
 
   const onFb = (res) => {
-    console.log("sucess login", res.profileObj);
+    console.log("sucess fb login", res.profileObj);
     setAccessToken(res.accessToken);
     console.log(accessToken);
     axios
@@ -113,8 +115,8 @@ function Login() {
           })
           .then((response) => {
             console.log("act", response.data);
-            localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            // navigate('/profile');
+            localStorage.setItem("tokenFb", JSON.stringify(res.data));
+            navigate('/profile');
           })
           .catch((error) => {
             if (error.response) {

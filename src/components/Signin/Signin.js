@@ -164,7 +164,7 @@ export function Signin() {
               <div>
                 <input type="submit" value="Գրանցվել" id="submit-btn" />
               </div>
-              <div>
+              <div onClick={() => setSignup(false)}>
                 <Login></Login>
               </div>
               <div>
