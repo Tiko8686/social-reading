@@ -58,10 +58,15 @@ function Profile() {
                             <button onClick={() => {
                                 localStorage.removeItem("token")
                                 localStorage.removeItem("user")
+
                                 localStorage.removeItem("tokenGoogle")
+                                localStorage.removeItem("userGoogle")
+
+                                localStorage.removeItem("tokenFb")
+                                localStorage.removeItem("userFb")
                                 navigate("/")
                                 window.location.reload()
-                            }}>Log Out</button>
+                            }}>Log out</button>
                         </li>
                     </ul>
                 }
