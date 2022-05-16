@@ -40,7 +40,7 @@ export function Upload() {
       setUser("")
     }
   }, []);
-  console.log(user);
+
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);

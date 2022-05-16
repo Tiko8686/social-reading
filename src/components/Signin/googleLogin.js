@@ -63,9 +63,8 @@ function Login() {
           .then((response) => {
             console.log("act", response.data);
             localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            console.log("redirecting");
-            navigate("/profile");
-            // window.location.reload()
+            localStorage.setItem("userGoogle", JSON.stringify(response.data));
+            window.location.reload()
           })
           .catch((error) => {
             if (error.response) {
@@ -116,7 +115,8 @@ function Login() {
           .then((response) => {
             console.log("act", response.data);
             localStorage.setItem("tokenFb", JSON.stringify(res.data));
-            navigate('/profile');
+            localStorage.setItem("userFb", JSON.stringify(response.data));
+            window.location.reload()
           })
           .catch((error) => {
             if (error.response) {
