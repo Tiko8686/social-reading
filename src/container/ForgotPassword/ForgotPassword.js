@@ -39,9 +39,10 @@ function ForgotPass() {
     return (
         <>
             <div>
-                <h1>Change your password</h1>
+                <h1>Enter New Password</h1>
                 <form onSubmit={handleSubmit(send)} className="forgot_form">
                     <div>
+                        <label>confirmation Code</label>
                         <input
                             type="number"
                             onClick={() => setDataErr({ ...dataErr, code: false })
@@ -53,6 +54,7 @@ function ForgotPass() {
 
                     </div>
                     <div>
+                        <label>New Password</label>
                         <input
                             type="password"
                             {...register("password1", { required: true, maxLength: 15, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/ })}
@@ -63,6 +65,8 @@ function ForgotPass() {
                         {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase, lowercase and number*</span>}
                     </div>
                     <div>
+                        <label>Confirm Password</label>
+
                         <input type="password"
                             onClick={
                                 () => setDataErr({ ...dataErr, password2: false })
@@ -73,7 +77,7 @@ function ForgotPass() {
                         {dataErr.password2 && <span>The password and confirmation password doesn't match*</span>}
                     </div>
                     <div>
-                        <input type="submit" value="Reset password." />
+                        <input type="submit" value="Submit" />
                     </div>
                 </form>
 

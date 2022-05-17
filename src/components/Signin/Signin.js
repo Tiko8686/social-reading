@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import Login from './googleLogin.js';
 import { useNavigate } from 'react-router-dom';
+
 export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate()
@@ -12,8 +13,6 @@ export function Signin() {
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
   const [forgotPass, setForgotPass] = useState(false);
-
-
   const [confPasswordErr, setConfPasswordErr] = useState(false);
 
 
@@ -260,15 +259,19 @@ export function Signin() {
           <button className="close" onClick={toggleModalForgotPass}>X</button>
           <form className="form_style" onSubmit={sendCode}>
             <div>
+              <h2>Forgot Password?</h2>
+              <p>Enter your email address to reset your password</p>
+            </div>
+            <div>
+              <label>Email</label>
               <input type="email"
-                placeholder="Write your email here..."
                 className="email_input"
                 onChange={(e) => setEmail({ ...email, email: e.target.value })}
                 value={email.email}
               />
             </div>
             <div>
-              <input type="submit" value="Send conformation code." id="send-btn" />
+              <input type="submit" value="Send conformation code." id="send-btn"/>
             </div>
           </form>
         </div>
