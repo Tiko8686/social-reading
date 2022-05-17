@@ -18,7 +18,7 @@ function ForgotPass() {
         }
         if (data.password1 === data.password2 && data.code === params.code) {
             console.log(data)
-            axios.post("http://192.168.1.103:8000/auth/users/reset_password_confirm/", {
+            axios.post("https://www.socialreading.xyz/auth/users/reset_password_confirm/", {
                 uid: params.uid,
                 token: params.token,
                 new_password: data.password1

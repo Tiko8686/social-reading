@@ -13,6 +13,7 @@ export function Menu() {
 
   const navigate = useNavigate();
   useEffect(() => {
+
     setUser(JSON.parse(localStorage.getItem("user")));
     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
     setUserFb(JSON.parse(localStorage.getItem("userFb")));
@@ -58,7 +59,7 @@ export function Menu() {
           </li>
         </ul>
         <ul className="right-list">
-          <li className="upload-btn">{user ? <Upload /> : <Unauthorized />}</li>
+          <li className="upload-btn">{user || userGoogle || userFb ? <Upload /> : <Unauthorized />}</li>
           <li className="search_input">
             <img
               src="https://social-reading-application.herokuapp.com/images/search.svg"
@@ -136,32 +137,32 @@ export function Menu() {
               <li onClick={() => setMenuBool(false)}>
                 <Link to="/aboutus">About us</Link>
               </li>
-              <li>{user ? <Upload /> : <Unauthorized />} </li>
+              <li>{user || userGoogle || userFb ? <Upload /> : <Unauthorized />} </li>
               <li>
-              {user ? (
-              <img
-                alt="profile_pic"
-                src={user.avatar}
-                onClick={() => navigate("/profile")}
-                className="profile_pic_menu"
-              />
-            ) : userGoogle ? (
-              <img
-                alt="profile_pic"
-                src={userGoogle.avatar_google}
-                onClick={() => navigate("/profile")}
-                className="profile_pic_menu"
-              />
-            ) : userFb ? (
-              <img
-                alt="profile_pic"
-                src={userFb.avatar_facebook}
-                onClick={() => navigate("/profile")}
-                className="profile_pic_menu"
-              />
-            ) : (
-              <Signin />
-            )}
+                {user ? (
+                  <img
+                    alt="profile_pic"
+                    src={user.avatar}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                ) : userGoogle ? (
+                  <img
+                    alt="profile_pic"
+                    src={userGoogle.avatar_google}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                ) : userFb ? (
+                  <img
+                    alt="profile_pic"
+                    src={userFb.avatar_facebook}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                ) : (
+                  <Signin />
+                )}
               </li>
             </ul>
           </div>

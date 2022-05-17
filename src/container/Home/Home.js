@@ -2,56 +2,29 @@ import React, { useEffect, useState } from "react";
 import "./home.css";
 
 function Home() {
-  let [image, setImage] = useState([]);
+  let [post, setPost] = useState([]);
+  let [token, setToken] = useState([]);
 
+  console.log(post)
   useEffect(() => {
     fetch("https://www.socialreading.xyz/quotes/")
       .then((response) => response.json())
-      .then((response) => setImage(response));
+      .then((response) => {
+        setPost(response);
+      });
+    // const tokenn = JSON.parse(localStorage.getItem("token"));
+    // const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
+    // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
+    // if (tokenn) {
+    //   setToken(tokenn)
+    // } else if (tokenGoogle) {
+    //   setToken(tokenGoogle)
+    // } else if (tokenFb) {
+    //   setToken(tokenFb)
+    // } else {
+    //   setToken("")
+    // }
   }, []);
-  const getImgUrl = (array) => {
-    let content = [];
-    for (let link of array) {
-      content.push(
-        <div className="post__item" >
-          <div className="post__header">
-            <div className="post__user">
-              <div className="user_img">
-                <img
-                  className="user_img"
-                  src={link.quote_file}
-                />
-              </div>
-            </div>
-            <div  className="user__name">
-              <p className="name">Անուն Ազգանուն</p>
-              <p className="time">1 շաբաթ առաջ</p>
-            </div>
-            <div className="post__time">
-              <button>...</button>
-            </div>
-          </div>
-          <div className="post__text">
-            <p>
-              Գրքի անուն, Հեղինակ Գրքի անուն, Հեղինակ Գրքի անուն, Հեղինակ Գրքի
-              անուն, Հեղինակ Գրքի անուն, Հեղինա Գրքի անուն, Հեղինակ Գրքի անուն,
-              Հեղինակ Գրքի անուն, Հեղինակ Գրքի անուն, Հեղինակ Գրքի անուն,
-              Հեղինակ
-            </p>
-          </div>
-          <div className="post__img">
-            <img
-              src={link.quote_file}
-              alt="img"
-              width="1080px"
-              height="1080px"
-            />
-          </div>
-        </div>
-      );
-    }
-    return content
-  };
 
   return (
     <>
@@ -77,7 +50,43 @@ function Home() {
         </div>
       </div>
       <div className="section_2">
-        <div className="img">{getImgUrl(image)}</div>
+        {
+          post.map(e => {
+            return (
+              <div className="post__item" key={e.id}>
+                <div className="post__header">
+                  <div className="post__user">
+                    <div className="user_img">
+                      <img
+                        className="user_img"
+                        src={e?.author?.avatar}
+                      />
+                    </div>
+                    <div className="user__name">
+                      <p className="name">{e?.author?.first_name} {e?.author?.last_name}</p>
+                      <p className="time">{e?.date_posted}</p>
+                    </div>
+                  </div>
+                  <div className="post__time">
+                    <button>...</button>
+                  </div>
+                </div>
+                <div className="post__text">
+                  {e?.quote_text}
+                </div>
+                <div className="post__img">
+                  <img
+                    src={e?.quote_file}
+                    width="100%"
+                    alt="img"
+                  />
+                </div>
+               
+              </div>
+            )
+          })
+        }
+
       </div>
     </>
   );
