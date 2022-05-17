@@ -141,7 +141,7 @@ export function Upload() {
       formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("http://192.168.1.103:8000/quotes/",
+      axios.post("https://www.socialreading.xyz/quotes/",
         formData,
         {
           headers: { "Authorization": user }
