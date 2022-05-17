@@ -45,7 +45,7 @@ function Profile() {
               ) : userFb ? (
                 <img
                   className="autor_pic"
-                  src={userGoogle.avatar_facebook}
+                  src={userFb.avatar_facebook}
                   alt="profile_pic"
                 />
               ) : (
