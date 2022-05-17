@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./profile.css"
 
 function Profile() {
+    const [userInfo, setUserInfo] = useState("")
     const navigate = useNavigate()
     useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("user")))
         const token = JSON.parse(localStorage.getItem('token'));
         const tokenGoogle = JSON.parse(localStorage.getItem('tokenGoogle'));
         const tokenFb = JSON.parse(localStorage.getItem('tokenFb'));
@@ -13,6 +15,7 @@ function Profile() {
         if (!token && !tokenGoogle && !tokenFb) {
             navigate("/")
         }
+        console.log(userInfo);
     }, [])
     const [modal, setModal] = useState(false)
     return (<div className="profilePage" >
@@ -21,10 +24,10 @@ function Profile() {
         <div className="my_info" >
             <div className="name_and_pic">
                 <div className="pic_div" >
-                    <div className="autor_pic" ></div>
+                    <img className="autor_pic"  src={userInfo.avatar}/>
                 </div>
                 <div className="nameSurnameDiv">
-                    <h3> Name Surname </h3>
+                    <h3> {userInfo.first_name + " " + userInfo.last_name}  </h3>
                 </div>
             </div>
 
