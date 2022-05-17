@@ -1,6 +1,7 @@
 .profilePage {
     width: 90%;
     margin: auto;
+    background-color: white;
 }
 
 .profile_background {
@@ -28,7 +29,6 @@
 }
 
 .name_and_pic {
-    border: 1px solid red;
     position: relative;
     display: flex;
     align-items: center;
@@ -42,6 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 10px;
     /* gap: 500px; */
 }
 
@@ -65,6 +66,7 @@
     height: 70px;
     position: relative;
     font-size: 18px;
+    padding: 0 10px;
 }
 
 .profile_menu>ul {
@@ -97,10 +99,11 @@
     justify-content: center;
 
 }
+
 .modal_menu_profile {
     width: 194px;
-height: 216px;
-position: absolute;
+    height: 216px;
+    position: absolute;
     border: 1px solid grey;
     top: 55px;
     right: -30px;
@@ -113,6 +116,6 @@ position: absolute;
     flex-direction: column;
     gap: 30px;
     font-size: 16px;
-    color:  #202029;
+    color: #202029;
 
 }

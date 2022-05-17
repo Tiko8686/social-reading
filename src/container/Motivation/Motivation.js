@@ -13,7 +13,6 @@ function Motivational() {
      
     );
   }
-  // todo 
   
   export default Motivational
   

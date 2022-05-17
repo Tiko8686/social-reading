@@ -204,6 +204,9 @@ export function Signin() {
                 />
               </div>
               <div>
+                <button>Forgot password?</button>
+              </div>
+              <div>
                 <input
                   type="submit"
                   value="Մուտք գործել"
@@ -211,14 +214,7 @@ export function Signin() {
                 />
               </div>
               <div>
-                <button>reset  password</button>
-                {/* <Logout></Logout> */}
-              </div>
-              <div>
-
-
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
-
               </div>
             </form>
           </div>
