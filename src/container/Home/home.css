@@ -86,12 +86,13 @@
 .post__item {
   width: 600px;
   background-color: rgb(255, 255, 255);
-  padding: 20px;
+  /* padding: 20px; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 30px;
 }
 
 .post__text {
+  padding: 10px 20px;
   font-family: "Montserrat arm";
   font-style: normal;
   font-weight: 400;
@@ -100,10 +101,35 @@
 }
 
 .post__header {
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px solid #F3F3F3;
+}
+
+.left_buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px
+}
+
+.post_footer>div>button {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: #878787;
+  background-color: white;
+  border: none;
+}
+
+.post_footer {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .post__user {
@@ -114,33 +140,31 @@
 }
 
 
-.user__name .name {
+.name {
   padding-bottom: 10px;
   font-family: "Montserrat arm";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
-  line-height: 24px;
   color: #000000;
 }
 
-.user__name .time {
+.time {
   font-family: "Montserrat arm";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 18px;
   color: #000000;
 }
 
-img.user_img {
+.user_avatar {
   width: 60px;
   height: 60px;
   border-radius: 100%;
 }
 
 
-.post__time button {
+.more_div button {
   border: none;
   background-color: transparent;
   font-size: 24px;

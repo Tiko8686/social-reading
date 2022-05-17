@@ -13,7 +13,6 @@ export function Menu() {
 
   const navigate = useNavigate();
   useEffect(() => {
-
     setUser(JSON.parse(localStorage.getItem("user")));
     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
     setUserFb(JSON.parse(localStorage.getItem("userFb")));
