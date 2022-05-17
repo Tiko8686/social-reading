@@ -27,12 +27,11 @@ function Profile() {
                         <h3>Name Surname</h3>
                     </div>
                 </div>
-
                 <div>
                     <button className="edit_btn bi bi-pencil">&nbsp; Edit Profile</button>
                 </div>
             </div>
-            <div className="profile_menu" >
+            <div className="profile_menu">
                 <ul className="profile_menu_list">
                     <li >
                         <Link to="post">Posts</Link>
