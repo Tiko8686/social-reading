@@ -130,9 +130,9 @@ export function Signin() {
           <div className="modal-content-sign">
             <button className="close" onClick={toggleModal}>X</button>
             <form onSubmit={handleSubmit(signUp)} className="form_style">
-              <h2>Գրանցվել</h2>
+              <h2>Sign Up</h2>
               <div>
-                <label htmlFor="name">Անուն</label>
+                <label htmlFor="name">Name</label>
                 <input
                   id="name"
                   type="text"
@@ -144,7 +144,7 @@ export function Signin() {
               </div>
 
               <div>
-                <label htmlFor="surname">Ազգանուն</label>
+                <label htmlFor="surname">Surname</label>
                 <input
                   id="surname"
                   type="text"
@@ -156,19 +156,19 @@ export function Signin() {
               </div>
 
               <div>
-                <label htmlFor="email">Էլ․հասցե</label>
+                <label htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
                   {...register("email", { required: true, type: "email", pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/ })}
                 />
                 {errors.email && errors.email.type === "required" && <span>This is required*</span>}
-                {errors.email && errors.email.type === "email" && <span>Thhghh*</span>}
+                {errors.email && errors.email.type === "email" && <span>Error*</span>}
                 {errors.email && errors.email.type === "pattern" && <span>Email is not valid.</span>}
               </div>
 
               <div>
-                <label htmlFor="password1">Գաղտնաբառ</label>
+                <label htmlFor="password1">Password</label>
                 <input
                   id="password1"
                   type="password"
@@ -180,7 +180,7 @@ export function Signin() {
                 {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase, lowercase and number*</span>}
               </div>
               <div>
-                <label htmlFor="password2">Կրկնել գաղտնաբառը</label>
+                <label htmlFor="password2">Re-enter Password</label>
                 <input
                   id="password2"
                   type="password"
@@ -188,10 +188,10 @@ export function Signin() {
                   {...register("password2", { required: true })}
                 />
                 {errors.password2 && errors.password2.type === "required" && <span>This is required*</span>}
-                {confPasswordErr && <span>The password and confirmation password do not match*</span>}
+                {confPasswordErr && <span>The password and confirmation password doesn't match*</span>}
               </div>
               <div>
-                <input type="submit" value="Գրանցվել" id="submit-btn" />
+                <input type="submit" value="Sign Up" id="submit-btn" />
               </div>
               <div onClick={() => setSignup(false)}>
                 <Login></Login>
@@ -208,9 +208,9 @@ export function Signin() {
           <div className="modal-content-sign">
             <button className="close" onClick={toggleModalSignIn}>X</button>
             <form onSubmit={submitChackin} className="form_style">
-              <h2>Login</h2>
+              <h2>Log In</h2>
               <div>
-                <label htmlFor="emailLogin">Էլ․հասցե</label>
+                <label htmlFor="emailLogin">Email</label>
                 <input
                   id="emailLogin"
                   type="email"
@@ -222,7 +222,7 @@ export function Signin() {
                 />
               </div>
               <div>
-                <label htmlFor="passwordLogin">Գաղտնաբառ</label>
+                <label htmlFor="passwordLogin">Password</label>
                 <input
                   id="passwordLogin"
                   type="password"
@@ -235,11 +235,11 @@ export function Signin() {
               </div>
               <div>
                 <button
-                type="button"
-                 onClick={() => {
-                  setForgotPass(true);
-                  setSigin(false)
-                }}>Forgot password?</button>
+                  type="button"
+                  onClick={() => {
+                    setForgotPass(true);
+                    setSigin(false)
+                  }}>Forgot password?</button>
               </div>
               <div>
                 <input
@@ -259,7 +259,7 @@ export function Signin() {
         <div onClick={toggleModalForgotPass} className="overlay"></div>
         <div className="modal-content-sign">
           <button className="close" onClick={toggleModalForgotPass}>X</button>
-          {/* <form className="form_style" onSubmit={sendCode}>
+          <form className="form_style" onSubmit={sendCode}>
             <div>
               <input type="email"
                 placeholder="Write your email here..."
@@ -271,7 +271,7 @@ export function Signin() {
             <div>
               <input type="submit" value="Send conformation code." id="send-btn" />
             </div>
-          </form> */}
+          </form>
         </div>
       </div>}
 
