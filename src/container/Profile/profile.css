@@ -14,7 +14,6 @@
 .autor_pic {
     width: 180px;
     height: 180px;
-    background-color: rgb(196, 196, 196);
     border-radius: 50%;
     position: absolute;
     top: -160px;
@@ -47,6 +46,7 @@
 }
 
 .edit_btn {
+    cursor: pointer;
     font-size: 20px;
     width: 180px;
     height: 48px;
@@ -90,21 +90,23 @@
 }
 
 .more_btn {
+    cursor: pointer;
+    padding-bottom: 10px;
     width: 45px;
     height: 35px;
-    background-color: #E5E6EB;
-    border-radius: 6px solid #E5E6EB;
+    background: #E5E6EB;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
 
 }
-
 .modal_menu_profile {
+    background: #FFFFFF;
+    box-shadow: 0px 5px 50px rgba(40, 44, 46, 0.08);
     width: 194px;
     height: 216px;
     position: absolute;
-    border: 1px solid grey;
     top: 55px;
     right: -30px;
     border-radius: 16px;
@@ -117,5 +119,49 @@
     gap: 30px;
     font-size: 16px;
     color: #202029;
-
+}
+.settings{
+    text-decoration: none;
+    color: black;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+}
+.privace_poilcy{
+    pointer-events: none;
+    width: 15px;
+    height: 15px;
+}
+.privace_poilcy_txt{
+    text-decoration: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: capitalize;
+    color: #202029;
+    position: absolute;
+    top: 98px
+}
+.log_out{
+    border: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: capitalize;
+    color: #202029;
+    background: none;
+    position: absolute;
+    top: 148px;
+    cursor: pointer;
+}
+.log_out_img{
+    pointer-events: none;
+    width: 15px;
+    height: 15px;
 }
