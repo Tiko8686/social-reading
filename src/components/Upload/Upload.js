@@ -32,9 +32,9 @@ export function Upload() {
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
-  const [userId, setUserId] = useState("")
+  const [userInfo, setUserInfo] = useState("")
   useEffect(() => {
-    setUserId(JSON.parse(localStorage.getItem("user")))
+    setUserInfo(JSON.parse(localStorage.getItem("user")))
     const token = JSON.parse(localStorage.getItem("token"))
     if (token) {
       setUser("JWT " + token.access)
@@ -141,7 +141,7 @@ export function Upload() {
       formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      formData.append("author", userId.id);
+      formData.append("author", userInfo.id);
       axios.post("https://socialreading.xyz/quotes/",
         formData,
         {
