@@ -78,7 +78,6 @@ export function Signin() {
           console.log("error.request ", error.message);
         }
       });
-    // setEmail({ email: "" })
     toggleModalForgotPass()
   }
 
@@ -259,7 +258,7 @@ export function Signin() {
         <div onClick={toggleModalForgotPass} className="overlay"></div>
         <div className="modal-content-sign">
           <button className="close" onClick={toggleModalForgotPass}>X</button>
-          {/* <form className="form_style" onSubmit={sendCode}>
+          <form className="form_style" onSubmit={sendCode}>
             <div>
               <input type="email"
                 placeholder="Write your email here..."
@@ -271,7 +270,7 @@ export function Signin() {
             <div>
               <input type="submit" value="Send conformation code." id="send-btn" />
             </div>
-          </form> */}
+          </form>
         </div>
       </div>}
 

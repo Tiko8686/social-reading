@@ -58,10 +58,7 @@ export function Menu() {
           </li>
         </ul>
         <ul className="right-list">
-          <li className="upload-btn">
-            {user?<Upload />:<Unauthorized />}
-            
-          </li>
+          <li className="upload-btn">{user ? <Upload /> : <Unauthorized />}</li>
           <li className="search_input">
             <img
               src="https://social-reading-application.herokuapp.com/images/search.svg"
@@ -72,19 +69,22 @@ export function Menu() {
           <li className="login-btn">
             {user ? (
               <img
+                alt="profile_pic"
                 src={user.avatar}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
             ) : userGoogle ? (
               <img
-                src={userGoogle.avatar}
+                alt="profile_pic"
+                src={userGoogle.avatar_google}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
             ) : userFb ? (
               <img
-                src={userFb.avatar}
+                alt="profile_pic"
+                src={userFb.avatar_facebook}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
@@ -136,25 +136,26 @@ export function Menu() {
               <li onClick={() => setMenuBool(false)}>
                 <Link to="/aboutus">Մեր մասին</Link>
               </li>
-              <li>
-                <Upload />
-              </li>
+              <li>{user ? <Upload /> : <Unauthorized />} </li>
               <li>
               {user ? (
               <img
+                alt="profile_pic"
                 src={user.avatar}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
             ) : userGoogle ? (
               <img
-                src={userGoogle.avatar}
+                alt="profile_pic"
+                src={userGoogle.avatar_google}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
             ) : userFb ? (
               <img
-                src={userFb.avatar}
+                alt="profile_pic"
+                src={userFb.avatar_facebook}
                 onClick={() => navigate("/profile")}
                 className="profile_pic_menu"
               />
