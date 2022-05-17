@@ -14,6 +14,7 @@ import Category from "../container/Category/Category";
 import Saved from "../container/Saved/Saved";
 import Settings from "../container/Settings/Settings";
 import PrivacePolicy from "../container/PrivacePolicy/PrivacePolicy";
+import ForgotPass from "../container/ForgotPassword/ForgotPassword";
 
 
 function AllRoutes() {
@@ -31,6 +32,7 @@ function AllRoutes() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/privacePolicy" element={<PrivacePolicy />} />
+          <Route path="/confirm/:uid/:token/:code" element={<ForgotPass />} />
           <Route path="/profile" element={<Profile />} >
             <Route path="post" element={<Post />}/>
             <Route path="category" element={<Category />}/>

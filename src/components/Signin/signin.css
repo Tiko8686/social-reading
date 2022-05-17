@@ -60,6 +60,22 @@
     color: #FFFFFF;
 }
 
+#send-btn {
+    width: 356px;
+    height: 48px;
+    background: #9832FE;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.email_input::placeholder {
+    font-size: 16px;
+}
+
 .btn-acc {
     border: none;
     outline: none;

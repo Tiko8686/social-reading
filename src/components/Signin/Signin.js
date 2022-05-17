@@ -8,8 +8,11 @@ export function Signin() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate()
   const [login, setLogin] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState({ email: "" })
   const [signup, setSignup] = useState(false);
   const [signin, setSigin] = useState(false);
+  const [forgotPass, setForgotPass] = useState(false);
+
 
   const [confPasswordErr, setConfPasswordErr] = useState(false);
 
@@ -51,6 +54,33 @@ export function Signin() {
     setSigin(!signin);
     setLogin({ email: "", password: "" })
   };
+
+  const toggleModalForgotPass = () => {
+    setForgotPass(!forgotPass)
+    setEmail({ email: "" })
+  };
+
+
+  const sendCode = (event) => {
+    event.preventDefault()
+    console.log(email)
+    axios.post("http://192.168.1.103:8000/auth/users/reset_password/", { email: email.email })
+      .then(res => {
+        console.log("act", res.data)
+        alert("go to email")
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+          alert(error.response.data[0])
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
+    // setEmail({ email: "" })
+    toggleModalForgotPass()
+  }
 
   const submitChackin = (event) => {
     event.preventDefault();
@@ -178,7 +208,7 @@ export function Signin() {
           <div className="modal-content-sign">
             <button className="close" onClick={toggleModalSignIn}>X</button>
             <form onSubmit={submitChackin} className="form_style">
-              <h2>Մուտք գործել</h2>
+              <h2>Login</h2>
               <div>
                 <label htmlFor="emailLogin">Էլ․հասցե</label>
                 <input
@@ -204,7 +234,12 @@ export function Signin() {
                 />
               </div>
               <div>
-                <button>Forgot password?</button>
+                <button
+                type="button"
+                 onClick={() => {
+                  setForgotPass(true);
+                  setSigin(false)
+                }}>Forgot password?</button>
               </div>
               <div>
                 <input
@@ -220,6 +255,26 @@ export function Signin() {
           </div>
         </div>
       ) : ""}
+      {forgotPass && <div className="modal">
+        <div onClick={toggleModalForgotPass} className="overlay"></div>
+        <div className="modal-content-sign">
+          <button className="close" onClick={toggleModalForgotPass}>X</button>
+          {/* <form className="form_style" onSubmit={sendCode}>
+            <div>
+              <input type="email"
+                placeholder="Write your email here..."
+                className="email_input"
+                onChange={(e) => setEmail({ ...email, email: e.target.value })}
+                value={email.email}
+              />
+            </div>
+            <div>
+              <input type="submit" value="Send conformation code." id="send-btn" />
+            </div>
+          </form> */}
+        </div>
+      </div>}
+
     </>
   );
 }
