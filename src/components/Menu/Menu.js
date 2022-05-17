@@ -134,7 +134,7 @@ export function Menu() {
                 </ul>
               </li>
               <li onClick={() => setMenuBool(false)}>
-                <Link to="/aboutus">Մեր մասին</Link>
+                <Link to="/aboutus">About us</Link>
               </li>
               <li>{user ? <Upload /> : <Unauthorized />} </li>
               <li>
