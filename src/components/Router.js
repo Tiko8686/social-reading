@@ -15,6 +15,7 @@ import Saved from "../container/Saved/Saved";
 import Settings from "../container/Settings/Settings";
 import PrivacePolicy from "../container/PrivacePolicy/PrivacePolicy";
 import ForgotPass from "../container/ForgotPassword/ForgotPassword";
+import EditProfile from "../container/EditProfile/EditProfile";
 
 
 function AllRoutes() {
@@ -38,6 +39,8 @@ function AllRoutes() {
             <Route path="category" element={<Category />}/>
             <Route path="saved" element={<Saved />}/>
           </Route>
+          <Route path="/profile/edit-profile" element={<EditProfile />}/>
+          <Route path="edit-profile" element={<EditProfile />}/>
           <Route path="/activate/:uid/:token" element={< VerifyEmail />} />
         </Routes>
       </BrowserRouter>
