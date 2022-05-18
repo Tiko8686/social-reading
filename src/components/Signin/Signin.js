@@ -18,10 +18,10 @@ export function Signin() {
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [resetPass, setResetPass] = useState(false);
   const [emailForgotErr, setEmailForgotErr] = useState("");
-
-
-  const [wrong, setWrong] = useState("")
-
+  const [password1Eye, setPassword1Eye] = useState(false)
+  const [loginEye, setLoginEye] = useState(false)
+  const [password2Eye, setPassword2Eye] = useState(false)
+  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({ email: "", pass: "" })
 
   const signUp = (data) => {
     if (data.password1 !== data.password2) {
@@ -50,7 +50,6 @@ export function Signin() {
         }
       });
       setConfPasswordErr(false)
-
     }
   }
 
@@ -59,12 +58,15 @@ export function Signin() {
     setSignup(!signup);
     reset()
     setEmailErr("")
+    setPassword1Eye(false)
+    setPassword2Eye(false)
   };
   const toggleModalSignIn = () => {
     setSignup(false);
-    setWrong("")
+    setWrongEmailOrPass({ email: "", pass: "" })
     setSigin(!signin);
     setLogin({ email: "", password: "" })
+    setLoginEye(false)
   };
 
   const toggleModalForgotPass = () => {
@@ -127,7 +129,18 @@ export function Signin() {
         if (error.response) {
           console.log("error.response ", error.response);
           if (error.response.data.detail) {
-            setWrong(error.response.data.detail)
+            console.log("stex")
+            axios.get("https://www.socialreading.xyz/register/").then(result => {
+              console.log("all users", result.data)
+              for (const user of result.data) {
+                if (user.email === login.email) {
+                  setWrongEmailOrPass({ email:"", pass: "Password is wrong." })
+                  break;
+                } else {
+                  setWrongEmailOrPass({ ...wrongEmailOrPass, email: "User with this email doesn't exists." })
+                }
+              }
+            })
           }
         } else if (error.request) {
           console.log("error.request ", error.request);
@@ -139,7 +152,7 @@ export function Signin() {
   };
   return (
     <>
-      <button onClick={toggleModal} className="signin bi-person" style={{ color: "white" }}></button>
+      <button onClick={toggleModalSignIn} className="signin bi-person" style={{ color: "white" }}></button>
       {signup ? (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
@@ -188,28 +201,60 @@ export function Signin() {
                 {emailErr && <span>{emailErr}</span>}
               </div>
 
-              <div>
+              <div className="password_div">
                 <label htmlFor="password1">Password</label>
                 <input
                   id="password1"
-                  type="password"
+                  type={password1Eye ? "text" : "password"}
                   {...register("password1", { required: true, maxLength: 15, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/ })}
                 />
+                {password1Eye ?
+                  <div className="password_eye" onClick={() => setPassword1Eye(false)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+                      <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+                    </svg>
+                  </div> :
+                  <div className="password_eye" onClick={() => setPassword1Eye(true)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                    </svg>
+                  </div>
+                }
                 {errors.password1 && errors.password1.type === "required" && <span>This is required*</span>}
                 {errors.password1 && errors.password1.type === "maxLength" && <span>Password can't be more than 15 characters*</span>}
                 {errors.password1 && errors.password1.type === "minLength" && <span>Password can't be less than 8 characters*</span>}
                 {errors.password1 && errors.password1.type === "pattern" && <span>Password must be containe uppercase, lowercase and number*</span>}
               </div>
-              <div>
+              <div className="password_div">
                 <label htmlFor="password2">Re-enter Password</label>
                 <input
                   id="password2"
-                  type="password"
-                  onClick={() => setConfPasswordErr(false)}
+                  type={password2Eye ? "text" : "password"}
+                  onClick={() => {
+                    setConfPasswordErr(false)
+                  }}
                   {...register("password2", { required: true })}
                 />
+                {password2Eye ?
+                  <div className="password_eye" onClick={() => setPassword2Eye(false)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+                      <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+                    </svg>
+                  </div> :
+                  <div className="password_eye" onClick={() => setPassword2Eye(true)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                    </svg>
+                  </div>
+                }
                 {errors.password2 && errors.password2.type === "required" && <span>This is required*</span>}
-                {confPasswordErr && <span>The password and confirmation password doesn't match*</span>}
+                {confPasswordErr && <span>The password and re-enter password doesn't match*</span>}
               </div>
               <div>
                 <input type="submit" value="Sign Up" id="submit-btn" />
@@ -231,38 +276,53 @@ export function Signin() {
             <form onSubmit={submitChackin} className="form_style">
               <h2>Log In</h2>
               <div>
-                {
-                  wrong && <p style={{ color: "red" }}>{wrong}</p>
-                }
-              </div>
-              <div>
                 <label htmlFor="emailLogin">Email</label>
                 <input
                   id="emailLogin"
                   type="email"
                   value={login.email}
                   required
-
+                  onClick={() => {
+                    setWrongEmailOrPass({ email: "", pass: "" })
+                  }}
                   onChange={(e) => {
-                    setWrong("")
                     setLogin({ ...login, email: e.target.value })
                   }
                   }
                 />
+                {wrongEmailOrPass.email && <span>{wrongEmailOrPass.email}</span>}
               </div>
-              <div>
+              <div className="password_div">
                 <label htmlFor="passwordLogin">Password</label>
                 <input
                   id="passwordLogin"
-                  type="password"
+                  type={loginEye ? "text" : "password"}
                   value={login.password}
                   required
+                  onClick={() => {
+                    setWrongEmailOrPass({ email: "", pass: "" })
+                  }}
                   onChange={(e) => {
-                    setWrong("")
                     setLogin({ ...login, password: e.target.value })
                   }
                   }
                 />
+                {loginEye ?
+                  <div className="password_eye" onClick={() => setLoginEye(false)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+                      <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+                    </svg>
+                  </div> :
+                  <div className="password_eye" onClick={() => setLoginEye(true)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                    </svg>
+                  </div>
+                }
+                {wrongEmailOrPass.pass && <span>{wrongEmailOrPass.pass}</span>}
               </div>
 
               <div className="submit_and_forgot">
@@ -278,6 +338,9 @@ export function Signin() {
                     setForgotPass(true);
                     setSigin(false)
                   }}>Forgot password?</button>
+              </div>
+              <div>
+              <Login></Login>
               </div>
               <div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
