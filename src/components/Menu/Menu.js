@@ -34,16 +34,16 @@ export function Menu() {
         </ul>
         <ul className="menu-list">
           <li className="dropdown">
-            <span className="category">Կատեգորիաներ</span>
+            <span className="category">Categories</span>
             <ul className="dropdown-content">
               <li>
-                <Link to="/category/professional">Մասնագիտական</Link>
+                <Link to="/category/professional">Professional</Link>
               </li>
               <li>
                 <Link to="/category/artistic">Գեղարվեստական</Link>
               </li>
               <li>
-                <Link to="/category/historical">Պատմական</Link>
+                <Link to="/category/historical">Historical</Link>
               </li>
               <li>
                 <Link to="/category/motivational">Մոտիվացիոն</Link>
@@ -54,7 +54,7 @@ export function Menu() {
             </ul>
           </li>
           <li>
-            <Link to="/aboutus">Մեր մասին</Link>
+            <Link to="/aboutus">About Us</Link>
           </li>
         </ul>
         <ul className="right-list">
