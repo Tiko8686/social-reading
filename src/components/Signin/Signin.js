@@ -231,20 +231,23 @@ export function Signin() {
                   }
                 />
               </div>
+           
+              <div>
+                <input
+                  type="submit"
+                  value="Sign in"
+                  id="submit-btn"
+                />
+              </div>
+            
               <div>
                 <button
+                className="forgotBtn"
                   type="button"
                   onClick={() => {
                     setForgotPass(true);
                     setSigin(false)
                   }}>Forgot password?</button>
-              </div>
-              <div>
-                <input
-                  type="submit"
-                  value="Մուտք գործել"
-                  id="submit-btn"
-                />
               </div>
               <div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>

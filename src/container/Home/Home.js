@@ -4,7 +4,6 @@ import "./home.css";
 function Home() {
   let [post, setPost] = useState([]);
   let [userToken, setUserToken] = useState("");
-
   console.log(post)
   useEffect(() => {
     fetch("https://www.socialreading.xyz/quotes/")
