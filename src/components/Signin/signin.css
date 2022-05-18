@@ -16,7 +16,10 @@
     border: none;
     color: #9832FE;
 }
-
+.signin {
+    color:white;
+    cursor: pointer;
+}
 .submit_and_forgot {
     text-align: right;
 }
@@ -34,6 +37,9 @@
 .forgot_text {
     text-align: center;
 }
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 
 .forgot_text_text {
     font-family: 'Poppins';
@@ -96,6 +102,7 @@
     font-size: 25px;
     color: #FFFFFF;
     cursor: pointer;
+    padding: 0;
 }
 
 #send-btn {
@@ -112,8 +119,41 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
+    padding: 0;
 }
-
+.verify_email_content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px
+}
+.verify_email_content>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px
+}
+.verify_text {
+    font-size: 18px;
+    color:#3D424E
+}
+.verify_email_content>div > button {
+    background-color: #9832FE;
+    width: 190px;
+    height: 35px;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 18px;
+    line-height: 18px;
+}
 .password_div {
     position: relative;
 }
@@ -121,7 +161,7 @@
     position: absolute;
     top: 43px;
     right: 15px;
-    -webkit-user-select:none;
+    user-select:none;
 }
 .email_input::placeholder {
     font-size: 16px;

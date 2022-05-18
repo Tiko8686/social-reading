@@ -22,6 +22,22 @@ export function Signin() {
   const [loginEye, setLoginEye] = useState(false)
   const [password2Eye, setPassword2Eye] = useState(false)
   const [wrongEmailOrPass, setWrongEmailOrPass] = useState({ email: "", pass: "" })
+  const [emailRe, setEmailRe] = useState("")
+  const resend = () => {
+    console.log(emailRe)
+    axios.post("https://socialreading.xyz/auth/users/resend_activation/", { email: emailRe }).then(resp => {
+      console.log(resp.data)
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
+
+  }
 
   const signUp = (data) => {
     if (data.password1 !== data.password2) {
@@ -36,6 +52,7 @@ export function Signin() {
         console.log(resp.data)
         reset()
         toggleModal()
+        setEmailRe(data.email)
         setVerifyEmail(true)
       }).catch((error) => {
         if (error.response) {
@@ -73,6 +90,7 @@ export function Signin() {
     setForgotPass(!forgotPass)
     setEmail({ email: "" })
     setEmailForgotErr(false)
+    setEmailRe("")
   };
 
 
@@ -134,7 +152,7 @@ export function Signin() {
               console.log("all users", result.data)
               for (const user of result.data) {
                 if (user.email === login.email) {
-                  setWrongEmailOrPass({ email:"", pass: "Password is wrong." })
+                  setWrongEmailOrPass({ email: "", pass: "Password is wrong." })
                   break;
                 } else {
                   setWrongEmailOrPass({ ...wrongEmailOrPass, email: "User with this email doesn't exists." })
@@ -152,7 +170,7 @@ export function Signin() {
   };
   return (
     <>
-      <button onClick={toggleModalSignIn} className="signin bi-person" style={{ color: "white" }}></button>
+      <button onClick={toggleModalSignIn} className="signin bi-person"></button>
       {signup ? (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
@@ -340,7 +358,7 @@ export function Signin() {
                   }}>Forgot password?</button>
               </div>
               <div>
-              <Login></Login>
+                <Login></Login>
               </div>
               <div>
                 <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
@@ -350,39 +368,48 @@ export function Signin() {
         </div>
       ) : ""
       }
-      {forgotPass && <div className="modal">
-        <div onClick={toggleModalForgotPass} className="overlay"></div>
-        <div className="modal-content-sign">
-          <button className="close" onClick={toggleModalForgotPass}>X</button>
-          <form className="form_style" onSubmit={sendCode}>
-            <div className="forgot_text">
-              <h2 className="forgot_header">Forgot Password?</h2>
-              <p className="forgot_text_text">Enter your email address to reset your password</p>
-            </div>
-            <div>
-              <label>Email</label>
-              <input type="email"
-                className="email_input"
-                onClick={() => setEmailForgotErr(false)}
-                onChange={(e) => setEmail({ ...email, email: e.target.value })}
-                value={email.email}
-              />
-              {emailForgotErr && <span>{emailForgotErr}</span>}
-            </div>
-            <div>
-              <input type="submit" value="Reset Password" id="send-btn" />
-            </div>
-          </form>
+      {
+        forgotPass && <div className="modal">
+          <div onClick={toggleModalForgotPass} className="overlay"></div>
+          <div className="modal-content-sign">
+            <button className="close" onClick={toggleModalForgotPass}>X</button>
+            <form className="form_style" onSubmit={sendCode}>
+              <div className="forgot_text">
+                <h2 className="forgot_header">Forgot Password?</h2>
+                <p className="forgot_text_text">Enter your email address to reset your password</p>
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email"
+                  className="email_input"
+                  onClick={() => setEmailForgotErr(false)}
+                  onChange={(e) => setEmail({ ...email, email: e.target.value })}
+                  value={email.email}
+                />
+                {emailForgotErr && <span>{emailForgotErr}</span>}
+              </div>
+              <div>
+                <input type="submit" value="Reset Password" id="send-btn" />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>}
+      }
       {
         verifyEmail && <div className="modal">
           <div className="overlay"></div>
           <div className="modal-content-sign">
             <button className="close">X</button>
-            <h1>Verify your email address. Click the link in the email we sent you.</h1>
-            <button>Resend verification</button>
-            <button onClick={() => setVerifyEmail(false)}>ok</button>
+            <div className="verify_email_content">
+              <p className="verify_text">Verify your email address. Click the link in the email we sent you.</p>
+              <div>
+                <button onClick={() => resend()}>Resend activation</button>
+                <button onClick={() => {
+                  setVerifyEmail(false);
+                  setEmailRe("")
+                }}>Okay</button>
+              </div>
+            </div>
           </div>
         </div>
       }
