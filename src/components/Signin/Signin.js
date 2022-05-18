@@ -268,7 +268,7 @@ export function Signin() {
               <div className="submit_and_forgot">
                 <input
                   type="submit"
-                  value="Մուտք գործել"
+                  value="Sign in"
                   id="submit-btn"
                 />
                 <button
