@@ -15,7 +15,6 @@ function Login() {
         scope: "",
       });
     }
-
     gapi.load("client:auth2", start);
   }, []);
 
@@ -40,7 +39,7 @@ function Login() {
           })
           .catch((error) => {
             if (error.response) {
-              console.log("error.response ", error.response);
+              console.log("error.response", error.response);
             } else if (error.request) {
               console.log("error.request ", error.request);
             } else if (error.message) {
@@ -50,7 +49,10 @@ function Login() {
       })
       .catch((error) => {
         if (error.response) {
-          console.log("error.response ", error.response);
+          console.log("error.response  google ", error.response);
+         if (error.response.data.detail) {
+           alert("user with this email already exists.")
+         }
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {

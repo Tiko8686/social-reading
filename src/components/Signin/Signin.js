@@ -14,6 +14,9 @@ export function Signin() {
   const [signin, setSigin] = useState(false);
   const [forgotPass, setForgotPass] = useState(false);
   const [confPasswordErr, setConfPasswordErr] = useState(false);
+  const [emailErr, setEmailErr] = useState("");
+  const [verifyEmail, setVerifyEmail] = useState(false);
+  const [wrong, setWrong] = useState("")
 
 
   const signUp = (data) => {
@@ -27,19 +30,23 @@ export function Signin() {
         password: data.password1
       }).then(resp => {
         console.log(resp.data)
+        reset()
+        toggleModal()
+        setVerifyEmail(false)
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
-          alert(error.response.data.email)
+          if (error.response.data.email) {
+            setEmailErr(error.response.data.email)
+          }
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
           console.log("error.request ", error.message);
         }
       });
-      reset()
       setConfPasswordErr(false)
-      toggleModal()
+
     }
   }
 
@@ -47,9 +54,11 @@ export function Signin() {
     setSigin(false);
     setSignup(!signup);
     reset()
+    setEmailErr("")
   };
   const toggleModalSignIn = () => {
     setSignup(false);
+    setWrong("")
     setSigin(!signin);
     setLogin({ email: "", password: "" })
   };
@@ -96,6 +105,8 @@ export function Signin() {
             localStorage.setItem('token', JSON.stringify(resp.data));
             localStorage.setItem('user', JSON.stringify(response.data));
             navigate("/")
+            setLogin({ email: "", password: "" })
+            toggleModalSignIn()
             window.location.reload()
           }).catch((error) => {
             if (error.response) {
@@ -110,14 +121,16 @@ export function Signin() {
       .catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
+          if (error.response.data.detail) {
+            setWrong(error.response.data.detail)
+          }
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
           console.log("error.request ", error.message);
         }
       });
-    setLogin({ email: "", password: "" })
-    toggleModalSignIn()
+
   };
   return (
     <>
@@ -134,11 +147,12 @@ export function Signin() {
                 <input
                   id="name"
                   type="text"
-                  {...register("first_name", { required: true, maxLength: 20, minLength: 2 })}
+                  {...register("first_name", { required: true, maxLength: 20, minLength: 2, pattern: /^[aA-zZ]+$/ })}
                 />
                 {errors.first_name && errors.first_name.type === "required" && <span>This is required*</span>}
                 {errors.first_name && errors.first_name.type === "maxLength" && <span>Author name can't be more than 20 characters</span>}
                 {errors.first_name && errors.first_name.type === "minLength" && <span>Author name can't be less than 2 characters</span>}
+                {errors.first_name && errors.first_name.type === "pattern" && <span>Author name can be only letters.</span>}
               </div>
 
               <div>
@@ -146,11 +160,13 @@ export function Signin() {
                 <input
                   id="surname"
                   type="text"
-                  {...register("last_name", { required: true, maxLength: 20, minLength: 2 })}
+                  {...register("last_name", { required: true, maxLength: 20, minLength: 2, pattern: /^[aA-zZ]+$/ })}
                 />
                 {errors.last_name && errors.last_name.type === "required" && <span>This is required*</span>}
                 {errors.last_name && errors.last_name.type === "maxLength" && <span>Author name can't be more than 20 characters</span>}
                 {errors.last_name && errors.last_name.type === "minLength" && <span>Author name can't be less than 2 characters</span>}
+                {errors.last_name && errors.last_name.type === "pattern" && <span>Author surname can be only letters.</span>}
+
               </div>
 
               <div>
@@ -158,11 +174,13 @@ export function Signin() {
                 <input
                   id="email"
                   type="email"
+                  onClick={() => setEmailErr("")}
                   {...register("email", { required: true, type: "email", pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/ })}
                 />
                 {errors.email && errors.email.type === "required" && <span>This is required*</span>}
                 {errors.email && errors.email.type === "email" && <span>Error*</span>}
                 {errors.email && errors.email.type === "pattern" && <span>Email is not valid.</span>}
+                {emailErr && <span>{emailErr}</span>}
               </div>
 
               <div>
@@ -208,14 +226,22 @@ export function Signin() {
             <form onSubmit={submitChackin} className="form_style">
               <h2>Log In</h2>
               <div>
+                {
+                  wrong && <p style={{ color: "red" }}>{wrong}</p>
+                }
+              </div>
+              <div>
                 <label htmlFor="emailLogin">Email</label>
                 <input
                   id="emailLogin"
                   type="email"
                   value={login.email}
                   required
-                  onChange={(e) =>
+
+                  onChange={(e) => {
+                    setWrong("")
                     setLogin({ ...login, email: e.target.value })
+                  }
                   }
                 />
               </div>
@@ -226,23 +252,22 @@ export function Signin() {
                   type="password"
                   value={login.password}
                   required
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    setWrong("")
                     setLogin({ ...login, password: e.target.value })
+                  }
                   }
                 />
               </div>
-           
-              <div>
+
+              <div className="submit_and_forgot">
                 <input
                   type="submit"
-                  value="Sign in"
+                  value="Մուտք գործել"
                   id="submit-btn"
                 />
-              </div>
-            
-              <div>
                 <button
-                className="forgotBtn"
+                  className="forgot_btn"
                   type="button"
                   onClick={() => {
                     setForgotPass(true);
@@ -261,9 +286,9 @@ export function Signin() {
         <div className="modal-content-sign">
           <button className="close" onClick={toggleModalForgotPass}>X</button>
           <form className="form_style" onSubmit={sendCode}>
-            <div>
-              <h2>Forgot Password?</h2>
-              <p>Enter your email address to reset your password</p>
+            <div className="forgot_text">
+              <h2 className="forgot_header">Forgot Password?</h2>
+              <p className="forgot_text_text">Enter your email address to reset your password</p>
             </div>
             <div>
               <label>Email</label>
@@ -274,12 +299,22 @@ export function Signin() {
               />
             </div>
             <div>
-              <input type="submit" value="Send conformation code." id="send-btn"/>
+              <input type="submit" value="Reset Password" id="send-btn" />
             </div>
           </form>
         </div>
       </div>}
-
+      {
+        verifyEmail && <div className="modal">
+          <div className="overlay"></div>
+          <div className="modal-content-sign">
+            <button className="close">X</button>
+            <h1>Verify your email address. Click the link in the email we sent you.</h1>
+            <button>Resend verification</button>
+            <button onClick={() => setVerifyEmail(false)}>ok</button>
+          </div>
+        </div>
+      }
     </>
   );
 }
