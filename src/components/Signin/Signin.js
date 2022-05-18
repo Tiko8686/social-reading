@@ -16,6 +16,10 @@ export function Signin() {
   const [confPasswordErr, setConfPasswordErr] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   const [verifyEmail, setVerifyEmail] = useState(false);
+  const [resetPass, setResetPass] = useState(false);
+  const [emailForgotErr, setEmailForgotErr] = useState("");
+
+
   const [wrong, setWrong] = useState("")
 
 
@@ -32,7 +36,7 @@ export function Signin() {
         console.log(resp.data)
         reset()
         toggleModal()
-        setVerifyEmail(false)
+        setVerifyEmail(true)
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
@@ -66,6 +70,7 @@ export function Signin() {
   const toggleModalForgotPass = () => {
     setForgotPass(!forgotPass)
     setEmail({ email: "" })
+    setEmailForgotErr(false)
   };
 
 
@@ -75,18 +80,19 @@ export function Signin() {
     axios.post("https://www.socialreading.xyz/auth/users/reset_password/", { email: email.email })
       .then(res => {
         console.log("act", res.data)
-        alert("go to email")
+        setResetPass(true)
+        toggleModalForgotPass()
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
-          alert(error.response.data[0])
+          setEmailForgotErr(error.response.data[0])
+          // alert(error.response.data[0])
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
           console.log("error.request ", error.message);
         }
       });
-    toggleModalForgotPass()
   }
 
   const submitChackin = (event) => {
@@ -280,7 +286,8 @@ export function Signin() {
             </form>
           </div>
         </div>
-      ) : ""}
+      ) : ""
+      }
       {forgotPass && <div className="modal">
         <div onClick={toggleModalForgotPass} className="overlay"></div>
         <div className="modal-content-sign">
@@ -294,9 +301,11 @@ export function Signin() {
               <label>Email</label>
               <input type="email"
                 className="email_input"
+                onClick={() => setEmailForgotErr(false)}
                 onChange={(e) => setEmail({ ...email, email: e.target.value })}
                 value={email.email}
               />
+              {emailForgotErr && <span>{emailForgotErr}</span>}
             </div>
             <div>
               <input type="submit" value="Reset Password" id="send-btn" />
@@ -314,6 +323,17 @@ export function Signin() {
             <button onClick={() => setVerifyEmail(false)}>ok</button>
           </div>
         </div>
+      }
+      {
+        resetPass && <div className="modal">
+          <div className="overlay"></div>
+          <div className="modal-content-sign">
+            <button className="close">X</button>
+            <h1>Click the link in the email we sent you.</h1>
+            <button onClick={() => setResetPass(false)}>ok</button>
+          </div>
+        </div>
+
       }
     </>
   );
