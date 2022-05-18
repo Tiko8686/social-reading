@@ -9,28 +9,65 @@
     box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
     border-radius: 20px;
 }
-.form_style  {
+
+.forgot_btn {
+    margin-top: 10px;
+    background-color: white;
+    border: none;
+    color: #9832FE;
+}
+
+.submit_and_forgot {
+    text-align: right;
+}
+
+.forgot_header {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    color: #202029;
+    padding-bottom: 20px;
+}
+
+.forgot_text {
+    text-align: center;
+}
+
+.forgot_text_text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #9832FE;
+}
+
+.form_style {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:20px
+    gap: 20px
 }
-.form_style >div {
+
+.form_style>div {
     width: 354px;
 }
 
-.form_style >div span {
+.form_style>div span {
     color: red;
     padding-top: 10px;
 }
+
 .form_style div label {
     font-family: 'Montserrat arm';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    color:#3D424E;
+    color: #3D424E;
 }
 
 .form_style div input {
@@ -44,7 +81,7 @@
     border: 1px solid #A3B0BC;
     outline: none;
     font-size: 25px;
-    color:#3D424E;
+    color: #3D424E;
     margin-top: 8px;
 }
 
@@ -68,8 +105,12 @@
     border-radius: 30px;
     border: none;
     outline: none;
-    font-size: 20px;
     color: #FFFFFF;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
 }
 
 .email_input::placeholder {
@@ -85,9 +126,9 @@
 }
 
 @media (min-width: 300px) and (max-width: 600px) {
-    .btn-modal  {
+    .btn-modal {
         font-size: 24px;
         text-decoration: none;
-        color:black
+        color: black
     }
-} 
+}
