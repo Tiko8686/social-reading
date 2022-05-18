@@ -86,7 +86,6 @@ export function Signin() {
         if (error.response) {
           console.log("error.response ", error.response);
           setEmailForgotErr(error.response.data[0])
-          // alert(error.response.data[0])
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {

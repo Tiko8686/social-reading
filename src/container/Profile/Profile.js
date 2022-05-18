@@ -27,19 +27,19 @@ function Profile() {
             <div className="profilePage">
                 <div className="profile_background">
                     {
-                        userInfo.profile_background ?
+                        userInfo?.profile_background ?
                             (<img
                                 className="background_pic"
                                 src={userInfo.profile_background}
                                 alt="background_pic"
                             />)
-                            : userGoogle.profile_background ? (
+                            : userGoogle?.profile_background ? (
                                 <img
                                     className="background_pic"
                                     src={userGoogle.profile_background}
                                     alt="background_pic"
                                 />
-                            ) : userFb.profile_background ? (
+                            ) : userFb?.profile_background ? (
                                 <img
                                     className="background_pic"
                                     src={userFb.profile_background}
@@ -62,7 +62,7 @@ function Profile() {
                             ) : userGoogle ? (
                                 <img
                                     className="autor_pic"
-                                    src={userGoogle.avatar_google}
+                                    src={userGoogle?.avatar_google}
                                     alt="profile_pic"
                                 />
                             ) : userFb ? (
@@ -80,11 +80,11 @@ function Profile() {
                         <div className="nameSurnameDiv">
                             <h3>
                                 {userInfo
-                                    ? userInfo.first_name + " " + userInfo.last_name
+                                    ? userInfo?.first_name + " " + userInfo?.last_name
                                     : userGoogle
-                                        ? userGoogle.first_name + " " + userGoogle.last_name
+                                        ? userGoogle?.first_name + " " + userGoogle?.last_name
                                         : userFb
-                                            ? userFb.first_name + " " + userFb.last_name
+                                            ? userFb?.first_name + " " + userFb?.last_name
                                             : ""}
                             </h3>
                         </div>
