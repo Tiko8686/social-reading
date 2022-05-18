@@ -20,13 +20,14 @@ function Profile() {
       navigate("/");
     }
   }, []);
-  console.log(userGoogle);
 
   const [modal, setModal] = useState(false);
   return (
     <>
       <div className="profilePage">
-        <div className="profile_background"></div>
+        <div className="profile_background">
+          <button className="bi bi-camera edit_cover_photo_button">&nbsp;&nbsp;&nbsp;Add cover Photo</button>
+        </div>
         <div className="my_info">
           <div className="name_and_pic">
             <div className="pic_div">
@@ -51,6 +52,8 @@ function Profile() {
               ) : (
                 ""
               )}
+              <label for="profile_photo" className="bi bi-camera edit_profile_pic"></label>
+              <input type="file" id="profile_photo"  />
             </div>
             <div className="nameSurnameDiv">
               <h3>
@@ -99,7 +102,7 @@ function Profile() {
                 <li>
                   <img
                     alt="pol"
-                    src="http://localhost:3000/images/privace_policy.png"
+                    src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
                     className="privace_poilcy"
                   />
                   <Link to="/privacePolicy" className="privace_poilcy_txt">
@@ -109,7 +112,7 @@ function Profile() {
                 <li>
                   <img
                     alt="logout"
-                    src="http://localhost:3000/images/LogOut.png"
+                    src="https://social-reading-application.herokuapp.com/images/LogOut.png"
                     className="log_out_img"
                   />
                   <button

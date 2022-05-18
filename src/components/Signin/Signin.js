@@ -63,7 +63,7 @@ export function Signin() {
   const sendCode = (event) => {
     event.preventDefault()
     console.log(email)
-    axios.post("http://192.168.1.103:8000/auth/users/reset_password/", { email: email.email })
+    axios.post("https://www.socialreading.xyz/auth/users/reset_password/", { email: email.email })
       .then(res => {
         console.log("act", res.data)
         alert("go to email")

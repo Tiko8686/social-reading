@@ -32,12 +32,17 @@ export function Upload() {
   ]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
-  const [userInfo, setUserInfo] = useState("")
   useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("user")))
     const token = JSON.parse(localStorage.getItem("token"))
+    const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"))
+    const tokenFb = JSON.parse(localStorage.getItem("tokenFb"))
+
     if (token) {
       setUser("JWT " + token.access)
+    } else  if (tokenGoogle) {
+      setUser("JWT " + tokenGoogle.access)
+    } else  if (tokenFb) {
+      setUser("JWT " + tokenFb.access)
     } else {
       setUser("")
     }
@@ -141,8 +146,7 @@ export function Upload() {
       formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      formData.append("author", userInfo.id);
-      axios.post("https://socialreading.xyz/quotes/",
+      axios.post("https://www.socialreading.xyz/quotes/",
         formData,
         {
           headers: { "Authorization": user }
