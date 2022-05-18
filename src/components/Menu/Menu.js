@@ -35,23 +35,13 @@ export function Menu() {
         <ul className="menu-list">
           <li className="dropdown">
             <span className="category">Categories</span>
-            <ul className="dropdown-content">
-              <li>
-                <Link to="/category/professional">Professional</Link>
-              </li>
-              <li>
-                <Link to="/category/artistic">Գեղարվեստական</Link>
-              </li>
-              <li>
-                <Link to="/category/historical">Historical</Link>
-              </li>
-              <li>
-                <Link to="/category/motivational">Մոտիվացիոն</Link>
-              </li>
-              <li>
-                <Link to="/category/psychological">Հոգեբանական</Link>
-              </li>
-            </ul>
+            <div className="dropdown-content">
+              <Link to="/category/professional">Professional</Link>
+              <Link to="/category/artistic">Artistic</Link>
+              <Link to="/category/historical">Historical</Link>
+              <Link to="/category/motivational">Motivational</Link>
+              <Link to="/category/psychological">Psychological</Link>
+            </div>
           </li>
           <li>
             <Link to="/aboutus">About Us</Link>
@@ -117,19 +107,19 @@ export function Menu() {
                   onClick={() => setMenuBool(false)}
                 >
                   <li>
-                    <Link to="/category/professional">Մասնագիտական</Link>
+                    <Link to="/category/professional">Professional</Link>
                   </li>
                   <li>
-                    <Link to="/category/artistic">Գեղարվեստական</Link>
+                    <Link to="/category/artistic">Artistic</Link>
                   </li>
                   <li>
                     <Link to="/category/historical">Historical</Link>
                   </li>
                   <li>
-                    <Link to="/category/motivational">Մոտիվացիոն</Link>
+                    <Link to="/category/motivational">Motivational</Link>
                   </li>
                   <li>
-                    <Link to="/category/psychological">Հոգեբանական</Link>
+                    <Link to="/category/psychological">Psychological</Link>
                   </li>
                 </ul>
               </li>
@@ -137,26 +127,26 @@ export function Menu() {
                 <Link to="/aboutus">About us</Link>
               </li>
               <li>{user || userGoogle || userFb ? <Upload /> : <Unauthorized />} </li>
-              <li>
+              <li >
                 {user ? (
                   <img
                     alt="profile_pic"
                     src={user.avatar}
-                    onClick={() => navigate("/profile")}
+                    onClick={() => { setMenuBool(false); navigate("/profile") }}
                     className="profile_pic_menu"
                   />
                 ) : userGoogle ? (
                   <img
                     alt="profile_pic"
                     src={userGoogle.avatar_google}
-                    onClick={() => navigate("/profile")}
+                    onClick={() => { setMenuBool(false); navigate("/profile") }}
                     className="profile_pic_menu"
                   />
                 ) : userFb ? (
                   <img
                     alt="profile_pic"
                     src={userFb.avatar_facebook}
-                    onClick={() => navigate("/profile")}
+                    onClick={() => { setMenuBool(false); navigate("/profile") }}
                     className="profile_pic_menu"
                   />
                 ) : (
