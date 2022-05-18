@@ -111,7 +111,7 @@ export function Menu() {
           <div className="responsive_menu">
             <ul className="resp_ul">
               <li className="dropdown_resp">
-                <span className="resp_category">Կատեգորիաներ</span>
+                <span className="resp_category">Categories</span>
                 <ul
                   className="category_submenu"
                   onClick={() => setMenuBool(false)}
@@ -123,7 +123,7 @@ export function Menu() {
                     <Link to="/category/artistic">Գեղարվեստական</Link>
                   </li>
                   <li>
-                    <Link to="/category/historical">Պատմական</Link>
+                    <Link to="/category/historical">Historical</Link>
                   </li>
                   <li>
                     <Link to="/category/motivational">Մոտիվացիոն</Link>
