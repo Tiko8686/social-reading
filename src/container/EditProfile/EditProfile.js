@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import "./editProfile.css"
+import "./EditProfile.css"
 
 function EditProfile() {
     const { register, handleSubmit, setValue } = useForm()
