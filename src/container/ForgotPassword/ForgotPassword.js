@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./forgotPassword.css"
 function ForgotPass() {
     const params = useParams()
+    const navigate=useNavigate();
     console.log(params)
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [dataErr, setDataErr] = useState({ code: false, password2: false })
@@ -26,6 +27,7 @@ function ForgotPass() {
                 new_password: data.password1
             }).then(res => {
                 console.log("act", res.data)
+                navigate("/");
             }).catch((error) => {
                 if (error.response) {
                     console.log("error.response ", error.response);

@@ -16,11 +16,21 @@ function EditProfile() {
         const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
         if (!token && !tokenGoogle && !tokenFb) {
             navigate("/")
-        } else {
+        } else if (token) {
             const user = JSON.parse(localStorage.getItem("user"))
-            setUser("JWT " + token.access)
-            setValue("first_name", user.first_name)
-            setValue("last_name", user.last_name)
+            setUser("JWT " + token?.access)
+            setValue("first_name", user?.first_name)
+            setValue("last_name", user?.last_name)
+        } else if (tokenGoogle) {
+            const userGoogle = JSON.parse(localStorage.getItem("userGoogle"))
+            setUser("JWT " + tokenGoogle?.access)
+            setValue("first_name", userGoogle?.first_name)
+            setValue("last_name", userGoogle?.last_name)
+        }  else if (tokenFb) {
+            const userFb = JSON.parse(localStorage.getItem("userFb"))
+            setUser("JWT " + tokenGoogle?.access)
+            setValue("first_name", userFb?.first_name)
+            setValue("last_name", userFb?.last_name)
         }
     }, [])
 
