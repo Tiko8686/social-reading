@@ -42,7 +42,7 @@ function ForgotPass() {
         <>
             <div className="forgot_pass_div">
                 <h1>Enter New Password</h1>
-                <p>Enter your new password</p>
+                <p>Enter your verification code below to<br/> receive your password reset instruction</p>
                 <form onSubmit={handleSubmit(send)} className="forgot_form">
                     <div>
                         <label>Confirmation Code</label>

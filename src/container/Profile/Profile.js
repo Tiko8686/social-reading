@@ -48,7 +48,8 @@ function Profile() {
                             )
                                 : ""
                     }
-                    <button className="bi bi-camera edit_cover_photo_button">&nbsp;&nbsp;&nbsp;Add cover Photo</button>
+                    <label for="cover_photo" className="bi bi-camera edit_cover_photo_button">Add cover Photo</label>
+                    <input type="file" id="cover_photo" />
                 </div>
                 <div className="my_info">
                     <div className="name_and_pic">
@@ -79,23 +80,20 @@ function Profile() {
                         </div>
                         <div className="nameSurnameDiv">
                             <h3>
-                                {userInfo
-                                    ? userInfo?.first_name + " " + userInfo?.last_name
-                                    : userGoogle
-                                        ? userGoogle?.first_name + " " + userGoogle?.last_name
-                                        : userFb
-                                            ? userFb?.first_name + " " + userFb?.last_name
-                                            : ""}
+                                {
+                                    userInfo ? userInfo?.first_name + " " + userInfo?.last_name :
+                                        userGoogle ? userGoogle?.first_name + " " + userGoogle?.last_name :
+                                            userFb ? userFb?.first_name + " " + userFb?.last_name :
+                                                ""
+                                }
                             </h3>
                         </div>
                     </div>
                     <div>
-                        <Link to="edit-profile">
+                        <Link to="/editProfile">
                             <button className="edit_btn bi bi-pencil" onClick={() => {
                                 console.log(userInfo);
-                            }}>
-                                &nbsp; Edit profile
-                            </button>
+                            }}>&nbsp; Edit profile</button>
                         </Link>
                     </div>
                 </div>
@@ -112,9 +110,7 @@ function Profile() {
                         </li>
                     </ul>
                     <ul>
-                        <li onClick={() => setModal(!modal)} className="more_btn">
-                            ...
-                        </li>
+                        <li onClick={() => setModal(!modal)} className="more_btn">...</li>
                         {modal && (
                             <ul
                                 className="modal_menu_profile"

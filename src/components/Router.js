@@ -39,8 +39,7 @@ function AllRoutes() {
             <Route path="category" element={<Category />}/>
             <Route path="saved" element={<Saved />}/>
           </Route>
-          <Route path="/profile/edit-profile" element={<EditProfile />}/>
-          <Route path="edit-profile" element={<EditProfile />}/>
+          <Route path="/editProfile" element={<EditProfile />}/>
           <Route path="/activate/:uid/:token" element={< VerifyEmail />} />
         </Routes>
       </BrowserRouter>

@@ -11,11 +11,11 @@ function Post() {
       axios.get("https://www.socialreading.xyz/quotes/?author_id=" + userInfo.id).then((resp) => {
         setUserPosts(resp);
       })
-    }else if (userGoogle) {
+    } else if (userGoogle) {
       axios.get("https://www.socialreading.xyz/quotes/?author_id=" + userGoogle.id).then((resp) => {
         setUserPosts(resp);
       })
-    }else if(userFb){
+    } else if (userFb) {
       axios.get("https://www.socialreading.xyz/quotes/?author_id=" + userFb.id).then((resp) => {
         setUserPosts(resp);
       })
@@ -25,11 +25,14 @@ function Post() {
   return (
     <>
       <div className="profile_post">
-        {userPosts?.data?.map((post) => (
-          <div className="post">
-            <img src={post.quote_file} className="post_img" />
-          </div>
-        ))}
+        {
+          userPosts?.data?.map((post) => (
+            <div className="post">
+              a
+              <img src={post.quote_file} className="post_img" />
+            </div>
+          ))
+        }
       </div>
     </>
 

@@ -1,19 +1,27 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import "./EditProfile.css"
+import { useNavigate } from 'react-router-dom'
+import "./editProfile.css"
 
 function EditProfile() {
     const { register, handleSubmit, setValue } = useForm()
     const [user, setUser] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"))
         const token = JSON.parse(localStorage.getItem("token"))
-        setUser("JWT " + token.access)
-        setValue("first_name", user.first_name)
-        setValue("last_name", user.last_name)
+        const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
+        const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
+        if (!token && !tokenGoogle && !tokenFb) {
+            navigate("/")
+        } else {
+            const user = JSON.parse(localStorage.getItem("user"))
+            setUser("JWT " + token.access)
+            setValue("first_name", user.first_name)
+            setValue("last_name", user.last_name)
+        }
     }, [])
 
     const onSubmit = (data) => {

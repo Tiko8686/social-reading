@@ -10,7 +10,7 @@
     border-radius: 0px 0px 10px 10px;
     position: relative;
 }
-#profile_photo {
+#profile_photo, #cover_photo {
     visibility: hidden;
 }
 .edit_profile_pic {
@@ -41,6 +41,10 @@
     border: none;
     border-radius: 10px;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px
 }
 
 .pic_div {
