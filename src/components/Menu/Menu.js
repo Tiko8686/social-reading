@@ -54,7 +54,7 @@ export function Menu() {
               src="https://social-reading-application.herokuapp.com/images/search.svg"
               alt="search_icon"
             />
-            <input placeholder="Որոնել" className="search" />
+            <input placeholder="Search" className="search" />
           </li>
           <li className="login-btn">
             {user ? (

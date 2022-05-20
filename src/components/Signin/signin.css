@@ -8,8 +8,27 @@
     background: #FFFFFF;
     box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
+.textEmail{
+    color: #9832FE;
 
+}
+.okBtn{
+    margin-top: 10px;
+    background-color:#9832FE ;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    
+}
 .forgot_btn {
     margin-top: 10px;
     background-color: white;
@@ -174,6 +193,9 @@ input[type=number]::-webkit-inner-spin-button {
     background: none;
     text-decoration: underline;
     cursor: pointer;
+}
+.buttonOk{
+    color: #9832FE;
 }
 .forgotBtn{
     color: #9832FE;

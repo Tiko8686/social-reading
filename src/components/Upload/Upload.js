@@ -276,7 +276,7 @@ export function Upload() {
                 onChange={showPreview}
               />
               {fileErr && (
-                <p className="fileRequired">Այս դաշտը պարտադիր է լրացման</p>
+                <p className="fileRequired" >Այս դաշտը պարտադիր է լրացման</p>
               )}
               <input
                 className="submit"
