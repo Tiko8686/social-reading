@@ -28,7 +28,7 @@ function Post() {
         {
           userPosts?.data?.map((post) => (
             <div className="post">
-              <img src={post.quote_file} className="post_img" />
+              <img src={post.quote_file} className="post_img" alt="post_image"/>
             </div>
           ))
         }

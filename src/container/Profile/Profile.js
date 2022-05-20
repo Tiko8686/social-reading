@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./profile.css";
 import { Button, Box, Slider } from "@material-ui/core";
@@ -54,7 +54,6 @@ function Profile() {
         croppedImg: ""
     });
 
-    const [modal, setModal] = useState(false);
 
     const handleSlider = (event, value) => {
         setPicture({

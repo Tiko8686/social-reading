@@ -59,13 +59,13 @@ function Home() {
                   <div className="post__user">
                     <div>
                       {
-                        e?.author?.avatar_facebook ? <img
+                        e?.author?.avatar_facebook ? <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar_facebook}
-                        /> : e?.author?.avatar_google ? <img
+                        /> : e?.author?.avatar_google ? <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar_google}
-                        /> : <img
+                        /> : <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar}
                         />
@@ -76,9 +76,9 @@ function Home() {
                       <p className="time">{e?.date_posted}</p>
                     </div>
                   </div>
-                  {/* <div className="more_div">
+                  <div className="more_div">
                     <button>...</button>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="post__text">
                   {e?.quote_text}
