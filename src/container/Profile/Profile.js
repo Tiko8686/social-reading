@@ -108,20 +108,11 @@ function Profile() {
                 } else if (JSON.parse(localStorage.getItem("tokenGoogle"))) {
                     localStorage.setItem('userGoogle', JSON.stringify(resp.data));
                     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-                    // if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar, cropperOpen: false })
-                    // } else {
-                    //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google, cropperOpen: false })
-                    // }
-
                 } else if (JSON.parse(localStorage.getItem("tokenFb"))) {
                     localStorage.setItem('userFb', JSON.stringify(resp.data));
                     setUserFb(JSON.parse(localStorage.getItem("userFb")));
-                    // if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar, cropperOpen: false })
-                    // } else {
-                    //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook, cropperOpen: false })
-                    // }
                 }
                 window.location.reload()
             }).catch((error) => {
@@ -164,11 +155,12 @@ function Profile() {
                                     src={userFb.profile_background}
                                     alt="background_pic"
                                 />
-                            )
-                                : ""
+                            ) : ""
                     }
                     <label htmlFor="cover_photo" className="bi bi-camera edit_cover_photo_button">Add cover Photo</label>
-                    <input type="file" id="cover_photo" />
+                    <input type="file" id="cover_photo" onChange={(e) => {
+                        console.log()
+                    }}/>
                 </div>
                 <div className="my_info">
                     <div className="name_and_pic">
@@ -224,10 +216,6 @@ function Profile() {
                             <Link to="myCategories">My Categories</Link>
                         </li>
                     </ul>
-                    {/* <ul>
-                        <li onClick={() => setModal(!modal)} className="more_btn">...</li>
-                       
-                    </ul> */}
                 </div>
             </div>
 
@@ -242,6 +230,7 @@ function Profile() {
                             border={50}
                             color={[255, 255, 255, 0.6]}
                             rotate={0}
+                            borderRadius={100}
                             scale={picture.zoom}
                         />
                         <Slider

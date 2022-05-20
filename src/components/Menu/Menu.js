@@ -107,6 +107,7 @@ export function Menu() {
                           className="log_out_img"
                         />
                         <button
+                        className="log_out"
                           onClick={() => {
                             localStorage.removeItem("token");
                             localStorage.removeItem("user");
@@ -128,7 +129,7 @@ export function Menu() {
                 <div className="login_user_menu">
                   <img
                     alt="profile_pic"
-                    src={userGoogle.avatar_google}
+                    src={userGoogle.avatar? userGoogle.avatar : userGoogle.avatar_google}
                     onClick={() => navigate("/profile")}
                     className="profile_pic_menu"
                   />
@@ -172,7 +173,7 @@ export function Menu() {
                           src="https://social-reading-application.herokuapp.com/images/LogOut.png"
                           className="log_out_img"
                         />
-                        <button
+                        <button className="log_out"
                           onClick={() => {
                             localStorage.removeItem("token");
                             localStorage.removeItem("user");
@@ -196,7 +197,7 @@ export function Menu() {
 
                   <img
                     alt="profile_pic"
-                    src={userFb.avatar_facebook}
+                    src={userFb.avatar?  userFb.avatar : userFb.avatar_facebook}
                     onClick={() => navigate("/profile")}
                     className="profile_pic_menu"
                   />
@@ -240,7 +241,7 @@ export function Menu() {
                           src="https://social-reading-application.herokuapp.com/images/LogOut.png"
                           className="log_out_img"
                         />
-                        <button
+                        <button className="log_out"
                           onClick={() => {
                             localStorage.removeItem("token");
                             localStorage.removeItem("user");

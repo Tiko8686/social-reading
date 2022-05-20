@@ -223,7 +223,26 @@ nav>ul>li>a {
   border: 0;
   outline: 0;
 }
+.log_out {
+  border: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  text-transform: capitalize;
+  color: #202029;
+  background: none;
+  position: absolute;
+  top: 148px;
+  cursor: pointer;
+}
 
+.log_out_img {
+  pointer-events: none;
+  width: 15px;
+  height: 15px;
+}
 @media (min-width: 300px) and (max-width: 600px) {
 
   .menu-list,
