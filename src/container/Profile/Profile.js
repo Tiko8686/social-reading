@@ -11,7 +11,6 @@ function Profile() {
     const [token, setToken] = useState("")
     const navigate = useNavigate();
     let editor = "";
-    
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem("token"));
         const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
