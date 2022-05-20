@@ -210,3 +210,14 @@
     width: 15px;
     height: 15px;
 }
+
+
+.image_crop {
+    background-color: white;
+    width: 300px;
+    height: 377px;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    
+}
