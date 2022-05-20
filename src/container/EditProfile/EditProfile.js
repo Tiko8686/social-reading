@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import "./EditProfile.css"
-
 function EditProfile() {
     const { register, handleSubmit, setValue } = useForm()
     const [user, setUser] = useState("");
@@ -46,7 +45,6 @@ function EditProfile() {
         if (data.profile_background.length > 0) {
             formData.append("profile_background", data.profile_background[0]);
         }
-
         axios.put('https://socialreading.xyz/auth/users/me/', formData, {
             headers: { "Authorization": user }
         }).then(resp => {

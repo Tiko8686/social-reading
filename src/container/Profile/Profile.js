@@ -108,6 +108,9 @@ function Profile() {
                         <li>
                             <Link to="saved">Saved</Link>
                         </li>
+                        <li>
+                            <Link to="myCategories">My Categories</Link>
+                        </li>
                     </ul>
                     <ul>
                         <li onClick={() => setModal(!modal)} className="more_btn">...</li>
