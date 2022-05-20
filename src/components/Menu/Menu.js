@@ -10,13 +10,13 @@ export function Menu() {
   const [user, setUser] = useState("");
   const [userGoogle, setUserGoogle] = useState("");
   const [userFb, setUserFb] = useState("");
-
+  const [bool, setBool] = useState(false)
   const navigate = useNavigate();
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
     setUserFb(JSON.parse(localStorage.getItem("userFb")));
-  }, []);
+  }, [navigate]);
   return (
     <>
       <nav>
@@ -57,47 +57,212 @@ export function Menu() {
             <input placeholder="Search" className="search" />
           </li>
           <li className="login-btn">
-            {user ? (
-              <div>
-                <img
-                  alt="profile_pic"
-                  src={user.avatar}
-                  onClick={() => navigate("/profile")}
-                  className="profile_pic_menu"
-                />
-                <button>
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    width="16" height="16" fill="currentColor" className="bi bi-bell-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
-                  </svg>
-                </button>
-                <button>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-                  className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                  </svg>
-                </button>
-              </div>
+            {
+              user ? (
+                <div className="login_user_menu">
+                  <img
+                    alt="profile_pic"
+                    src={user.avatar}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      width="16" height="16" fill="currentColor" className="bi bi-bell-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                    </svg>
+                  </button>
+                  <button onClick={() => setBool(!bool)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </button>
+                  {
+                    bool && (<ul
+                      className="modal_menu_profile"
+                      onClick={() => setBool(false)}
+                    >
+                      <li>
+                        <Link to="/settings" className="bi bi-gear settings">
+                          &nbsp; Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="pol"
+                          src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
+                          className="privace_poilcy"
+                        />
+                        <Link to="/privacePolicy" className="privace_poilcy_txt">
+                          &nbsp; Privace Policy
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="logout"
+                          src="https://social-reading-application.herokuapp.com/images/LogOut.png"
+                          className="log_out_img"
+                        />
+                        <button
+                        className="log_out"
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("tokenGoogle");
+                            localStorage.removeItem("userGoogle");
+                            localStorage.removeItem("tokenFb");
+                            localStorage.removeItem("userFb");
+                            navigate("/");
+                            window.location.reload();
+                          }}
+                        >
+                          &nbsp; Log Out</button>
+                      </li>
+                    </ul>
+                    )
+                  }
+                </div>
+              ) : userGoogle ? (
+                <div className="login_user_menu">
+                  <img
+                    alt="profile_pic"
+                    src={userGoogle.avatar? userGoogle.avatar : userGoogle.avatar_google}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      width="16" height="16" fill="currentColor" className="bi bi-bell-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                    </svg>
+                  </button>
+                  <button onClick={() => setBool(!bool)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </button>
+                  {
+                    bool && (<ul
+                      className="modal_menu_profile"
+                      onClick={() => setBool(false)}
+                    >
+                      <li>
+                        <Link to="/settings" className="bi bi-gear settings">
+                          &nbsp; Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="pol"
+                          src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
+                          className="privace_poilcy"
+                        />
+                        <Link to="/privacePolicy" className="privace_poilcy_txt">
+                          &nbsp; Privace Policy
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="logout"
+                          src="https://social-reading-application.herokuapp.com/images/LogOut.png"
+                          className="log_out_img"
+                        />
+                        <button className="log_out"
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("tokenGoogle");
+                            localStorage.removeItem("userGoogle");
+                            localStorage.removeItem("tokenFb");
+                            localStorage.removeItem("userFb");
+                            navigate("/");
+                            window.location.reload();
+                          }}
+                        >
+                          &nbsp; Log Out
+                        </button>
+                      </li>
+                    </ul>
+                    )
+                  }
+                </div>
+              ) : userFb ? (
+                <div className="login_user_menu">
 
-            ) : userGoogle ? (
-              <img
-                alt="profile_pic"
-                src={userGoogle.avatar_google}
-                onClick={() => navigate("/profile")}
-                className="profile_pic_menu"
-              />
-            ) : userFb ? (
-              <img
-                alt="profile_pic"
-                src={userFb.avatar_facebook}
-                onClick={() => navigate("/profile")}
-                className="profile_pic_menu"
-              />
-            ) : (
-              <Signin />
-            )}
+                  <img
+                    alt="profile_pic"
+                    src={userFb.avatar?  userFb.avatar : userFb.avatar_facebook}
+                    onClick={() => navigate("/profile")}
+                    className="profile_pic_menu"
+                  />
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      width="16" height="16" fill="currentColor" className="bi bi-bell-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                    </svg>
+                  </button>
+                  <button onClick={() => setBool(!bool)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </button>
+                  {
+                    bool && (<ul
+                      className="modal_menu_profile"
+                      onClick={() => setBool(false)}
+                    >
+                      <li>
+                        <Link to="/settings" className="bi bi-gear settings">
+                          &nbsp; Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="pol"
+                          src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
+                          className="privace_poilcy"
+                        />
+                        <Link to="/privacePolicy" className="privace_poilcy_txt">
+                          &nbsp; Privace Policy
+                        </Link>
+                      </li>
+                      <li>
+                        <img
+                          alt="logout"
+                          src="https://social-reading-application.herokuapp.com/images/LogOut.png"
+                          className="log_out_img"
+                        />
+                        <button className="log_out"
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("tokenGoogle");
+                            localStorage.removeItem("userGoogle");
+                            localStorage.removeItem("tokenFb");
+                            localStorage.removeItem("userFb");
+                            navigate("/");
+                            window.location.reload();
+                          }}
+                        >
+                          &nbsp; Log Out
+                        </button>
+                      </li>
+                    </ul>
+                    )
+                  }
+                </div>
+              ) : (
+                <Signin />
+              )}
           </li>
           <li>
             <div className="menu" onClick={() => setMenuBool(!menuBool)}>

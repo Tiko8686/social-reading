@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 function Home() {
+  const navigate = useNavigate()
   let [post, setPost] = useState([]);
   let [userToken, setUserToken] = useState("");
   console.log(post)
@@ -23,7 +25,7 @@ function Home() {
     } else {
       setUserToken("")
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -57,13 +59,13 @@ function Home() {
                   <div className="post__user">
                     <div>
                       {
-                        e?.author?.avatar_facebook ? <img
+                        e?.author?.avatar_facebook ? <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar_facebook}
-                        /> : e?.author?.avatar_google ? <img
+                        /> : e?.author?.avatar_google ? <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar_google}
-                        /> : <img
+                        /> : <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar}
                         />
