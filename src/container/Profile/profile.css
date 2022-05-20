@@ -27,8 +27,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    -webkit-user-select:none;
-
+    user-select:none;
 }
 
 .edit_cover_photo_button {
@@ -141,25 +140,6 @@
 
 }
 
-.modal_menu_profile {
-    background: #FFFFFF;
-    box-shadow: 0px 5px 50px rgba(40, 44, 46, 0.08);
-    width: 194px;
-    height: 216px;
-    position: absolute;
-    top: 55px;
-    right: -30px;
-    border-radius: 16px;
-    background-color: white;
-    padding: 0 10px;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 30px;
-    font-size: 16px;
-    color: #202029;
-}
 
 .settings {
     text-decoration: none;

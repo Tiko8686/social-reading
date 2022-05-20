@@ -3,20 +3,28 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./profile.css";
 import { Button, Box, Slider } from "@material-ui/core";
 import AvatarEditor from "react-avatar-editor";
+import axios from "axios";
 
 function Profile() {
     const [userInfo, setUserInfo] = useState("");
     const [userGoogle, setUserGoogle] = useState("");
     const [userFb, setUserFb] = useState("");
+    const [token, setToken] = useState("")
     const navigate = useNavigate();
     let editor = "";
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("token"));
+        const tokenn = JSON.parse(localStorage.getItem("token"));
         const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
         const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
-
-        if (!token && !tokenGoogle && !tokenFb) {
+        if (tokenn) {
+            setToken("JWT " + tokenn.access)
+        } else if (tokenGoogle) {
+            setToken("JWT " + tokenGoogle.access)
+        } else if (tokenFb) {
+            setToken("JWT " + tokenFb.access)
+        }
+        if (!tokenn && !tokenGoogle && !tokenFb) {
             navigate("/");
         } else {
             if (JSON.parse(localStorage.getItem("user"))) {
@@ -24,13 +32,21 @@ function Profile() {
                 setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("user")).avatar })
             } else if (JSON.parse(localStorage.getItem("userGoogle"))) {
                 setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-                setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google })
+                if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar })
+                } else {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google })
+                }
             } else if (JSON.parse(localStorage.getItem("userFb"))) {
                 setUserFb(JSON.parse(localStorage.getItem("userFb")));
-                setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook })
+                if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar })
+                } else {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook })
+                }
             }
         }
-    }, []);
+    }, [navigate]);
     const [picture, setPicture] = useState({
         cropperOpen: false,
         img: null,
@@ -60,14 +76,68 @@ function Profile() {
 
     const handleSave = (e) => {
         if (setEditorRef) {
+            console.log(editor)
             const canvasScaled = editor.getImageScaledToCanvas();
             const croppedImg = canvasScaled.toDataURL();
             console.log("croppedImg", croppedImg)
+
+            function dataURLtoFile(dataurl, filename) {
+                var arr = dataurl.split(','),
+                    mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]),
+                    n = bstr.length,
+                    u8arr = new Uint8Array(n);
+
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new File([u8arr], filename, { type: mime });
+            }
+            let file = dataURLtoFile(croppedImg, 'profile.png');
+            const formData = new FormData();
+            formData.append("avatar", file);
+
+            axios.patch('https://socialreading.xyz/auth/users/me/', formData, {
+                headers: { "Authorization": token }
+            }).then(resp => {
+                console.log("respo", resp)
+                if (JSON.parse(localStorage.getItem("token"))) {
+                    localStorage.setItem('user', JSON.stringify(resp.data));
+                    setUserInfo(JSON.parse(localStorage.getItem("user")));
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("user")).avatar, cropperOpen: false })
+                } else if (JSON.parse(localStorage.getItem("tokenGoogle"))) {
+                    localStorage.setItem('userGoogle', JSON.stringify(resp.data));
+                    setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
+                    // if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar, cropperOpen: false })
+                    // } else {
+                    //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google, cropperOpen: false })
+                    // }
+
+                } else if (JSON.parse(localStorage.getItem("tokenFb"))) {
+                    localStorage.setItem('userFb', JSON.stringify(resp.data));
+                    setUserFb(JSON.parse(localStorage.getItem("userFb")));
+                    // if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
+                    setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar, cropperOpen: false })
+                    // } else {
+                    //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook, cropperOpen: false })
+                    // }
+                }
+                window.location.reload()
+            }).catch((error) => {
+                if (error.response) {
+                    console.log("error.response ", error.response);
+                } else if (error.request) {
+                    console.log("error.request ", error.request);
+                } else if (error.message) {
+                    console.log("error.request ", error.message);
+                }
+            });
             setPicture({
                 ...picture,
                 img: null,
                 cropperOpen: false,
-                croppedImg: croppedImg
+                // croppedImg: croppedImg
             });
         }
     };
@@ -98,9 +168,7 @@ function Profile() {
                                 : ""
                     }
                     <label htmlFor="cover_photo" className="bi bi-camera edit_cover_photo_button">Add cover Photo</label>
-                    <input type="file" id="cover_photo" onChange={(e) => {
-
-                    }}/>
+                    <input type="file" id="cover_photo" />
                 </div>
                 <div className="my_info">
                     <div className="name_and_pic">
@@ -153,53 +221,10 @@ function Profile() {
                             <Link to="saved">Saved</Link>
                         </li>
                     </ul>
-                    <ul>
+                    {/* <ul>
                         <li onClick={() => setModal(!modal)} className="more_btn">...</li>
-                        {modal && (
-                            <ul
-                                className="modal_menu_profile"
-                                onClick={() => setModal(false)}
-                            >
-                                <li>
-                                    <Link to="/settings" className="bi bi-gear settings">
-                                        &nbsp; Settings
-                                    </Link>
-                                </li>
-                                <li>
-                                    <img
-                                        alt="pol"
-                                        src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
-                                        className="privace_poilcy"
-                                    />
-                                    <Link to="/privacePolicy" className="privace_poilcy_txt">
-                                        &nbsp; Privace Policy
-                                    </Link>
-                                </li>
-                                <li>
-                                    <img
-                                        alt="logout"
-                                        src="https://social-reading-application.herokuapp.com/images/LogOut.png"
-                                        className="log_out_img"
-                                    />
-                                    <button
-                                        onClick={() => {
-                                            localStorage.removeItem("token");
-                                            localStorage.removeItem("user");
-                                            localStorage.removeItem("tokenGoogle");
-                                            localStorage.removeItem("userGoogle");
-                                            localStorage.removeItem("tokenFb");
-                                            localStorage.removeItem("userFb");
-                                            navigate("/");
-                                            window.location.reload();
-                                        }}
-                                        className="log_out"
-                                    >
-                                        &nbsp; Log Out
-                                    </button>
-                                </li>
-                            </ul>
-                        )}
-                    </ul>
+                       
+                    </ul> */}
                 </div>
             </div>
 

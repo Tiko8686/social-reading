@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 function Home() {
+  const navigate = useNavigate()
   let [post, setPost] = useState([]);
   let [userToken, setUserToken] = useState("");
   console.log(post)
@@ -23,7 +25,7 @@ function Home() {
     } else {
       setUserToken("")
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -74,9 +76,9 @@ function Home() {
                       <p className="time">{e?.date_posted}</p>
                     </div>
                   </div>
-                  <div className="more_div">
+                  {/* <div className="more_div">
                     <button>...</button>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="post__text">
                   {e?.quote_text}
