@@ -10,7 +10,6 @@ function Profile() {
     const [userFb, setUserFb] = useState("");
     const [token, setToken] = useState("")
     const navigate = useNavigate();
-    let editor = "";
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem("token"));
         const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
@@ -22,6 +21,7 @@ function Profile() {
         } else if (tokenFb) {
             setToken("JWT " + tokenFb.access)
         }
+
         if (!tokenn && !tokenGoogle && !tokenFb) {
             navigate("/");
         } else {
@@ -37,7 +37,7 @@ function Profile() {
                 }
             } else if (JSON.parse(localStorage.getItem("userFb"))) {
                 setUserFb(JSON.parse(localStorage.getItem("userFb")));
-                if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
+                if (JSON.parse(localStorage.getItem("userFb")).avatar) {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar })
                 } else {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook })
@@ -45,6 +45,9 @@ function Profile() {
             }
         }
     }, [navigate]);
+
+    // change profile pic methods
+    let editor = "";
     const [picture, setPicture] = useState({
         cropperOpen: false,
         img: null,
@@ -121,6 +124,16 @@ function Profile() {
             });
         }
     };
+
+    // change background pic methods
+
+    // let editorBack = "";
+    // const [pictureBack, setPictureBack] = useState({
+    //     cropperOpen: false,
+    //     img: null,
+    //     zoom: 2,
+    //     croppedImg: ""
+    // });
     return (
         <>
             <div className="profilePage">
@@ -146,10 +159,13 @@ function Profile() {
                                 />
                             ) : ""
                     }
+                    {/* bacground photo */}
                     <label htmlFor="cover_photo" className="bi bi-camera edit_cover_photo_button">Add cover Photo</label>
-                    <input type="file" id="cover_photo" onChange={(e) => {
-                        console.log()
-                    }}/>
+                    <input type="file" id="cover_photo"
+                        // onChange={(e) => {
+                        //     console.log()
+                        // }}
+                    />
                 </div>
                 <div className="my_info">
                     <div className="name_and_pic">
