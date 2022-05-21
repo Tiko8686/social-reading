@@ -6,12 +6,7 @@ import Login from "./googleLogin.js";
 import { useNavigate } from "react-router-dom";
 
 export function Signin() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const {register, handleSubmit, formState: { errors }, reset} = useForm();
   const navigate = useNavigate();
   const [login, setLogin] = useState({ email: "", password: "" });
   const [email, setEmail] = useState({ email: "" });
@@ -26,14 +21,10 @@ export function Signin() {
   const [password1Eye, setPassword1Eye] = useState(false);
   const [loginEye, setLoginEye] = useState(false);
   const [password2Eye, setPassword2Eye] = useState(false);
-  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({
-    email: "",
-    pass: "",
-  });
+  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({email: "", pass: ""});
   const [emailRe, setEmailRe] = useState("");
 
   const resend = () => {
-    console.log(emailRe);
     axios
       .post("https://socialreading.xyz/auth/users/resend_activation/", {
         email: emailRe,
@@ -133,7 +124,7 @@ export function Signin() {
       });
   };
 
-  const submitChackin = (event) => {
+  const signIn = (event) => {
     event.preventDefault();
     axios
       .post("https://socialreading.xyz/auth/jwt/create/", {
@@ -425,7 +416,7 @@ export function Signin() {
             <button className="close" onClick={toggleModalSignIn}>
               X
             </button>
-            <form onSubmit={submitChackin} className="form_style">
+            <form onSubmit={signIn} className="form_style">
               <h2>Log In</h2>
               <div>
                 <label htmlFor="emailLogin">Email</label>
@@ -507,37 +498,27 @@ export function Signin() {
                     setForgotPass(true);
                     setSigin(false);
                   }}
-                >
-                  Forgot password?
-                </button>
+                >Forgot password?</button>
               </div>
               <div>
                 <Login></Login>
               </div>
               <div>
-                <button onClick={toggleModal} className="btn-acc">
-                  Don't have an account?
-                </button>
+                <button onClick={toggleModal} className="btn-acc">Don't have an account?</button>
               </div>
             </form>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : ""}
       {forgotPass && (
         <div className="modal">
           <div onClick={toggleModalForgotPass} className="overlay"></div>
           <div className="modal-content-sign">
-            <button className="close" onClick={toggleModalForgotPass}>
-              X
-            </button>
+            <button className="close" onClick={toggleModalForgotPass}>X</button>
             <form className="form_style" onSubmit={sendCode}>
               <div className="forgot_text">
                 <h2 className="forgot_header">Forgot Password?</h2>
-                <p className="forgot_text_text">
-                  Enter your email address to reset your password
-                </p>
+                <p className="forgot_text_text">Enter your email address to reset your password</p>
               </div>
               <div>
                 <label>Email</label>
@@ -565,10 +546,7 @@ export function Signin() {
           <div className="modal-content-sign">
             <button className="close">X</button>
             <div className="verify_email_content">
-              <p className="verify_text">
-                Verify your email address. Click the link in the email we sent
-                you.
-              </p>
+              <p className="verify_text">Verify your email address. Click the link in the email we sent you.</p>
               <div>
                 <button onClick={() => resend()}>Resend activation</button>
                 <button
@@ -577,9 +555,7 @@ export function Signin() {
                     setVerifyEmail(false);
                     setEmailRe("");
                   }}
-                >
-                  Okay
-                </button>
+                >Okay</button>
               </div>
             </div>
           </div>
@@ -589,12 +565,8 @@ export function Signin() {
         <div className="modal">
           <div className="overlay"></div>
           <div className="modal-content-sign">
-            <h1 className="textEmail">
-              Please go to the email and click the link
-            </h1>
-            <button className="okBtn" onClick={() => setResetPass(false)}>
-              ok
-            </button>
+            <h1 className="textEmail">Please go to the email and click the link</h1>
+            <button className="okBtn" onClick={() => setResetPass(false)}>ok</button>
           </div>
         </div>
       )}

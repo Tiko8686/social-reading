@@ -9,7 +9,9 @@ function Profile() {
     const [userGoogle, setUserGoogle] = useState("");
     const [userFb, setUserFb] = useState("");
     const [token, setToken] = useState("")
+
     const navigate = useNavigate();
+
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem("token"));
         const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
@@ -28,6 +30,7 @@ function Profile() {
             if (JSON.parse(localStorage.getItem("user"))) {
                 setUserInfo(JSON.parse(localStorage.getItem("user")));
                 setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("user")).avatar })
+                setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("user")).profile_background })
             } else if (JSON.parse(localStorage.getItem("userGoogle"))) {
                 setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
                 if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
@@ -35,6 +38,7 @@ function Profile() {
                 } else {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google })
                 }
+                setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).profile_background })
             } else if (JSON.parse(localStorage.getItem("userFb"))) {
                 setUserFb(JSON.parse(localStorage.getItem("userFb")));
                 if (JSON.parse(localStorage.getItem("userFb")).avatar) {
@@ -42,7 +46,10 @@ function Profile() {
                 } else {
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook })
                 }
+                setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userFb")).profile_background })
             }
+            console.log(pictureBack)
+
         }
     }, [navigate]);
 
@@ -127,44 +134,103 @@ function Profile() {
 
     // change background pic methods
 
-    // let editorBack = "";
-    // const [pictureBack, setPictureBack] = useState({
-    //     cropperOpen: false,
-    //     img: null,
-    //     zoom: 2,
-    //     croppedImg: ""
-    // });
+    let editorBack = "";
+    const [pictureBack, setPictureBack] = useState({
+        cropperOpen: false,
+        img: null,
+        zoom: 2,
+        croppedImg: ""
+    });
+    const handleSliderBack = (event, value) => {
+        setPictureBack({
+            ...pictureBack,
+            zoom: value
+        });
+    };
+    const handleCancelBack = () => {
+        setPictureBack({
+            ...pictureBack,
+            cropperOpen: false
+        });
+    };
+    const setEditorRefBack = (ed) => {
+        editorBack = ed;
+    };
+    const handleSaveBack = (e) => {
+        if (setEditorRefBack) {
+            const canvasScaled = editorBack.getImageScaledToCanvas();
+            const croppedImgBack = canvasScaled.toDataURL();
+            function dataURLtoFile(dataurl, filename) {
+                var arr = dataurl.split(','),
+                    mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]),
+                    n = bstr.length,
+                    u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new File([u8arr], filename, { type: mime });
+            }
+            let file = dataURLtoFile(croppedImgBack, 'profileBack.png');
+            const formData = new FormData();
+            formData.append("profile_background", file);
+
+            axios.patch('https://socialreading.xyz/auth/users/me/', formData, {
+                headers: { "Authorization": token }
+            })
+                .then(resp => {
+                    console.log("respo", resp)
+                    if (JSON.parse(localStorage.getItem("token"))) {
+                        localStorage.setItem('user', JSON.stringify(resp.data));
+                        setUserInfo(JSON.parse(localStorage.getItem("user")));
+                        setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("user")).profile_background, cropperOpen: false })
+                    }
+                    else if (JSON.parse(localStorage.getItem("tokenGoogle"))) {
+                        localStorage.setItem('userGoogle', JSON.stringify(resp.data));
+                        setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
+                        setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).profile_background, cropperOpen: false })
+                    }
+                    else if (JSON.parse(localStorage.getItem("tokenFb"))) {
+                        localStorage.setItem('userFb', JSON.stringify(resp.data));
+                        setUserFb(JSON.parse(localStorage.getItem("userFb")));
+                        setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userFb")).profile_background, cropperOpen: false })
+                    }
+                    window.location.reload()
+                }).catch((error) => {
+                    if (error.response) {
+                        console.log("error.response ", error.response);
+                    } else if (error.request) {
+                        console.log("error.request ", error.request);
+                    } else if (error.message) {
+                        console.log("error.request ", error.message);
+                    }
+                });
+            setPictureBack({
+                ...pictureBack,
+                img: null,
+                cropperOpen: false,
+            });
+        }
+    };
     return (
         <>
             <div className="profilePage">
                 <div className="profile_background">
-                    {
-                        userInfo?.profile_background ?
-                            (<img
-                                className="background_pic"
-                                src={userInfo.profile_background}
-                                alt="background_pic"
-                            />)
-                            : userGoogle?.profile_background ? (
-                                <img
-                                    className="background_pic"
-                                    src={userGoogle.profile_background}
-                                    alt="background_pic"
-                                />
-                            ) : userFb?.profile_background ? (
-                                <img
-                                    className="background_pic"
-                                    src={userFb.profile_background}
-                                    alt="background_pic"
-                                />
-                            ) : ""
-                    }
                     {/* bacground photo */}
-                    <label htmlFor="cover_photo" className="bi bi-camera edit_cover_photo_button">Add cover Photo</label>
-                    <input type="file" id="cover_photo"
-                        // onChange={(e) => {
-                        //     console.log()
-                        // }}
+                    <img
+                        className="background_pic"
+                        src={pictureBack.croppedImg}
+                        alt="background_pic"
+                    />
+                    <label htmlFor="cover_photo" className="bi bi-camera edit_cover_photo_button">Change cover Photo</label>
+                    <input type="file" id="cover_photo" onChange={(e) => {
+                        let url = URL.createObjectURL(e.target.files[0]);
+                        setPictureBack({
+                            ...pictureBack,
+                            img: url,
+                            cropperOpen: true
+                        });
+                    }}
                     />
                 </div>
                 <div className="my_info">
@@ -178,7 +244,6 @@ function Profile() {
                             <label htmlFor="profile_photo" className="bi bi-camera edit_profile_pic"></label>
                             <input type="file" id="profile_photo" onChange={(e) => {
                                 let url = URL.createObjectURL(e.target.files[0]);
-                                console.log(url);
                                 setPicture({
                                     ...picture,
                                     img: url,
@@ -216,9 +281,6 @@ function Profile() {
                         <li>
                             <Link to="saved">Saved</Link>
                         </li>
-                        <li>
-                            <Link to="myCategories">My Categories</Link>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -245,10 +307,36 @@ function Profile() {
                             onChange={handleSlider}
                         ></Slider>
                         <Box>
-                            <Button variant="contained" onClick={handleCancel}>
-                                Cancel
-                            </Button>
+                            <Button variant="contained" onClick={handleCancel}>Cancel</Button>
                             <Button onClick={handleSave}>Save</Button>
+                        </Box>
+                    </Box>
+                </div>
+            )}
+            {pictureBack.cropperOpen && (
+                <div className="overlay" >
+                    <Box display="block" className="image_crop_back">
+                        <AvatarEditor
+                            ref={setEditorRefBack}
+                            image={pictureBack.img}
+                            width={700}
+                            height={200}
+                            border={50}
+                            color={[255, 255, 255, 0.6]}
+                            rotate={0}
+                            scale={pictureBack.zoom}
+                        />
+                        <Slider
+                            aria-label="raceSlider"
+                            value={pictureBack.zoom}
+                            min={1}
+                            max={10}
+                            step={0.1}
+                            onChange={handleSliderBack}
+                        ></Slider>
+                        <Box>
+                            <Button variant="contained" onClick={handleCancelBack}>Cancel</Button>
+                            <Button onClick={handleSaveBack}>Save</Button>
                         </Box>
                     </Box>
                 </div>

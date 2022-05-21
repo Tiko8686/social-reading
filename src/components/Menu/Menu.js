@@ -17,9 +17,14 @@ export function Menu() {
     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
     setUserFb(JSON.parse(localStorage.getItem("userFb")));
   }, [navigate]);
+
   return (
     <>
-      <nav>
+      <nav onClick={() => {
+        if (bool) {
+          setBool(false)
+        }
+      }}>
         <ul>
           <li>
             <Link to="/">
@@ -81,33 +86,21 @@ export function Menu() {
                     </svg>
                   </button>
                   {
-                    bool && (<ul
-                      className="modal_menu_profile"
-                      onClick={() => setBool(false)}
-                    >
-                      <li>
+                    bool && (
+                      <div
+                        className="modal_menu_for_login"
+                        onClick={() => setBool(false)}
+                      >
                         <Link to="/settings" className="bi bi-gear settings">
                           &nbsp; Settings
                         </Link>
-                      </li>
-                      <li>
-                        <img
-                          alt="pol"
-                          src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
-                          className="privace_poilcy"
-                        />
                         <Link to="/privacePolicy" className="privace_poilcy_txt">
-                          &nbsp; Privace Policy
-                        </Link>
-                      </li>
-                      <li>
-                        <img
-                          alt="logout"
-                          src="https://social-reading-application.herokuapp.com/images/LogOut.png"
-                          className="log_out_img"
-                        />
-                        <button
-                        className="log_out"
+                          <img
+                            alt="pol"
+                            src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
+                            className="privace_poilcy"
+                          />&nbsp; Privace Policy</Link>
+                        <button className="log_out"
                           onClick={() => {
                             localStorage.removeItem("token");
                             localStorage.removeItem("user");
@@ -119,9 +112,14 @@ export function Menu() {
                             window.location.reload();
                           }}
                         >
-                          &nbsp; Log Out</button>
-                      </li>
-                    </ul>
+                          <img
+                            alt="logout"
+                            src="https://social-reading-application.herokuapp.com/images/LogOut.png"
+                            className="log_out_img"
+                          />
+                          &nbsp; Log Out
+                        </button>
+                      </div>
                     )
                   }
                 </div>
@@ -129,7 +127,7 @@ export function Menu() {
                 <div className="login_user_menu">
                   <img
                     alt="profile_pic"
-                    src={userGoogle.avatar? userGoogle.avatar : userGoogle.avatar_google}
+                    src={userGoogle.avatar ? userGoogle.avatar : userGoogle.avatar_google}
                     onClick={() => navigate("/profile")}
                     className="profile_pic_menu"
                   />
@@ -148,47 +146,39 @@ export function Menu() {
                     </svg>
                   </button>
                   {
-                    bool && (<ul
-                      className="modal_menu_profile"
+                    bool && (<div
+                      className="modal_menu_for_login"
                       onClick={() => setBool(false)}
                     >
-                      <li>
-                        <Link to="/settings" className="bi bi-gear settings">
-                          &nbsp; Settings
-                        </Link>
-                      </li>
-                      <li>
+                      <Link to="/settings" className="bi bi-gear settings">
+                        &nbsp; Settings
+                      </Link>
+                      <Link to="/privacePolicy" className="privace_poilcy_txt">
                         <img
                           alt="pol"
                           src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
                           className="privace_poilcy"
-                        />
-                        <Link to="/privacePolicy" className="privace_poilcy_txt">
-                          &nbsp; Privace Policy
-                        </Link>
-                      </li>
-                      <li>
+                        />&nbsp; Privace Policy</Link>
+                      <button className="log_out"
+                        onClick={() => {
+                          localStorage.removeItem("token");
+                          localStorage.removeItem("user");
+                          localStorage.removeItem("tokenGoogle");
+                          localStorage.removeItem("userGoogle");
+                          localStorage.removeItem("tokenFb");
+                          localStorage.removeItem("userFb");
+                          navigate("/");
+                          window.location.reload();
+                        }}
+                      >
                         <img
                           alt="logout"
                           src="https://social-reading-application.herokuapp.com/images/LogOut.png"
                           className="log_out_img"
                         />
-                        <button className="log_out"
-                          onClick={() => {
-                            localStorage.removeItem("token");
-                            localStorage.removeItem("user");
-                            localStorage.removeItem("tokenGoogle");
-                            localStorage.removeItem("userGoogle");
-                            localStorage.removeItem("tokenFb");
-                            localStorage.removeItem("userFb");
-                            navigate("/");
-                            window.location.reload();
-                          }}
-                        >
-                          &nbsp; Log Out
-                        </button>
-                      </li>
-                    </ul>
+                        &nbsp; Log Out
+                      </button>
+                    </div>
                     )
                   }
                 </div>
@@ -197,7 +187,7 @@ export function Menu() {
 
                   <img
                     alt="profile_pic"
-                    src={userFb.avatar?  userFb.avatar : userFb.avatar_facebook}
+                    src={userFb.avatar ? userFb.avatar : userFb.avatar_facebook}
                     onClick={() => navigate("/profile")}
                     className="profile_pic_menu"
                   />
@@ -216,31 +206,20 @@ export function Menu() {
                     </svg>
                   </button>
                   {
-                    bool && (<ul
-                      className="modal_menu_profile"
-                      onClick={() => setBool(false)}
-                    >
-                      <li>
+                    bool && (
+                      <div
+                        className="modal_menu_for_login"
+                        onClick={() => setBool(false)}
+                      >
                         <Link to="/settings" className="bi bi-gear settings">
                           &nbsp; Settings
                         </Link>
-                      </li>
-                      <li>
-                        <img
-                          alt="pol"
-                          src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
-                          className="privace_poilcy"
-                        />
                         <Link to="/privacePolicy" className="privace_poilcy_txt">
-                          &nbsp; Privace Policy
-                        </Link>
-                      </li>
-                      <li>
-                        <img
-                          alt="logout"
-                          src="https://social-reading-application.herokuapp.com/images/LogOut.png"
-                          className="log_out_img"
-                        />
+                          <img
+                            alt="pol"
+                            src="https://social-reading-application.herokuapp.com/images/privace_policy.png"
+                            className="privace_poilcy"
+                          />&nbsp; Privace Policy</Link>
                         <button className="log_out"
                           onClick={() => {
                             localStorage.removeItem("token");
@@ -253,10 +232,14 @@ export function Menu() {
                             window.location.reload();
                           }}
                         >
+                          <img
+                            alt="logout"
+                            src="https://social-reading-application.herokuapp.com/images/LogOut.png"
+                            className="log_out_img"
+                          />
                           &nbsp; Log Out
                         </button>
-                      </li>
-                    </ul>
+                      </div>
                     )
                   }
                 </div>

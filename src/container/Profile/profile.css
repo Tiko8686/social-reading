@@ -6,7 +6,7 @@
 
 .profile_background {
     width: 100%;
-    height: 323px;
+    height: 350px;
     border-radius: 0px 0px 10px 10px;
     position: relative;
 }
@@ -141,34 +141,7 @@
 } */
 
 
-.settings {
-    text-decoration: none;
-    color: black;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
-}
 
-.privace_poilcy {
-    pointer-events: none;
-    width: 15px;
-    height: 15px;
-}
-
-.privace_poilcy_txt {
-    text-decoration: none;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
-    text-transform: capitalize;
-    color: #202029;
-    position: absolute;
-    top: 98px
-}
 
 /*  */
 
@@ -181,4 +154,15 @@
     top: 25%;
     left: 40%;
     
+}
+
+.image_crop_back {
+    width: 800px;
+    height: 500px;
+    background-color: white;
+    position: fixed;
+    top: 25%;
+    left: 30%;
+
+
 }
