@@ -6,7 +6,7 @@ import Login from "./googleLogin.js";
 import { useNavigate } from "react-router-dom";
 
 export function Signin() {
-  const {register, handleSubmit, formState: { errors }, reset} = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate();
   const [login, setLogin] = useState({ email: "", password: "" });
   const [email, setEmail] = useState({ email: "" });
@@ -21,9 +21,11 @@ export function Signin() {
   const [password1Eye, setPassword1Eye] = useState(false);
   const [loginEye, setLoginEye] = useState(false);
   const [password2Eye, setPassword2Eye] = useState(false);
-  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({email: "", pass: ""});
+  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({ email: "", pass: "" });
   const [emailRe, setEmailRe] = useState("");
+  const [spanResend, setSpanResend] = useState(false)
 
+  // resend activation link to mail
   const resend = () => {
     axios
       .post("https://socialreading.xyz/auth/users/resend_activation/", {
@@ -31,6 +33,7 @@ export function Signin() {
       })
       .then((resp) => {
         console.log(resp.data);
+        setSpanResend(true)
       })
       .catch((error) => {
         if (error.response) {
@@ -43,6 +46,8 @@ export function Signin() {
       });
   };
 
+
+  // signup
   const signUp = (data) => {
     if (data.password1 !== data.password2) {
       setConfPasswordErr(true);
@@ -77,6 +82,7 @@ export function Signin() {
     }
   };
 
+  // toggle for signup
   const toggleModal = () => {
     setSigin(false);
     setSignup(!signup);
@@ -85,6 +91,9 @@ export function Signin() {
     setPassword1Eye(false);
     setPassword2Eye(false);
   };
+
+  // toggle for signin
+
   const toggleModalSignIn = () => {
     setSignup(false);
     setWrongEmailOrPass({ email: "", pass: "" });
@@ -93,6 +102,8 @@ export function Signin() {
     setLoginEye(false);
   };
 
+  // toggle for signin
+
   const toggleModalForgotPass = () => {
     setForgotPass(!forgotPass);
     setEmail({ email: "" });
@@ -100,6 +111,8 @@ export function Signin() {
     setEmailRe("");
   };
 
+
+  //send code for forgot pass
   const sendCode = (event) => {
     event.preventDefault();
     console.log(email);
@@ -124,6 +137,8 @@ export function Signin() {
       });
   };
 
+
+  //sign in
   const signIn = (event) => {
     event.preventDefault();
     axios
@@ -196,9 +211,7 @@ export function Signin() {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content-sign">
-            <button className="close" onClick={toggleModal}>
-              X
-            </button>
+            <button className="close" onClick={toggleModal}>X</button>
             <form onSubmit={handleSubmit(signUp)} className="form_style">
               <h2>Sign Up</h2>
               <div>
@@ -548,7 +561,9 @@ export function Signin() {
             <div className="verify_email_content">
               <p className="verify_text">Verify your email address. Click the link in the email we sent you.</p>
               <div>
-                <button onClick={() => resend()}>Resend activation</button>
+                <button onClick={() => {
+                  resend()
+                }}>Resend activation</button>
                 <button
                   className="buttonOk"
                   onClick={() => {
@@ -557,6 +572,7 @@ export function Signin() {
                   }}
                 >Okay</button>
               </div>
+              {spanResend && <span className="link_sent">Լink sent. Check your email.</span>}
             </div>
           </div>
         </div>

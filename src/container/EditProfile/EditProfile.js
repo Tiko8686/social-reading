@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import "./EditProfile.css"  
+import "./EditProfile.css"
 function EditProfile() {
     const { register, handleSubmit, setValue } = useForm()
     const [user, setUser] = useState("");
@@ -25,7 +25,7 @@ function EditProfile() {
             setUser("JWT " + tokenGoogle?.access)
             setValue("first_name", userGoogle?.first_name)
             setValue("last_name", userGoogle?.last_name)
-        }  else if (tokenFb) {
+        } else if (tokenFb) {
             const userFb = JSON.parse(localStorage.getItem("userFb"))
             setUser("JWT " + tokenGoogle?.access)
             setValue("first_name", userFb?.first_name)
@@ -38,7 +38,6 @@ function EditProfile() {
         const formData = new FormData();
         formData.append("first_name", data.first_name);
         formData.append("last_name", data.last_name);
-
         if (data.avatar.length > 0) {
             formData.append("avatar", data.avatar[0]);
         }
@@ -51,9 +50,7 @@ function EditProfile() {
             console.log("respo", resp)
             localStorage.setItem('user', JSON.stringify(resp.data));
             setLoading(false)
-
         })
-
     }
 
     return (
@@ -69,11 +66,7 @@ function EditProfile() {
                 <input type="file" {...register("profile_background")} /><br /><br />
                 <input type="submit" />
             </form>
-            {
-                loading && <p>...</p>
-            }
-
-
+            {loading && <p>...</p>}
         </div >
     )
 }

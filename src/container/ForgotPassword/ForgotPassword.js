@@ -55,6 +55,7 @@ function ForgotPass() {
                             }
                             {...register("code", { required: true, minLength: 6, maxLength: 6 })}
                         />
+
                         {errors.code && errors.code.type === "required" && <span>This is required*</span>}
                         {errors.code && errors.code.type === "maxLength" && <span>Confirmation code length must be equal to 6.</span>}
                         {errors.code && errors.code.type === "minLength" && <span>Confirmation code length must be equal to 6.</span>}
@@ -118,10 +119,7 @@ function ForgotPass() {
                         <input type="submit" value="Submit" id="forgot_pass_btn_submit" />
                     </div>
                 </form>
-
-
             </div>
-
         </>
     );
 }

@@ -1,3 +1,30 @@
+.modal,
+.overlay {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.modal {
+    z-index: 100;
+}
+
+.close {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 20px;
+}
+
 .modal-content-sign {
     position: absolute;
     padding: 40px 0;
@@ -13,13 +40,15 @@
     flex-direction: column;
     align-items: center;
 }
-.textEmail{
+
+.textEmail {
     color: #9832FE;
 
 }
-.okBtn{
+
+.okBtn {
     margin-top: 10px;
-    background-color:#9832FE ;
+    background-color: #9832FE;
     border: none;
     color: white;
     width: 100px;
@@ -27,18 +56,21 @@
     border-radius: 20px;
     outline: none;
     border: none;
-    
+
 }
+
 .forgot_btn {
     margin-top: 10px;
     background-color: white;
     border: none;
     color: #9832FE;
 }
+
 .signin {
-    color:white;
+    color: white;
     cursor: pointer;
 }
+
 .submit_and_forgot {
     text-align: right;
 }
@@ -56,9 +88,10 @@
 .forgot_text {
     text-align: center;
 }
+
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
+}
 
 .forgot_text_text {
     font-family: 'Poppins';
@@ -140,6 +173,7 @@ input[type=number]::-webkit-inner-spin-button {
     line-height: 18px;
     padding: 0;
 }
+
 .verify_email_content {
     padding: 10px;
     display: flex;
@@ -148,17 +182,20 @@ input[type=number]::-webkit-inner-spin-button {
     justify-content: center;
     gap: 20px
 }
+
 .verify_email_content>div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 30px
 }
+
 .verify_text {
     font-size: 18px;
-    color:#3D424E
+    color: #3D424E
 }
-.verify_email_content>div > button {
+
+.verify_email_content>div>button {
     background-color: #9832FE;
     width: 190px;
     height: 35px;
@@ -171,17 +208,22 @@ input[type=number]::-webkit-inner-spin-button {
     font-family: 'Poppins';
     font-style: normal;
     font-size: 18px;
+    cursor: pointer;
+    padding:  0;
     line-height: 18px;
 }
+
 .password_div {
     position: relative;
 }
+
 .password_eye {
     position: absolute;
     top: 43px;
     right: 15px;
-    user-select:none;
+    user-select: none;
 }
+
 .email_input::placeholder {
     font-size: 16px;
 }
@@ -194,10 +236,12 @@ input[type=number]::-webkit-inner-spin-button {
     text-decoration: underline;
     cursor: pointer;
 }
-.buttonOk{
+
+.buttonOk {
     color: #9832FE;
 }
-.forgotBtn{
+
+.forgotBtn {
     color: #9832FE;
     border: none;
     background-color: white;
@@ -205,6 +249,10 @@ input[type=number]::-webkit-inner-spin-button {
     margin-left: 245px;
 }
 
+.link_sent {
+    color: red;
+    font-size: 18px;
+}
 @media (min-width: 300px) and (max-width: 600px) {
     .btn-modal {
         font-size: 24px;

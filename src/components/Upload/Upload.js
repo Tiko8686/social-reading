@@ -5,17 +5,8 @@ import axios from "axios";
 import "./Upload.css";
 
 export function Upload() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-  const [categoryErr, setCategoryErr] = useState({
-    required: false,
-    minLength: false,
-    maxLength: false,
-  });
+  const { register, handleSubmit, formState: { errors }, reset, } = useForm();
+  const [categoryErr, setCategoryErr] = useState({ required: false, minLength: false, maxLength: false, });
   const [modal, setModal] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryValue, setCategoryValue] = useState("");
@@ -23,29 +14,32 @@ export function Upload() {
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [searchModal, setSearchModal] = useState(false);
   const [file, setFile] = useState(undefined);
-  const [suggestions, setSugesstion] = useState([
-    "Professional",
-    "Artistic",
-    "Historical",
-    "Motivational",
-    "Psychological",
-  ]);
+  const [suggestions, setSugesstion] = useState(["Professional", "Artistic", "Historical", "Motivational", "Psychological"]);
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("")
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))
     const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"))
     const tokenFb = JSON.parse(localStorage.getItem("tokenFb"))
-
     if (token) {
       setUser("JWT " + token.access)
-    } else  if (tokenGoogle) {
+    } else if (tokenGoogle) {
       setUser("JWT " + tokenGoogle.access)
-    } else  if (tokenFb) {
+    } else if (tokenFb) {
       setUser("JWT " + tokenFb.access)
     } else {
       setUser("")
     }
+  }, []);
+
+  useEffect(() => {
+    axios.get("https://socialreading.xyz/categories/").then((resp) => {
+      setCategories(
+        resp.data.map((category) => {
+          return category.name;
+        })
+      );
+    });
   }, []);
 
   function showPreview(event) {
@@ -62,22 +56,10 @@ export function Upload() {
     }
   }
 
-  useEffect(() => {
-    axios.get("https://socialreading.xyz/categories/").then((resp) => {
-      setCategories(
-        resp.data.map((category) => {
-          return category.name;
-        })
-      );
-    });
-  }, []);
+
   const categoryValueChange = (event) => {
-    setCategoryErr({
-      required: false,
-      minLength: false,
-      maxLength: false,
-      fileRequired: false,
-    });
+    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false});
+
     setCategoryValue(event.target.value);
     if (event.target.value === "") {
       setSuggestWindow(true);
@@ -115,12 +97,7 @@ export function Upload() {
     setFile(undefined);
     setFileErr(false);
     setModal(!modal);
-    setCategoryErr({
-      required: false,
-      minLength: false,
-      maxLength: false,
-      fileRequired: false,
-    });
+    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false });
     setSearchModal(false);
     setSuggestWindow(false);
     setCategoryValue("");
@@ -167,15 +144,12 @@ export function Upload() {
   return (
     <>
       <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
-        &nbsp;&nbsp;Upload
-      </button>
+        &nbsp;&nbsp;Upload</button>
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <button className="close" onClick={toggleModal}>
-              X
-            </button>
+            <button className="close" onClick={toggleModal}> X</button>
             <div
               className="imageDiv"
               onClick={() => {
@@ -185,8 +159,7 @@ export function Upload() {
             >
               <img className="img" id="file-id-1-preview" />
               <label htmlFor="files" className="fileLabel bi bi-cloud-upload">
-                &nbsp; Upload Image
-              </label>
+                &nbsp; Upload Image</label>
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -208,19 +181,13 @@ export function Upload() {
                 })}
               />
               {errors.authorName && errors.authorName.type === "required" && (
-                <span className="authorNameErr">
-                  Այս դաշտը պարտադիր է լրացման
-                </span>
+                <span className="authorNameErr">Այս դաշտը պարտադիր է լրացման</span>
               )}
               {errors.authorName && errors.authorName.type === "maxLength" && (
-                <span className="authorNameErr">
-                  Դաշտը պետք է ներառի ոչ ավել քան 20 նիշ
-                </span>
+                <span className="authorNameErr">Դաշտը պետք է ներառի ոչ ավել քան 20 նիշ</span>
               )}
               {errors.authorName && errors.authorName.type === "minLength" && (
-                <span className="authorNameErr">
-                  Դաշտը պետք է ներառի ամենաքիչը 2 նիշ
-                </span>
+                <span className="authorNameErr">Դաշտը պետք է ներառի ամենաքիչը 2 նիշ</span>
               )}
               <input
                 autoComplete="off"
@@ -228,11 +195,7 @@ export function Upload() {
                 placeholder="Name of the book"
                 id="name"
                 type="text"
-                {...register("bookName", {
-                  required: true,
-                  maxLength: 20,
-                  minLength: 2,
-                })}
+                {...register("bookName", {required: true,maxLength: 20,minLength: 2})}
               />
               {errors.bookName && errors.bookName.type === "maxLength" && (
                 <span className="bookNameErr">

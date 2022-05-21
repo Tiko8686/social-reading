@@ -53,7 +53,21 @@ function Profile() {
         }
     }, [navigate]);
 
+
+    // base 64 to image
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
     // change profile pic methods
+
     let editor = "";
     const [picture, setPicture] = useState({
         cropperOpen: false,
@@ -78,21 +92,8 @@ function Profile() {
     };
     const handleSave = (e) => {
         if (setEditorRef) {
-            console.log(editor)
             const canvasScaled = editor.getImageScaledToCanvas();
             const croppedImg = canvasScaled.toDataURL();
-            console.log("croppedImg", croppedImg)
-            function dataURLtoFile(dataurl, filename) {
-                var arr = dataurl.split(','),
-                    mime = arr[0].match(/:(.*?);/)[1],
-                    bstr = atob(arr[1]),
-                    n = bstr.length,
-                    u8arr = new Uint8Array(n);
-                while (n--) {
-                    u8arr[n] = bstr.charCodeAt(n);
-                }
-                return new File([u8arr], filename, { type: mime });
-            }
             let file = dataURLtoFile(croppedImg, 'profile.png');
             const formData = new FormData();
             formData.append("avatar", file);
@@ -127,7 +128,6 @@ function Profile() {
                 ...picture,
                 img: null,
                 cropperOpen: false,
-                // croppedImg: croppedImg
             });
         }
     };
@@ -151,6 +151,7 @@ function Profile() {
         setPictureBack({
             ...pictureBack,
             cropperOpen: false
+
         });
     };
     const setEditorRefBack = (ed) => {
@@ -160,17 +161,6 @@ function Profile() {
         if (setEditorRefBack) {
             const canvasScaled = editorBack.getImageScaledToCanvas();
             const croppedImgBack = canvasScaled.toDataURL();
-            function dataURLtoFile(dataurl, filename) {
-                var arr = dataurl.split(','),
-                    mime = arr[0].match(/:(.*?);/)[1],
-                    bstr = atob(arr[1]),
-                    n = bstr.length,
-                    u8arr = new Uint8Array(n);
-                while (n--) {
-                    u8arr[n] = bstr.charCodeAt(n);
-                }
-                return new File([u8arr], filename, { type: mime });
-            }
             let file = dataURLtoFile(croppedImgBack, 'profileBack.png');
             const formData = new FormData();
             formData.append("profile_background", file);
@@ -232,10 +222,12 @@ function Profile() {
                         });
                     }}
                     />
+
                 </div>
                 <div className="my_info">
                     <div className="name_and_pic">
                         <div className="pic_div">
+                            {/* profile pic */}
                             <img
                                 className="autor_pic"
                                 src={picture.croppedImg}

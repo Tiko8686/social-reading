@@ -43,7 +43,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap:10px
+    gap:10px;
+    cursor: pointer;
 }
 
 .pic_div {
@@ -80,7 +81,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    /* gap: 500px; */
 }
 
 .edit_btn {
@@ -126,25 +126,6 @@
     justify-content: center;
     gap: 30px;
 }
-/* 
-.more_btn {
-    cursor: pointer;
-    padding-bottom: 10px;
-    width: 45px;
-    height: 35px;
-    background: #E5E6EB;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-} */
-
-
-
-
-/*  */
-
 
 .image_crop {
     background-color: white;
@@ -163,6 +144,4 @@
     position: fixed;
     top: 25%;
     left: 30%;
-
-
 }
