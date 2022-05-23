@@ -23,13 +23,14 @@ export function Upload() {
     const tokenFb = JSON.parse(localStorage.getItem("tokenFb"))
     if (token) {
       setUser("JWT " + token.access)
-    } else if (tokenGoogle) {
-      setUser("JWT " + tokenGoogle.access)
-    } else if (tokenFb) {
-      setUser("JWT " + tokenFb.access)
-    } else {
-      setUser("")
     }
+    //  else if (tokenGoogle) {
+    //   setUser("JWT " + tokenGoogle.access)
+    // } else if (tokenFb) {
+    //   setUser("JWT " + tokenFb.access)
+    // } else {
+    //   setUser("")
+    // }
   }, []);
 
   useEffect(() => {
@@ -129,6 +130,7 @@ export function Upload() {
           headers: { "Authorization": user }
         }).then((resp) => {
           console.log(resp.data);
+          window.location.reload()
         }).catch((error) => {
           if (error.response) {
             console.log("error.response ", error.response);

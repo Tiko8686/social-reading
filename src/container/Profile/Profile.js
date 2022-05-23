@@ -50,8 +50,6 @@ function Profile() {
             //     }
             //     setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userFb")).profile_background })
             // }
-            console.log(pictureBack)
-
         }
     }, [navigate]);
 
