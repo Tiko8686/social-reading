@@ -5,10 +5,10 @@ function Settings() {
   const navigate = useNavigate()
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
-    const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
+    // const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
+    // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
 
-    if (!token && !tokenGoogle && !tokenFb) {
+    if (!token) {
       navigate("/")
     }
   }, [])

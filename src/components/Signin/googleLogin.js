@@ -33,8 +33,8 @@ function Login() {
           })
           .then((response) => {
             console.log("act", response.data);
-            localStorage.setItem("tokenGoogle", JSON.stringify(res.data));
-            localStorage.setItem("userGoogle", JSON.stringify(response.data));
+            localStorage.setItem("token", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify(response.data));
             window.location.reload();
           })
           .catch((error) => {
@@ -83,8 +83,8 @@ function Login() {
           })
           .then((response) => {
             console.log("act fb", response.data);
-            localStorage.setItem("tokenFb", JSON.stringify(res.data));
-            localStorage.setItem("userFb", JSON.stringify(response.data));
+            localStorage.setItem("token", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify(response.data));
             window.location.reload();
           })
           .catch((error) => {

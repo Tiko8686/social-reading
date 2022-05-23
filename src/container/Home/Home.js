@@ -14,15 +14,17 @@ function Home() {
         setPost(response);
       });
     const token = JSON.parse(localStorage.getItem("token"));
-    const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
-    const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
+    // const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
+    // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
     if (token) {
       setUserToken(token)
-    } else if (tokenGoogle) {
-      setUserToken(tokenGoogle)
-    } else if (tokenFb) {
-      setUserToken(tokenFb)
-    } else {
+    } 
+    // else if (tokenGoogle) {
+    //   setUserToken(tokenGoogle)
+    // } else if (tokenFb) {
+    //   setUserToken(tokenFb)
+    // }
+     else {
       setUserToken("")
     }
   }, [navigate]);
@@ -59,13 +61,14 @@ function Home() {
                   <div className="post__user">
                     <div>
                       {
-                        e?.author?.avatar_facebook ? <img alt="avatar"
-                          className="user_avatar"
-                          src={e?.author?.avatar_facebook}
-                        /> : e?.author?.avatar_google ? <img alt="avatar"
-                          className="user_avatar"
-                          src={e?.author?.avatar_google}
-                        /> : <img alt="avatar"
+                        // e?.author?.avatar_facebook ? <img alt="avatar"
+                        //   className="user_avatar"
+                        //   src={e?.author?.avatar_facebook}
+                        // /> : e?.author?.avatar_google ? <img alt="avatar"
+                        //   className="user_avatar"
+                        //   src={e?.author?.avatar_google}
+                        // /> : 
+                        <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar}
                         />
