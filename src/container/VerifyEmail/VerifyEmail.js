@@ -16,14 +16,13 @@ function VerifyEmail() {
         }).catch((error) => {
             if (error.response) {
                 console.log("error.response ", error.response);
+                alert(error.response.data.detail)
             } else if (error.request) {
                 console.log("error.request ", error.request);
             } else if (error.message) {
                 console.log("error.request ", error.message);
             }
             navigate("/")
-            alert("Something went wrong.")
-
         });
     }, [])
     return (
