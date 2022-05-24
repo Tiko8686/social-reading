@@ -14,16 +14,9 @@ function Profile() {
 
     useEffect(() => {
         const tokenn = JSON.parse(localStorage.getItem("token"));
-        // const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
-        // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
         if (tokenn) {
             setToken("JWT " + tokenn.access)
         } 
-        // else if (tokenGoogle) {
-        //     setToken("JWT " + tokenGoogle.access)
-        // } else if (tokenFb) {
-        //     setToken("JWT " + tokenFb.access)
-        // }
 
         if (!tokenn) {
             navigate("/");
@@ -33,23 +26,6 @@ function Profile() {
                 setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("user")).avatar })
                 setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("user")).profile_background })
             }
-            // else if (JSON.parse(localStorage.getItem("userGoogle"))) {
-            //     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-            //     if (JSON.parse(localStorage.getItem("userGoogle")).avatar) {
-            //         setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar })
-            //     } else {
-            //         setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar_google })
-            //     }
-            //     setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).profile_background })
-            // } else if (JSON.parse(localStorage.getItem("userFb"))) {
-            //     setUserFb(JSON.parse(localStorage.getItem("userFb")));
-            //     if (JSON.parse(localStorage.getItem("userFb")).avatar) {
-            //         setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar })
-            //     } else {
-            //         setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar_facebook })
-            //     }
-            //     setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userFb")).profile_background })
-            // }
         }
     }, [navigate]);
 
@@ -67,7 +43,6 @@ function Profile() {
         return new File([u8arr], filename, { type: mime });
     }
     // change profile pic methods
-
     let editor = "";
     const [picture, setPicture] = useState({
         cropperOpen: false,
@@ -106,15 +81,6 @@ function Profile() {
                     setUserInfo(JSON.parse(localStorage.getItem("user")));
                     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("user")).avatar, cropperOpen: false })
                 }
-                //  else if (JSON.parse(localStorage.getItem("tokenGoogle"))) {
-                //     localStorage.setItem('userGoogle', JSON.stringify(resp.data));
-                //     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-                //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).avatar, cropperOpen: false })
-                // } else if (JSON.parse(localStorage.getItem("tokenFb"))) {
-                //     localStorage.setItem('userFb', JSON.stringify(resp.data));
-                //     setUserFb(JSON.parse(localStorage.getItem("userFb")));
-                //     setPicture({ ...picture, croppedImg: JSON.parse(localStorage.getItem("userFb")).avatar, cropperOpen: false })
-                // }
                 window.location.reload()
             }).catch((error) => {
                 if (error.response) {
@@ -176,16 +142,6 @@ function Profile() {
                         setUserInfo(JSON.parse(localStorage.getItem("user")));
                         setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("user")).profile_background, cropperOpen: false })
                     }
-                    // else if (JSON.parse(localStorage.getItem("tokenGoogle"))) {
-                    //     localStorage.setItem('userGoogle', JSON.stringify(resp.data));
-                    //     setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-                    //     setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userGoogle")).profile_background, cropperOpen: false })
-                    // }
-                    // else if (JSON.parse(localStorage.getItem("tokenFb"))) {
-                    //     localStorage.setItem('userFb', JSON.stringify(resp.data));
-                    //     setUserFb(JSON.parse(localStorage.getItem("userFb")));
-                    //     setPictureBack({ ...pictureBack, croppedImg: JSON.parse(localStorage.getItem("userFb")).profile_background, cropperOpen: false })
-                    // }
                     window.location.reload()
                 }).catch((error) => {
                     if (error.response) {
@@ -249,9 +205,6 @@ function Profile() {
                                 {
                                     userInfo ? userInfo?.first_name + " " + userInfo?.last_name
                                         : ""
-                                    //         userGoogle ? userGoogle?.first_name + " " + userGoogle?.last_name :
-                                    //             userFb ? userFb?.first_name + " " + userFb?.last_name :
-                                    //                 ""
                                 }
                             </h3>
                         </div>

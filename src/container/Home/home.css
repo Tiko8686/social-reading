@@ -162,12 +162,71 @@
   height: 60px;
   border-radius: 100%;
 }
-
-
 .more_div button {
   border: none;
   background-color: transparent;
   font-size: 24px;
   font-family: "Montserrat arm";
   cursor: pointer;
+}
+.coomments{
+  width: 100px;
+}
+.comment_always {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.add_comment_avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.add_comment_input{
+  font-size: 15px;
+  width: 505px;
+  height: 40px;
+  background: #F1F2F5;
+  border-radius: 100px;
+  outline: none;
+  border: none;
+  padding: 10px;
+}
+.view_comments{
+  color: #878787;
+  width: 132px;
+  height: 16px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+}
+.comments{
+  margin-left: 10px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.comment_text{
+  margin-left: 50px;
+  width: 540px;
+  margin-bottom: 20px;
+}
+.hide_comments{
+  color: #878787;
+    width: 132px;
+    height: 16px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: right;
+    width: 580px;
 }

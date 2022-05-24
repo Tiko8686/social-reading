@@ -1,33 +1,62 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 function Home() {
   const navigate = useNavigate()
-  let [post, setPost] = useState([]);
-  let [userToken, setUserToken] = useState("");
-  console.log(post)
+  const [user, setUser] = useState("");
+  const [post, setPost] = useState([]);
+  const [userToken, setUserToken] = useState("");
+  const { register, handleSubmit, reset } = useForm()
+  const [value, setValue] = useState("")
+  const [comments, setComments] = useState({
+    commentsModal: true,
+    id: ""
+  })
+  const [postComments, setPostComments] = useState([{
+    avatar: "",
+    first_name: "",
+    last_name: "",
+    comment: ""
+  }])
+  const getComments = (link) => {
+    axios.get("https://socialreading.xyz/quotes/" + link).then((resp) => {
+      setPostComments(resp.data.comments.map((comment) => {
+        return {
+          avatar: comment.user.avatar,
+          first_name: comment.user.first_name,
+          last_name: comment.user.last_name,
+          comment: comment.body
+        }
+      }));
+    })
+  }
   useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
     fetch("https://www.socialreading.xyz/quotes/")
       .then((response) => response.json())
       .then((response) => {
         setPost(response);
       });
     const token = JSON.parse(localStorage.getItem("token"));
-    // const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"));
-    // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
     if (token) {
-      setUserToken(token)
-    } 
-    // else if (tokenGoogle) {
-    //   setUserToken(tokenGoogle)
-    // } else if (tokenFb) {
-    //   setUserToken(tokenFb)
-    // }
-     else {
+      setUserToken("JWT " + token.access)
+    }
+    else {
       setUserToken("")
     }
   }, [navigate]);
+  const onSubmit = (data) => {
+    console.log(data);
+    // axios.post("https://socialreading.xyz/comments/", {...data, quote: e} {
+    //   headers: { "Authorization": userToken }
+    // }).then((resp) => {
+    //   console.log(resp);
+    //   // reset({ body: "" })
+    // })
+  }
 
   return (
     <>
@@ -61,13 +90,6 @@ function Home() {
                   <div className="post__user">
                     <div>
                       {
-                        // e?.author?.avatar_facebook ? <img alt="avatar"
-                        //   className="user_avatar"
-                        //   src={e?.author?.avatar_facebook}
-                        // /> : e?.author?.avatar_google ? <img alt="avatar"
-                        //   className="user_avatar"
-                        //   src={e?.author?.avatar_google}
-                        // /> : 
                         <img alt="avatar"
                           className="user_avatar"
                           src={e?.author?.avatar}
@@ -102,7 +124,13 @@ function Home() {
                           <svg width="18" height="14" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10.807 2.40351C9.7193 0.947368 7.96491 0 6 0C2.68421 0 5.96046e-08 2.68421 5.96046e-08 6C5.96046e-08 12.0702 4.7193 15.9825 7.45614 17.7193C9.14035 18.807 10.8596 18.807 12.5439 17.7193C15.2807 15.9825 20 12.0702 20 6C20 2.68421 17.3158 0 14 0C12.0351 0 10.2807 0.947368 9.19298 2.40351C9.07018 2.5614 9 2.77193 9 3C9 3.54386 9.45614 4 10 4C10.3333 4 10.614 3.8421 10.807 3.59649C11.5789 2.5614 12.614 2 14 2C16.3333 2 18 3.66667 18 6C18 11.0877 14.0526 14.386 11.4561 16.0351C10.3509 16.7544 9.64912 16.7544 8.54386 16.0351C5.94737 14.386 2 11.0877 2 6C2 3.66667 3.66667 2 6 2C7.38596 2 8.42105 2.5614 9.19298 3.59649C9.38597 3.8421 9.66667 4 10 4C10.5439 4 11 3.54386 11 3C11 2.77193 10.9298 2.5614 10.807 2.40351Z" fill="#3D424E" />
                           </svg>&nbsp;Like</button>
-                        <button>
+                        <button onClick={() => {
+                          setComments({
+                            commentsModal: true,
+                            id: e.id
+                          })
+                          getComments(e.id)
+                        }}>
                           <svg width="18" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 2C14.5439 2 18 5.45614 18 10C18 14.5439 14.5439 18 10 18C8.40351 18 7.03509 17.5789 5.75439 16.7895L2.38596 17.6316C2.36842 17.6316 2.36842 17.6316 2.36842 17.614L3.21053 14.2456C2.42105 12.9649 2 11.5965 2 10C2 5.45614 5.45614 2 10 2ZM10 -4.76837e-07C4.47368 -4.76837e-07 5.96046e-08 4.47368 5.96046e-08 10C5.96046e-08 11.614 0.403509 13.1754 1.07018 14.5263L0.438596 17.1579C0.0877194 18.614 1.38596 19.9123 2.84211 19.5614L5.47368 18.9298C6.82456 19.5965 8.38597 20 10 20C15.5263 20 20 15.5263 20 10C20 4.47368 15.5263 -4.76837e-07 10 -4.76837e-07ZM6 8.66667C5.26316 8.66667 4.66667 9.26316 4.66667 10C4.66667 10.7368 5.26316 11.3333 6 11.3333C6.73684 11.3333 7.33333 10.7368 7.33333 10C7.33333 9.26316 6.73684 8.66667 6 8.66667ZM10 8.66667C9.26316 8.66667 8.66667 9.26316 8.66667 10C8.66667 10.7368 9.26316 11.3333 10 11.3333C10.7368 11.3333 11.3333 10.7368 11.3333 10C11.3333 9.26316 10.7368 8.66667 10 8.66667ZM14 8.66667C13.2632 8.66667 12.6667 9.26316 12.6667 10C12.6667 10.7368 13.2632 11.3333 14 11.3333C14.7368 11.3333 15.3333 10.7368 15.3333 10C15.3333 9.26316 14.7368 8.66667 14 8.66667Z" fill="#3D424E" />
                           </svg>&nbsp;Comment</button>
@@ -120,7 +148,44 @@ function Home() {
                       </div>
                     </>)
                   }
+
                 </div>
+                <div className="comment_always">
+                  <img alt="avatar"
+                    className="add_comment_avatar"
+                    src={user.avatar}
+                  />
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <input className="add_comment_input" placeholder="Write a comment..." {...register("body")} />
+                  </form>
+                  <p className="view_comments" onClick={() => {
+                    setComments({
+                      commentsModal: true,
+                      id: e.id
+                    })
+                    getComments(e.id)
+                  }}>View comments</p>
+                </div>
+
+                {comments.id === e.id && comments.commentsModal && <div className="coomments">
+                  {postComments?.map((comment) => {
+                    return <>
+                      <div className="comments">
+                        <img src={comment.avatar} className="add_comment_avatar" />
+                        <p>{comment.first_name}</p>
+                        <p>{comment.last_name}</p>
+                      </div>
+                      <p className="comment_text">{comment.comment}</p>
+                    </>
+                  })}
+                  <p className="hide_comments" onClick={() => {
+                    setComments({
+                      commentsModal: false,
+                      id: e.id
+                    })
+                    getComments(e.id)
+                  }}>Hide comments</p>
+                </div>}
               </div>
             )
           })

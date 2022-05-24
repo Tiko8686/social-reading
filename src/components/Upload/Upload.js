@@ -19,18 +19,9 @@ export function Upload() {
   const [user, setUser] = useState("")
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))
-    const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"))
-    const tokenFb = JSON.parse(localStorage.getItem("tokenFb"))
     if (token) {
       setUser("JWT " + token.access)
     }
-    //  else if (tokenGoogle) {
-    //   setUser("JWT " + tokenGoogle.access)
-    // } else if (tokenFb) {
-    //   setUser("JWT " + tokenFb.access)
-    // } else {
-    //   setUser("")
-    // }
   }, []);
 
   useEffect(() => {
@@ -59,7 +50,7 @@ export function Upload() {
 
 
   const categoryValueChange = (event) => {
-    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false});
+    setCategoryErr({ required: false, minLength: false, maxLength: false, fileRequired: false });
 
     setCategoryValue(event.target.value);
     if (event.target.value === "") {
@@ -98,7 +89,7 @@ export function Upload() {
     setFile(undefined);
     setFileErr(false);
     setModal(!modal);
-    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false });
+    setCategoryErr({ required: false, minLength: false, maxLength: false, fileRequired: false });
     setSearchModal(false);
     setSuggestWindow(false);
     setCategoryValue("");
@@ -124,6 +115,7 @@ export function Upload() {
       formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
+      console.log(user)
       axios.post("https://www.socialreading.xyz/quotes/",
         formData,
         {
@@ -177,7 +169,7 @@ export function Upload() {
                 id="name"
                 type="text"
                 {...register("authorName", {
-                  required: true,
+                  // required: true,
                   maxLength: 20,
                   minLength: 2,
                 })}
@@ -197,7 +189,7 @@ export function Upload() {
                 placeholder="Name of the book"
                 id="name"
                 type="text"
-                {...register("bookName", {required: true,maxLength: 20,minLength: 2})}
+                {...register("bookName", { maxLength: 20, minLength: 2 })}
               />
               {errors.bookName && errors.bookName.type === "maxLength" && (
                 <span className="bookNameErr">
