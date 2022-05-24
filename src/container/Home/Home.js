@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
+import DOMPurify from 'dompurify';
 
 function Home() {
   const navigate = useNavigate()
@@ -18,17 +19,21 @@ function Home() {
     // const tokenFb = JSON.parse(localStorage.getItem("tokenFb"));
     if (token) {
       setUserToken(token)
-    } 
+    }
     // else if (tokenGoogle) {
     //   setUserToken(tokenGoogle)
     // } else if (tokenFb) {
     //   setUserToken(tokenFb)
     // }
-     else {
+    else {
       setUserToken("")
     }
   }, [navigate]);
-
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html)
+    }
+  }
   return (
     <>
       <div className="section_1">
@@ -60,19 +65,10 @@ function Home() {
                 <div className="post__header">
                   <div className="post__user">
                     <div>
-                      {
-                        // e?.author?.avatar_facebook ? <img alt="avatar"
-                        //   className="user_avatar"
-                        //   src={e?.author?.avatar_facebook}
-                        // /> : e?.author?.avatar_google ? <img alt="avatar"
-                        //   className="user_avatar"
-                        //   src={e?.author?.avatar_google}
-                        // /> : 
-                        <img alt="avatar"
-                          className="user_avatar"
-                          src={e?.author?.avatar}
-                        />
-                      }
+                      <img alt="avatar"
+                        className="user_avatar"
+                        src={e?.author?.avatar}
+                      />
                     </div>
                     <div>
                       <p className="name">{e?.author?.first_name} {e?.author?.last_name}</p>
@@ -83,8 +79,7 @@ function Home() {
                     <button>...</button>
                   </div>
                 </div>
-                <div className="post__text">
-                  {e?.quote_text}
+                <div className="post__text" dangerouslySetInnerHTML={createMarkup(e?.quote_text)}>
                 </div>
                 <div className="post__img">
                   <img

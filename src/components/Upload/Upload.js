@@ -4,6 +4,16 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./Upload.css";
 
+
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState } from "draft-js";
+import { ContentState } from "draft-js";
+import { convertToRaw, convertFromHTML } from "draft-js";
+import { convertToHTML } from 'draft-convert';
+
+
+
 export function Upload() {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm();
   const [categoryErr, setCategoryErr] = useState({ required: false, minLength: false, maxLength: false, });
@@ -14,25 +24,16 @@ export function Upload() {
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [searchModal, setSearchModal] = useState(false);
   const [file, setFile] = useState(undefined);
-  const [suggestions, setSugesstion] = useState(["Professional", "Artistic", "Historical", "Motivational", "Psychological"]);
+  const suggestions = ["Professional", "Artistic", "Historical", "Motivational", "Psychological"];
   const [suggestWindow, setSuggestWindow] = useState(false);
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState("");
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))
-    const tokenGoogle = JSON.parse(localStorage.getItem("tokenGoogle"))
-    const tokenFb = JSON.parse(localStorage.getItem("tokenFb"))
     if (token) {
       setUser("JWT " + token.access)
     }
-    //  else if (tokenGoogle) {
-    //   setUser("JWT " + tokenGoogle.access)
-    // } else if (tokenFb) {
-    //   setUser("JWT " + tokenFb.access)
-    // } else {
-    //   setUser("")
-    // }
   }, []);
-
   useEffect(() => {
     axios.get("https://socialreading.xyz/categories/").then((resp) => {
       setCategories(
@@ -42,7 +43,6 @@ export function Upload() {
       );
     });
   }, []);
-
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -56,10 +56,8 @@ export function Upload() {
       preview.style.borderRadius = "30px";
     }
   }
-
-
   const categoryValueChange = (event) => {
-    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false});
+    setCategoryErr({ required: false, minLength: false, maxLength: false, fileRequired: false });
 
     setCategoryValue(event.target.value);
     if (event.target.value === "") {
@@ -98,7 +96,7 @@ export function Upload() {
     setFile(undefined);
     setFileErr(false);
     setModal(!modal);
-    setCategoryErr({required: false,minLength: false,maxLength: false,fileRequired: false });
+    setCategoryErr({ required: false, minLength: false, maxLength: false, fileRequired: false });
     setSearchModal(false);
     setSuggestWindow(false);
     setCategoryValue("");
@@ -117,6 +115,12 @@ export function Upload() {
       setCategoryErr({ ...categoryErr, maxLength: true });
     }
   };
+
+
+
+  const [textEditor, setTextEditor] = useState(false)
+
+
   const onSubmit = (data) => {
     if (categoryValue && file) {
       const formData = new FormData();
@@ -124,25 +128,61 @@ export function Upload() {
       formData.append("quote_title", data.bookName);
       formData.append("book_category", categoryValue);
       formData.append("quote_file", file);
-      axios.post("https://www.socialreading.xyz/quotes/",
-        formData,
-        {
-          headers: { "Authorization": user }
-        }).then((resp) => {
-          console.log(resp.data);
-          window.location.reload()
-        }).catch((error) => {
-          if (error.response) {
-            console.log("error.response ", error.response);
-          } else if (error.request) {
-            console.log("error.request ", error.request);
-          } else if (error.message) {
-            console.log("error.request ", error.message);
-          }
-        });
+      axios.post("https://www.socialreading.xyz/quotes/", formData, { headers: { "Authorization": user } }).then((resp) => {
+        console.log(resp.data);
+        setEditorState(
+          EditorState.createWithContent(
+            ContentState.createFromBlockArray(
+              convertFromHTML(`<p>${resp.data.quote_text}</p>`)
+            )
+          ),
+        )
+        setId(resp.data.id)
+        setTextEditor(true)
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
       toggleModal();
     }
   };
+
+  let _contentState = ContentState.createFromText('Sample content state');
+
+  const raw = convertToRaw(_contentState)
+  const [contentState, setContentState] = useState(raw)
+  console.log("contentState", contentState)
+
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromBlockArray(
+        convertFromHTML('<p>...</p>')
+      )
+    ),
+  );
+
+  const [convertedContent, setConvertedContent] = useState("")
+  const [id, setId] = useState("")
+
+
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    convertContentToHTML();
+    console.log("state", state);
+  }
+
+  const convertContentToHTML = () => {
+    let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+    console.log("currentContentAsHTML", currentContentAsHTML)
+    setConvertedContent(currentContentAsHTML);
+  }
+
+ 
   return (
     <>
       <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
@@ -177,14 +217,10 @@ export function Upload() {
                 id="name"
                 type="text"
                 {...register("authorName", {
-                  required: true,
                   maxLength: 20,
                   minLength: 2,
                 })}
               />
-              {errors.authorName && errors.authorName.type === "required" && (
-                <span className="authorNameErr">Այս դաշտը պարտադիր է լրացման</span>
-              )}
               {errors.authorName && errors.authorName.type === "maxLength" && (
                 <span className="authorNameErr">Դաշտը պետք է ներառի ոչ ավել քան 20 նիշ</span>
               )}
@@ -197,7 +233,7 @@ export function Upload() {
                 placeholder="Name of the book"
                 id="name"
                 type="text"
-                {...register("bookName", {required: true,maxLength: 20,minLength: 2})}
+                {...register("bookName", { maxLength: 20, minLength: 2 })}
               />
               {errors.bookName && errors.bookName.type === "maxLength" && (
                 <span className="bookNameErr">
@@ -209,11 +245,11 @@ export function Upload() {
                   Դաշտը պետք է ներառի ամենաքիչը 2 նիշ
                 </span>
               )}
-              {errors.bookName && errors.bookName.type === "required" && (
+              {/* {errors.bookName && errors.bookName.type === "required" && (
                 <span className="bookNameErr">
                   Այս դաշտը պարտադիր է լրացման
                 </span>
-              )}
+              )} */}
               <div className="category_search">
                 <img
                   src="https://social-reading-application.herokuapp.com/images/search.svg"
@@ -294,6 +330,37 @@ export function Upload() {
           </div>
         </div>
       )}
+      {textEditor && <div className="editor">
+        <Editor
+          editorState={editorState}
+          onEditorStateChange={handleEditorChange}
+          wrapperClassName="wrapper-class"
+          editorClassName="editor-class"
+          toolbarClassName="toolbar-class"
+        // value="dad"
+        />
+        {/* <textarea value={uploadRespons.quote_text} style={{ width: "500px", height: "200px" }}></textarea> */}
+        {/* <div className="preview" dangerouslySetInnerHTML={createMarkup(convertedContent)}></div> */}\
+        <button onClick={() => {
+          if (convertedContent) {
+            axios.patch(`https://www.socialreading.xyz/quotes/${id}/`, { quote_text: convertedContent }).then(res => {
+              console.log(res.data)
+            }).catch((error) => {
+              if (error.response) {
+                console.log("error.response ", error.response);
+              } else if (error.request) {
+                console.log("error.request ", error.request);
+              } else if (error.message) {
+                console.log("error.request ", error.message);
+              }
+            });
+          }
+          
+        }} >Save</button>
+        <button>cancel</button>
+      </div>}
+
+
     </>
   );
 }

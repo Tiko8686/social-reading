@@ -247,8 +247,8 @@ function Profile() {
                         <div className="nameSurnameDiv">
                             <h3>
                                 {
-                                    userInfo ? userInfo?.first_name + " " + userInfo?.last_name
-                                        : ""
+                                    userInfo?.first_name + " " + userInfo?.last_name
+                                    
                                     //         userGoogle ? userGoogle?.first_name + " " + userGoogle?.last_name :
                                     //             userFb ? userFb?.first_name + " " + userFb?.last_name :
                                     //                 ""
