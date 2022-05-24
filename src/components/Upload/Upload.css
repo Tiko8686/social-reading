@@ -439,3 +439,15 @@
         color: #FFFFFF;
     }
 }
+
+
+.editor {
+    position: absolute;
+    top: 69px;
+    left: 20px;
+    background-color: white;
+    border: 1px solid;
+    z-index: 10000;
+    /* width: 500px;
+    height: 500px; */
+}
