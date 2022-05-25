@@ -7,7 +7,9 @@
   color: white;
   cursor: pointer;
 }
-
+.post__img {
+  padding-bottom: 20px;
+}
 .section_1 {
   width: 100%;
   display: flex;
@@ -126,7 +128,7 @@
 }
 
 .post_footer {
-  padding: 20px;
+  padding:  0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
