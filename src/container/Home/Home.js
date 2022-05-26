@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
-import DOMPurify from 'dompurify';
+// import DOMPurify from 'dompurify';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 function Home() {
   const navigate = useNavigate()
@@ -12,16 +14,9 @@ function Home() {
   const [userToken, setUserToken] = useState("");
   const { register, handleSubmit, reset } = useForm()
   const [value, setValue] = useState("")
-  const [comments, setComments] = useState({
-    commentsModal: true,
-    id: ""
-  })
-  const [postComments, setPostComments] = useState([{
-    avatar: "",
-    first_name: "",
-    last_name: "",
-    comment: ""
-  }])
+  const [comments, setComments] = useState({commentsModal: true,id: ""})
+  const [postComments, setPostComments] = useState([{ avatar: "", first_name: "", last_name: "", comment: "" }])
+
   const getComments = (link) => {
     axios.get("https://socialreading.xyz/quotes/" + link).then((resp) => {
       setPostComments(resp.data.comments.map((comment) => {
@@ -49,6 +44,7 @@ function Home() {
       setUserToken("")
     }
   }, [navigate]);
+  
   const onSubmit = (data) => {
     console.log(data);
     // axios.post("https://socialreading.xyz/comments/", {...data, quote: e} {
@@ -59,10 +55,22 @@ function Home() {
     // })
   }
 
-  const createMarkup = (html) => {
-    return {
-      __html: DOMPurify.sanitize(html)
-    }
+  // const createMarkup = (html) => {
+  //   return {
+  //     __html: DOMPurify.sanitize(html)
+  //   }
+  // }
+
+  const [style, setStyle] = useState("")
+
+  function download(id) {
+    htmlToImage.toJpeg(document.getElementById(id))
+      .then(function (dataUrl) {
+        var link = document.createElement('a');
+        link.download = 'post.jpeg';
+        link.href = dataUrl;
+        link.click();
+      });
   }
   return (
     <>
@@ -107,9 +115,18 @@ function Home() {
                   </div>
                   <div className="more_div">
                     <button>...</button>
+                    <button onClick={() => download(e?.id)}>Download post</button>
                   </div>
                 </div>
-                <div className="post__text" dangerouslySetInnerHTML={createMarkup(e?.quote_text)}>
+                <div className="post__text" id={e?.id}
+                  style={{
+                    color: JSON.parse(e?.styles)?.color,
+                    backgroundColor: JSON.parse(e?.styles)?.background,
+                    fontFamily: JSON.parse(e?.styles)?.font,
+                    fontSize: JSON.parse(e?.styles)?.size
+                  }}
+                >
+                  {e?.quote_text}
                 </div>
                 <div className="post__img">
                   <img
