@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import DOMPurify from 'dompurify';
@@ -12,6 +11,11 @@ function Home() {
   const [userToken, setUserToken] = useState("");
   const [idPost, setIdPost] = useState("")
   const [value, setValue] = useState("")
+  const [changingComment, setChangingComment] = useState("")
+  const [isEditing, setIsEditing] = useState({
+    editing: false,
+    id: ""
+  })
   const [comments, setComments] = useState({
     commentsModal: true,
     id: ""
@@ -33,7 +37,6 @@ function Home() {
   const commentInputValue = (e) => {
     setValue(e.target.value)
     setIdPost(e.target.id)
-    console.log(value);
   }
   const deleteComment = (id) => {
     if (id === id) {
@@ -61,6 +64,31 @@ function Home() {
       setUserToken("")
     }
   }, [navigate]);
+
+  const editComment = (e, id) => {
+    setChangingComment(e.target.value);
+    console.log(changingComment);
+  }
+  const doneEditing = (id) => {
+    console.log(changingComment);
+    setIsEditing({
+      id: "",
+      editing: true
+    })
+    setComments({
+      commentsModal: true,
+      id: comments.id
+    })
+    let link = "https://socialreading.xyz/comments/" + id + "/"
+    if (id === id) {
+      axios.patch(link, { body: changingComment }).then((resp) => {
+        getComments(idPost)
+        setValue("")
+        document.getElementById(idPost).value = ""
+      })
+    }
+  }
+
   const onSubmit = (event) => {
     event.preventDefault()
     axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
@@ -68,11 +96,11 @@ function Home() {
     ).then((resp) => {
       setComments({
         commentsModal: true,
-        id: comments.id
+        id: idPost
       })
-        getComments(idPost)
-      document.getElementById(idPost).value = ""
       setValue("")
+      getComments(idPost)
+      document.getElementById(idPost).value = ""
     })
   }
 
@@ -151,6 +179,7 @@ function Home() {
                               id: e?.id
                             })
                             getComments(e?.id)
+                            setIdPost(e?.id)
                           }}>
                             <svg width="18" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M10 2C14.5439 2 18 5.45614 18 10C18 14.5439 14.5439 18 10 18C8.40351 18 7.03509 17.5789 5.75439 16.7895L2.38596 17.6316C2.36842 17.6316 2.36842 17.6316 2.36842 17.614L3.21053 14.2456C2.42105 12.9649 2 11.5965 2 10C2 5.45614 5.45614 2 10 2ZM10 -4.76837e-07C4.47368 -4.76837e-07 5.96046e-08 4.47368 5.96046e-08 10C5.96046e-08 11.614 0.403509 13.1754 1.07018 14.5263L0.438596 17.1579C0.0877194 18.614 1.38596 19.9123 2.84211 19.5614L5.47368 18.9298C6.82456 19.5965 8.38597 20 10 20C15.5263 20 20 15.5263 20 10C20 4.47368 15.5263 -4.76837e-07 10 -4.76837e-07ZM6 8.66667C5.26316 8.66667 4.66667 9.26316 4.66667 10C4.66667 10.7368 5.26316 11.3333 6 11.3333C6.73684 11.3333 7.33333 10.7368 7.33333 10C7.33333 9.26316 6.73684 8.66667 6 8.66667ZM10 8.66667C9.26316 8.66667 8.66667 9.26316 8.66667 10C8.66667 10.7368 9.26316 11.3333 10 11.3333C10.7368 11.3333 11.3333 10.7368 11.3333 10C11.3333 9.26316 10.7368 8.66667 10 8.66667ZM14 8.66667C13.2632 8.66667 12.6667 9.26316 12.6667 10C12.6667 10.7368 13.2632 11.3333 14 11.3333C14.7368 11.3333 15.3333 10.7368 15.3333 10C15.3333 9.26316 14.7368 8.66667 14 8.66667Z" fill="#3D424E" />
@@ -175,27 +204,34 @@ function Home() {
                         src={user?.avatar}
                       />
                       <form onSubmit={onSubmit}>
-                        <input className="add_comment_input" id={e.id} placeholder="Write a comment..." onChange={(e) => { commentInputValue(e) }} />
+                        <input className="add_comment_input" id={e.id} placeholder="Write a comment..." onClick={(e) => {
+                          setIdPost(e.target.id)
+                          e.target.id !== idPost &&
+                            (setComments({
+                              commentsModal: false,
+                              id: e?.id
+                            }))
+                        }} onChange={(e) => { commentInputValue(e) }} />
                       </form>
-                      <p className="view_comments" onClick={() => {
-                        setComments({
-                          commentsModal: true,
-                          id: e.id
-                        })
-                        getComments(e.id)
-                      }}>View comments</p>
                     </div>
-                    {comments?.id === e.id && comments?.commentsModal && <div className="coomments">
+                    {comments?.id === e.id && comments?.commentsModal && <div className="comments">
                       {
-                        postComments.map((comment, index) => {
+                        postComments?.map((comment, index) => {
                           return <div key={index}>
-                            <div className="comments" >
+                            <div className="comment" >
                               <img src={comment?.user.avatar} className="add_comment_avatar" />
                               <p>{comment?.user.first_name}</p>
                               <p>{comment?.user.last_name}</p>
                             </div>
-                            <p className="comment_text">{comment?.body}</p>
-                            {user?.id === comment?.user.id && <button onClick={() => deleteComment(comment.id)}>delete</button>}
+                            {isEditing.editing && isEditing.id === comment.id ? <input value={changingComment} onChange={(event) => editComment(event, comment.id)} /> : <p className="comment_text">{comment?.body}</p>}
+                            {user?.id === comment?.user.id && (<div><button onClick={() => {
+                              setChangingComment(comment.body)
+                              setIsEditing({
+                                editing: comment.id === isEditing.id ? !isEditing.editing : true,
+                                id: comment.id
+                              })
+                              console.log(isEditing);
+                            }}>Edit</button> <button onClick={() => deleteComment(comment.id)}>delete</button><button onClick={() => doneEditing(comment.id)}>done</button></div>)}
                           </div>
                         })
                       }
@@ -204,7 +240,6 @@ function Home() {
                           commentsModal: false,
                           id: e?.id
                         })
-                        getComments(e?.id)
                       }}>Hide comments</p>
                     </div>}
                   </>

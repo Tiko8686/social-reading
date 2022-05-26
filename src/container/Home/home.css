@@ -209,8 +209,17 @@
   cursor: pointer;
 }
 .comments{
-  margin-left: 10px;
+  overflow-y:auto;
+  max-height: 200px;
   width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.comment{
+  margin-left: 20px;
+  width: 550px;
   display: flex;
   align-items: center;
   gap: 2px;
