@@ -12,22 +12,41 @@ function Home() {
   const [user, setUser] = useState("");
   const [post, setPost] = useState([]);
   const [userToken, setUserToken] = useState("");
-  const { register, handleSubmit, reset } = useForm()
+  const [idPost, setIdPost] = useState("")
   const [value, setValue] = useState("")
-  const [comments, setComments] = useState({commentsModal: true,id: ""})
-  const [postComments, setPostComments] = useState([{ avatar: "", first_name: "", last_name: "", comment: "" }])
-
+  const [comments, setComments] = useState({
+    commentsModal: true,
+    id: ""
+  })
+  const [postComments, setPostComments] = useState([{
+    user: "",
+    avatar: "",
+    first_name: "",
+    last_name: "",
+    comment: "",
+    id: ""
+  }])
   const getComments = (link) => {
     axios.get("https://socialreading.xyz/quotes/" + link).then((resp) => {
-      setPostComments(resp.data.comments.map((comment) => {
-        return {
-          avatar: comment.user.avatar,
-          first_name: comment.user.first_name,
-          last_name: comment.user.last_name,
-          comment: comment.body
-        }
-      }));
+      setPostComments(resp.data.comments)
     })
+  }
+
+  const commentInputValue = (e) => {
+    setValue(e.target.value)
+    setIdPost(e.target.id)
+    console.log(value);
+  }
+  const deleteComment = (id) => {
+    if (id === id) {
+      axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
+        getComments(idPost)
+        setComments({
+          commentsModal: true,
+          id: comments.id
+        })
+      })
+    }
   }
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -44,15 +63,19 @@ function Home() {
       setUserToken("")
     }
   }, [navigate]);
-  
-  const onSubmit = (data) => {
-    console.log(data);
-    // axios.post("https://socialreading.xyz/comments/", {...data, quote: e} {
-    //   headers: { "Authorization": userToken }
-    // }).then((resp) => {
-    //   console.log(resp);
-    //   // reset({ body: "" })
-    // })
+  const onSubmit = (event) => {
+    event.preventDefault()
+    axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
+      { headers: { "Authorization": userToken } }
+    ).then((resp) => {
+      setComments({
+        commentsModal: true,
+        id: comments.id
+      })
+        getComments(idPost)
+      document.getElementById(idPost).value = ""
+      setValue("")
+    })
   }
 
   // const createMarkup = (html) => {
@@ -138,9 +161,7 @@ function Home() {
                 {
                   userToken &&
                   <>
-
                     <div className="post_footer">
-
                       <>
                         <div className="left_buttons">
                           <button>
@@ -170,16 +191,14 @@ function Home() {
                           </button>
                         </div>
                       </>
-
-
                     </div>
                     <div className="comment_always">
                       <img alt="avatar"
                         className="add_comment_avatar"
                         src={user?.avatar}
                       />
-                      <form onSubmit={handleSubmit(onSubmit)}>
-                        <input className="add_comment_input" placeholder="Write a comment..." {...register("body")} />
+                      <form onSubmit={onSubmit}>
+                        <input className="add_comment_input" id={e.id} placeholder="Write a comment..." onChange={(e) => { commentInputValue(e) }} />
                       </form>
                       <p className="view_comments" onClick={() => {
                         setComments({
@@ -190,16 +209,19 @@ function Home() {
                       }}>View comments</p>
                     </div>
                     {comments?.id === e.id && comments?.commentsModal && <div className="coomments">
-                      {postComments?.map((comment) => {
-                        return <>
-                          <div className="comments">
-                            <img src={comment?.avatar} className="add_comment_avatar" />
-                            <p>{comment?.first_name}</p>
-                            <p>{comment?.last_name}</p>
+                      {
+                        postComments.map((comment, index) => {
+                          return <div key={index}>
+                            <div className="comments" >
+                              <img src={comment?.user.avatar} className="add_comment_avatar" />
+                              <p>{comment?.user.first_name}</p>
+                              <p>{comment?.user.last_name}</p>
+                            </div>
+                            <p className="comment_text">{comment?.body}</p>
+                            {user?.id === comment?.user.id && <button onClick={() => deleteComment(comment.id)}>delete</button>}
                           </div>
-                          <p className="comment_text">{comment?.comment}</p>
-                        </>
-                      })}
+                        })
+                      }
                       <p className="hide_comments" onClick={() => {
                         setComments({
                           commentsModal: false,
