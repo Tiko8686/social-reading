@@ -1,11 +1,13 @@
 /* PC */
-@media(min-width: 601px){    
+@media(min-width: 601px) {
     .btn-modal {
-    border: none;
-    background: none;
-    cursor: pointer;
+        border: none;
+        background: none;
+        cursor: pointer;
     }
-    .modal, .overlay{
+
+    .modal,
+    .overlay {
         display: block;
         width: 100vw;
         height: 100vh;
@@ -15,12 +17,15 @@
         bottom: 0;
         position: fixed;
     }
-    .modal{
+
+    .modal {
         z-index: 100;
     }
-    .overlay{
-        background-color:rgba(29, 24, 24, 0.8);
+
+    .overlay {
+        background-color: rgba(29, 24, 24, 0.8);
     }
+
     .modal-content {
         position: absolute;
         top: 50%;
@@ -32,7 +37,8 @@
         box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
         border-radius: 20px;
     }
-    .close{
+
+    .close {
         background: none;
         outline: none;
         border: none;
@@ -42,7 +48,8 @@
         top: 10px;
         font-size: 20px;
     }
-    .imageDiv{
+
+    .imageDiv {
         position: absolute;
         width: 100px;
         height: 100px;
@@ -52,10 +59,12 @@
         box-shadow: 0px 4px 50px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    #files{
+
+    #files {
         display: none;
     }
-    .fileLabel{
+
+    .fileLabel {
         position: absolute;
         width: 160px;
         height: 16px;
@@ -66,14 +75,16 @@
         line-height: 16px;
         cursor: pointer;
     }
-    .fileRequired{
+
+    .fileRequired {
         font-size: 12px;
         position: absolute;
         top: 175px;
         left: 140px;
         color: red;
     }
-    .authorName{
+
+    .authorName {
         padding: 15px;
         font-size: 20px;
         position: absolute;
@@ -87,14 +98,16 @@
         border: none;
         outline: none;
     }
-    .authorNameErr{
+
+    .authorNameErr {
         font-size: 12px;
         position: absolute;
         top: 280px;
         left: 90px;
         color: red;
     }
-    .bookName{
+
+    .bookName {
         border: none;
         outline: none;
         padding: 15px;
@@ -103,19 +116,21 @@
         width: 317px;
         height: 48px;
         left: 84px;
-        top: 314px;        
+        top: 314px;
         background: #FFFFFF;
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px
     }
-    .bookNameErr{
+
+    .bookNameErr {
         position: absolute;
         font-size: 12px;
         top: 364px;
         left: 90px;
         color: red;
     }
-    .bookCategory{
+
+    .bookCategory {
         border: none;
         outline: none;
         padding: 15px;
@@ -130,17 +145,20 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .category_search{
+
+    .category_search {
         position: relative;
     }
-    .search_img{
+
+    .search_img {
         position: absolute;
         top: 400px;
         left: 360px;
         z-index: 200;
         pointer-events: none;
     }
-    .suggestions{
+
+    .suggestions {
         position: absolute;
         overflow: scroll;
         overflow-x: hidden;
@@ -152,21 +170,26 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .suggestions::-webkit-scrollbar{
+
+    .suggestions::-webkit-scrollbar {
         width: 0;
     }
-    .suggestedWords{
-        padding: 16px 0 16px  16px;
+
+    .suggestedWords {
+        padding: 16px 0 16px 16px;
         display: flex;
         align-items: center;
         height: 38px;
         font-size: 19px;
         cursor: pointer
     }
-    .suggestedWords:hover{
-        background-color:rgba(152, 50, 254, 0.16);;
+
+    .suggestedWords:hover {
+        background-color: rgba(152, 50, 254, 0.16);
+        ;
     }
-    .searches{
+
+    .searches {
         position: absolute;
         overflow: scroll;
         overflow-x: hidden;
@@ -178,26 +201,32 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .searches::-webkit-scrollbar{
+
+    .searches::-webkit-scrollbar {
         width: 0;
     }
-    .searchedWords{
-        padding: 16px 0 16px  16px;
+
+    .searchedWords {
+        padding: 16px 0 16px 16px;
         display: flex;
         align-items: center;
         height: 38px;
         font-size: 19px;
     }
-    .searchedWords:hover{
-        background-color:rgba(152, 50, 254, 0.16);;
+
+    .searchedWords:hover {
+        background-color: rgba(152, 50, 254, 0.16);
+        ;
     }
-    .categoryErr{
+
+    .categoryErr {
         position: absolute;
         top: 444px;
         left: 90px;
         font-size: 12px;
         color: red
     }
+
     .submit {
         position: absolute;
         width: 317px;
@@ -219,7 +248,9 @@
 /* Phone */
 
 @media (min-width: 300px) and (max-width: 600px) {
-    .modal, .overlay{
+
+    .modal,
+    .overlay {
         display: block;
         width: 100vw;
         height: 100vh;
@@ -228,20 +259,24 @@
         right: 0;
         bottom: 0;
         position: fixed;
-    }   
-    .modal{
+    }
+
+    .modal {
         z-index: 100;
     }
-    .overlay{
-        background-color:rgba(49,49,49,0.8);
+
+    .overlay {
+        background-color: rgba(49, 49, 49, 0.8);
     }
-    .btn-modal  {
+
+    .btn-modal {
         font-size: 24px;
-        color:black;
+        color: black;
         background: none;
         border: none;
     }
-    .close{
+
+    .close {
         background: none;
         outline: none;
         border: none;
@@ -251,6 +286,7 @@
         top: 10px;
         font-size: 20px;
     }
+
     .modal-content {
         position: absolute;
         top: 50%;
@@ -262,7 +298,8 @@
         box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
         border-radius: 20px;
     }
-    .imageDiv{
+
+    .imageDiv {
         position: absolute;
         width: 80px;
         height: 80px;
@@ -272,7 +309,8 @@
         box-shadow: 0px 4px 50px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .fileLabel{
+
+    .fileLabel {
         color: black;
         position: absolute;
         width: 200px;
@@ -284,14 +322,16 @@
         line-height: 16px;
         cursor: pointer;
     }
-    .imageErr{
+
+    .imageErr {
         font-size: 10px;
         position: absolute;
         top: 140px;
         left: 100px;
         color: red;
     }
-    .authorName{
+
+    .authorName {
         padding: 15px;
         font-size: 15px;
         position: absolute;
@@ -304,15 +344,17 @@
         border-radius: 30px;
         border: none;
         outline: none;
-    }   
-    .authorNameErr{
+    }
+
+    .authorNameErr {
         font-size: 10px;
         position: absolute;
         top: 233px;
         left: 55px;
         color: red;
-    } 
-    .bookName{
+    }
+
+    .bookName {
         border: none;
         outline: none;
         padding: 15px;
@@ -326,7 +368,8 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .bookNameErr{
+
+    .bookNameErr {
         font-size: 10px;
         position: absolute;
         top: 295px;
@@ -335,7 +378,8 @@
         margin-bottom: 0;
         padding-bottom: 0;
     }
-    .bookCategory{
+
+    .bookCategory {
         border: none;
         outline: none;
         padding: 15px;
@@ -350,19 +394,23 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .category_search{
+
+    .category_search {
         position: relative;
     }
-    .search_img{
+
+    .search_img {
         position: absolute;
         top: 315px;
         left: 262px;
         z-index: 200;
     }
-    .fileInput{
+
+    .fileInput {
         display: none;
     }
-    .categoryErr{
+
+    .categoryErr {
         font-size: 10px;
         position: absolute;
         top: 360px;
@@ -371,7 +419,8 @@
         margin-bottom: 0;
         padding-bottom: 0;
     }
-    .suggestions{
+
+    .suggestions {
         position: absolute;
         overflow: scroll;
         overflow-x: hidden;
@@ -383,21 +432,26 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .suggestions::-webkit-scrollbar{
+
+    .suggestions::-webkit-scrollbar {
         width: 0;
     }
-    .suggestedWords{
+
+    .suggestedWords {
         color: black;
-        padding: 16px 0 16px  16px;
+        padding: 16px 0 16px 16px;
         display: flex;
         align-items: center;
         height: 38px;
         font-size: 19px;
     }
-    .suggestedWords:hover{
-        background-color:rgba(152, 50, 254, 0.16);;
+
+    .suggestedWords:hover {
+        background-color: rgba(152, 50, 254, 0.16);
+        ;
     }
-    .searches{
+
+    .searches {
         position: absolute;
         overflow: scroll;
         overflow-x: hidden;
@@ -409,20 +463,25 @@
         box-shadow: 0px 4px 50px 1px rgba(0, 67, 101, 0.08);
         border-radius: 30px;
     }
-    .searches::-webkit-scrollbar{
+
+    .searches::-webkit-scrollbar {
         width: 0;
     }
-    .searchedWords{
+
+    .searchedWords {
         color: black;
-        padding: 16px 0 16px  16px;
+        padding: 16px 0 16px 16px;
         display: flex;
         align-items: center;
         height: 38px;
         font-size: 19px;
     }
-    .searchedWords:hover{
-        background-color:rgba(152, 50, 254, 0.16);;
+
+    .searchedWords:hover {
+        background-color: rgba(152, 50, 254, 0.16);
+        ;
     }
+
     .submit {
         position: absolute;
         width: 256px;
@@ -442,12 +501,138 @@
 
 
 .editor {
-    position: absolute;
-    top: 69px;
-    left: 20px;
+    /* position: absolute; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+    /* position: fixed; */
     background-color: white;
     border: 1px solid;
-    z-index: 10000;
-    /* width: 500px;
-    height: 500px; */
+    /* z-index: 10000; */
+    width: 500px;
+    height: 500px;
+}
+
+
+.modal-text-editor {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 100;
+}
+
+.modal-content-text-editor {
+    /* border: 1px solid red; */
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 485px;
+    height: 600px; */
+    display: flex;
+
+    background: #FFFFFF;
+    box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
+    border-radius: 20px;
+}
+
+.text-editor-left-section {
+    /* border: 1px solid; */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 10px;
+}
+
+.your-upload-text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 32px;
+    letter-spacing: 0.005em;
+    color: #202029;
+
+}
+
+.text-editor-select-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex-direction: column;
+}
+
+.text-editor-select-section>select {
+    /* width: 492px; */
+    width: 300px;
+    height: 50px;
+    border: 0.5px solid #A3B0BC;
+    border-radius: 10px;
+}
+
+.text-editor-background-colors {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.text-editor-background-colors>div {
+    display: flex;
+    
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.text-editor-button {
+    display: flex;
+    gap: 15px;
+}
+
+.text-editor-button-discard {
+    width: 130px;
+    height: 35px;
+    background: #E5E6EB;
+    border-radius: 10px;
+    border: none;
+}
+
+.text-editor-button-save {
+    width: 150px;
+    height: 35px;
+    background: #9832FE;
+    box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+}
+
+.text-editor-textarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    background: #9832FE;
+
+}
+
+.text-editor-textarea>textarea {
+    width: 672px;
+    height: 541px;
+    border-radius: 20px;
+    outline: none;
 }
