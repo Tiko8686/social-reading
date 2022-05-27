@@ -446,9 +446,9 @@ export function Upload() {
                   backgroundColor: textStyle.background,
                   fontStyle: textStyle.font,
                   fontSize: textStyle.size + "px",
-                  textAlign: "center",
+                  // textAlign: "center",
                   padding: "10px",
-                  paddingTop: "50px"
+                  // paddingTop: "50px"
                 }}
                 onChange={(e) => { setQuoteText(e.target.value) }}
               ></textarea>
