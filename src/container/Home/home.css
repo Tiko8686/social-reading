@@ -48,7 +48,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
+  margin: 20px;
 }
 
 @media (min-width: 300px) and (max-width: 600px) {
@@ -209,8 +210,17 @@
   cursor: pointer;
 }
 .comments{
-  margin-left: 10px;
+  overflow-y:auto;
+  max-height: 200px;
   width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.comment{
+  margin-left: 20px;
+  width: 550px;
   display: flex;
   align-items: center;
   gap: 2px;
