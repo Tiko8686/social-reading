@@ -2,9 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
-// import DOMPurify from 'dompurify';
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import DOMPurify from 'dompurify';
 
 function Home() {
   const navigate = useNavigate()
@@ -14,6 +12,8 @@ function Home() {
   const [idPost, setIdPost] = useState("")
   const [value, setValue] = useState("")
   const [changingComment, setChangingComment] = useState("")
+  const [answers, setAnswers] = useState("")
+  const [reply, setReply]  = useState(false)
   const [isEditing, setIsEditing] = useState({
     editing: false,
     id: ""
@@ -30,12 +30,35 @@ function Home() {
     comment: "",
     id: ""
   }])
+  const replies = () =>{
+    setReply(!reply)
+  }
   const getComments = (link) => {
     axios.get("https://socialreading.xyz/quotes/" + link).then((resp) => {
+      resp.data.comments.map((comment) => {
+        console.log("child", comment.children.length);
+      });
+      // while (resp.data.comments.map((comment) => {
+      //   comment.children.length !== 0
+      // })) {
+
+      //   setAnswers(...answers)
+      // }
+      // if (resp.data.comments.map((comment)=>{
+      //   if (comment.children) {
+      //     setAnswers(comment.children)
+      //       // .map((child)=>{
+      //       // return child.body
+      //     // }))
+      //   }
+      // }));
       setPostComments(resp.data.comments)
     })
+    // console.log(answers);
   }
+  const getAnswers = (id) => {
 
+  }
   const commentInputValue = (e) => {
     setValue(e.target.value)
     setIdPost(e.target.id)
@@ -90,7 +113,9 @@ function Home() {
       })
     }
   }
-
+  const text  =  () =>{
+    return  <div>klas</div>
+  }
   const onSubmit = (event) => {
     event.preventDefault()
     axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
@@ -106,22 +131,10 @@ function Home() {
     })
   }
 
-  // const createMarkup = (html) => {
-  //   return {
-  //     __html: DOMPurify.sanitize(html)
-  //   }
-  // }
-
-  const [style, setStyle] = useState("")
-
-  function download(id) {
-    htmlToImage.toJpeg(document.getElementById(id))
-      .then(function (dataUrl) {
-        var link = document.createElement('a');
-        link.download = 'post.jpeg';
-        link.href = dataUrl;
-        link.click();
-      });
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html)
+    }
   }
   return (
     <>
@@ -166,18 +179,9 @@ function Home() {
                   </div>
                   <div className="more_div">
                     <button>...</button>
-                    <button onClick={() => download(e?.id)}>Download post</button>
                   </div>
                 </div>
-                <div className="post__text" id={e?.id}
-                  style={{
-                    color: JSON.parse(e?.styles)?.color,
-                    backgroundColor: JSON.parse(e?.styles)?.background,
-                    fontFamily: JSON.parse(e?.styles)?.font,
-                    fontSize: JSON.parse(e?.styles)?.size
-                  }}
-                >
-                  {e?.quote_text}
+                <div className="post__text" dangerouslySetInnerHTML={createMarkup(e?.quote_text)}>
                 </div>
                 <div className="post__img">
                   <img
@@ -246,7 +250,16 @@ function Home() {
                               <p>{comment?.user.first_name}</p>
                               <p>{comment?.user.last_name}</p>
                             </div>
-                            {isEditing.editing && isEditing.id === comment.id ? <input value={changingComment} onChange={(event) => editComment(event, comment.id)} /> : <p className="comment_text">{comment?.body}</p>}
+                            {isEditing.editing && isEditing.id === comment.id ? <input
+                              value={changingComment} onChange={(event) => editComment(event, comment.id)} /> :
+                              <p className="comment_text">{comment?.body}</p>
+                            }
+                            {comment?.children?.length !== 0 && <p onClick={()=>replies()}>See more</p>}
+                            {
+                            reply && 
+                            comment?.children?.map(child => {
+                              return (<div key={e?.id}>{child?.body}</div>)
+                            })}
                             {user?.id === comment?.user.id && (<div><button onClick={() => {
                               setChangingComment(comment.body)
                               setIsEditing({
