@@ -8,6 +8,26 @@ function Home() {
   const [user, setUser] = useState("");
   const [post, setPost] = useState([]);
   const [userToken, setUserToken] = useState("");
+
+  // comments
+  const [idPost, setIdPost] = useState("")
+  const [value, setValue] = useState("")
+  const [changingComment, setChangingComment] = useState("")
+  const [isEditing, setIsEditing] = useState({ editing: false, id: "" })
+  const [comments, setComments] = useState({ commentsModal: true, id: "" })
+  const [postComments, setPostComments] = useState([])
+  const [replyComment, setReplyComment] = useState("")
+  const [replayId, setReplayId] = useState("")
+  const [replyInputMoadl, setReplyInputModal] = useState({
+    modal: false,
+    id: ""
+  })
+  const [editDeleteModal, setEditDeleteModal] = useState({
+    modal: false,
+    id: ""
+  })
+
+  //create user and token
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
     fetch("https://www.socialreading.xyz/quotes/")
@@ -20,64 +40,87 @@ function Home() {
       setUserToken("JWT " + token.access)
     }
   }, [navigate]);
-  console.log(post)
-  // comments
-  const [idPost, setIdPost] = useState("")
-  const [value, setValue] = useState("")
-  const [changingComment, setChangingComment] = useState("")
-  const [answers, setAnswers] = useState("")
-  const [reply, setReply] = useState(false)
-  const [isEditing, setIsEditing] = useState({ editing: false, id: "" })
-  const [comments, setComments] = useState({ commentsModal: true, id: "" })
-  const [postComments, setPostComments] = useState([])
-  //get Comments
-  const getComments = (link) => {
-    axios.get("https://socialreading.xyz/quotes/" + link).then((resp) => {
-      console.log(resp)
+
+  //get and show comments
+  console.log(post);
+  const getComments = (post_id) => {
+    axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
   }
-  console.log(postComments)
-  const replies = () => {
-    setReply(!reply)
+  const showAllComments = (comments) => {
+    return (
+      <div className="comments">
+        {
+          comments?.map((comment) => {
+            return <>
+              <div key={comment?.id} className={comment?.parent ? "children" : "comment"}>
+                <div className="author">
+                  <div className="userInfo">
+                    <img src={comment?.user.avatar} className="add_comment_avatar" />
+                    <p className="first_name">{comment?.user?.first_name} {comment?.user?.last_name}</p>
+                  </div>
+                  {user?.id === comment?.user?.id && <button className="more" onClick={() => {
+                    setEditDeleteModal({
+                      modal: !editDeleteModal.modal,
+                      id: comment.id
+                    })
+                  }} >...</button>}
+                  {editDeleteModal.modal && comment.id === editDeleteModal.id && <div className="more_modal">
+                    <p onClick={() => deleteComment(comment.id)}>
+                      Delete
+                    </p>
+                    {isEditing.editing && isEditing.id === comment.id ?
+                      <>
+                        <input value={changingComment} onChange={(event) => editComment(event, comment.id)} />
+                        <p onClick={() => doneEditing(comment.id)}>done</p>
+                      </> : <>
+                        {/* <p>{comment?.body}</p> */}
+                        <p
+                          onClick={() => {
+                            setChangingComment(comment.body)
+                            setIsEditing({
+                              editing: comment.id === isEditing.id ? !isEditing.editing : true,
+                              id: comment.id
+                            })
+                          }}>
+                          Edit
+                        </p>
+                      </>
+                    }
+                  </div>}
+                </div>
+                <p>{comment?.body}</p>
+                {
+                  replyInputMoadl.modal && replyInputMoadl.id === comment.id ? <form onSubmit={replaySubmit}>
+                    <input
+                      onChange={(e) => {
+                        setReplyComment(e.target.value)
+                      }}
+                      value={replyComment}
+                    />
+                  </form> : <p onClick={(e) => {
+                    setReplayId(comment?.id)
+                    setIdPost(idPost)
+                    reply(comment?.id)
+                  }}>Reply</p>
+                }
+              </div>
+              {
+              }
+              {comment?.children?.length > 0 ? showAllComments(comment?.children,) : ""}
+            </>
+          })
+        }
+      </div>
+    )
+
   }
+
+  //add comment
   const commentInputValue = (e) => {
     setValue(e.target.value)
     setIdPost(e.target.id)
-  }
-  const deleteComment = (id) => {
-    if (id === id) {
-      axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
-        getComments(idPost)
-        setComments({
-          commentsModal: true,
-          id: comments.id
-        })
-      })
-    }
-  }
-  const editComment = (e, id) => {
-    setChangingComment(e.target.value);
-    console.log(changingComment);
-  }
-  const doneEditing = (id) => {
-    console.log(changingComment);
-    setIsEditing({
-      id: "",
-      editing: true
-    })
-    setComments({
-      commentsModal: true,
-      id: comments.id
-    })
-    let link = "https://socialreading.xyz/comments/" + id + "/"
-    if (id === id) {
-      axios.patch(link, { body: changingComment }).then((resp) => {
-        getComments(idPost)
-        setValue("")
-        document.getElementById(idPost).value = ""
-      })
-    }
   }
   const onSubmit = (event) => {
     event.preventDefault()
@@ -93,6 +136,63 @@ function Home() {
       document.getElementById(idPost).value = ""
     })
   }
+
+  //delete comment
+  const deleteComment = (id) => {
+    axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
+      getComments(idPost)
+      setComments({
+        commentsModal: true,
+        id: comments.id
+      })
+    })
+  }
+
+  //edit comment
+  const editComment = (e, id) => {
+    setChangingComment(e.target.value);
+    console.log(changingComment);
+  }
+
+  // done edit
+  const doneEditing = (id) => {
+    setIsEditing({
+      id: "",
+      editing: true
+    })
+    setComments({
+      commentsModal: true,
+      id: comments.id
+    })
+    axios.patch("https://socialreading.xyz/comments/" + id + "/", { body: changingComment }).then((resp) => {
+      getComments(idPost)
+      setValue("")
+      document.getElementById(idPost).value = ""
+    })
+  }
+
+  //reply comment
+  const reply = (id) => {
+    setReplyInputModal({
+      modal: !replyInputMoadl.modal,
+      id: id
+    })
+  }
+
+  const replaySubmit = (e) => {
+    e.preventDefault()
+    axios.post("https://socialreading.xyz/comments/", { body: replyComment, parent: replayId, quote: idPost },
+      { headers: { "Authorization": userToken } }
+    ).then((resp) => {
+      getComments(idPost)
+      setReplyInputModal({ modal: false, id: "" })
+      setReplyComment("")
+    });
+    console.log(replyComment);
+    console.log(idPost);
+    console.log(replayId);
+  }
+
   //download post
   function download(id) {
     htmlToImage.toJpeg(document.getElementById(id))
@@ -103,6 +203,7 @@ function Home() {
         link.click();
       });
   }
+
   // edit quote
   const [lessMore, setLessMore] = useState(false);
   const [idPostMore, setIdPostMore] = useState("")
@@ -110,28 +211,32 @@ function Home() {
   const [textStyle, setTextStyle] = useState({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
   const [quoteText, setQuoteText] = useState("")
   const [id, setId] = useState("")
+
   // edit post
-  function edit(id, style, text) {
+  function editPost(id, style, text) {
     setEditor(true)
     setQuoteText(text)
     setId(id)
     setTextStyle(style)
   }
+
   //like
   function like(id) {
-    console.log(id)
-    // console.log(user.id)
     // axios.post("https://socialreading.xyz/quote/",{},{ headers: { "Authorization": userToken } })
   }
+
   //unlike
   function unlike(id) {
   }
+
   //save
   function save(id) {
   }
+
   //unsave
   function unSave(id) {
   }
+
   return (
     <>
       <div className="section_1">
@@ -179,7 +284,7 @@ function Home() {
                         <button>...</button>
                         {user?.id === e?.author?.id && <div style={{ border: "1px solid red", width: "150px" }}>
                           <button onClick={() => download(e?.id)}>Download post</button>
-                          <button onClick={() => edit(e?.id, JSON.parse(e?.styles), e?.quote_text)}>Edit</button>
+                          <button onClick={() => editPost(e?.id, JSON.parse(e?.styles), e?.quote_text)}>Edit</button>
                         </div>
                         }
                       </div>
@@ -210,15 +315,6 @@ function Home() {
                         ) : (<span>{e?.quote_text}</span>)
                       }
                     </div>
-                    {/* <div className="post__img">
-                      <img
-                        src={e?.quote_file}
-                        width="100%"
-                        alt="img"
-                      />
-                    </div> */}
-
-
                     {
                       userToken &&
                       <>
@@ -226,7 +322,7 @@ function Home() {
                           <>
                             <div className="left_buttons">
                               {
-                                !e?.likes_by_user.includes(user?.id) ? <button onClick={() => like(e?.id)}>
+                                !e?.likes_by_user?.includes(user?.id) ? <button onClick={() => like(e?.id)}>
                                   <svg width="18" height="14" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.807 2.40351C9.7193 0.947368 7.96491 0 6 0C2.68421 0 5.96046e-08 2.68421 5.96046e-08 6C5.96046e-08 12.0702 4.7193 15.9825 7.45614 17.7193C9.14035 18.807 10.8596 18.807 12.5439 17.7193C15.2807 15.9825 20 12.0702 20 6C20 2.68421 17.3158 0 14 0C12.0351 0 10.2807 0.947368 9.19298 2.40351C9.07018 2.5614 9 2.77193 9 3C9 3.54386 9.45614 4 10 4C10.3333 4 10.614 3.8421 10.807 3.59649C11.5789 2.5614 12.614 2 14 2C16.3333 2 18 3.66667 18 6C18 11.0877 14.0526 14.386 11.4561 16.0351C10.3509 16.7544 9.64912 16.7544 8.54386 16.0351C5.94737 14.386 2 11.0877 2 6C2 3.66667 3.66667 2 6 2C7.38596 2 8.42105 2.5614 9.19298 3.59649C9.38597 3.8421 9.66667 4 10 4C10.5439 4 11 3.54386 11 3C11 2.77193 10.9298 2.5614 10.807 2.40351Z" fill="#3D424E" />
                                   </svg>&nbsp;Like
@@ -287,41 +383,13 @@ function Home() {
                         </div>
                         {
                           comments?.id === e.id && comments?.commentsModal && <div>
-                            {
-                              postComments?.map((comment) => {
-                                return <div key={comment?.id}>
-                                  <div className="comment" >
-                                    <img src={comment?.user.avatar} className="add_comment_avatar" />
-                                    <p>{comment?.user.first_name}</p>
-                                    <p>{comment?.user.last_name}</p>
-                                  </div>
-                                  {isEditing.editing && isEditing.id === comment.id ? <input
-                                    value={changingComment} onChange={(event) => editComment(event, comment.id)} /> :
-                                    <p className="comment_text">{comment?.body}</p>
-                                  }
-                                  {comment?.children?.length !== 0 && <p onClick={() => replies()}>See more</p>}
-                                  {
-                                    reply &&
-                                    comment?.children?.map(child => {
-                                      return (<div key={e?.id}>{child?.body}</div>)
-                                    })}
-                                  {user?.id === comment?.user?.id && (<div><button onClick={() => {
-                                    setChangingComment(comment.body)
-                                    setIsEditing({
-                                      editing: comment.id === isEditing.id ? !isEditing.editing : true,
-                                      id: comment.id
-                                    })
-                                    console.log(isEditing);
-                                  }}>Edit</button> <button onClick={() => deleteComment(comment.id)}>delete</button><button onClick={() => doneEditing(comment.id)}>done</button></div>)}
-                                </div>
-                              })
-                            }
-                            <p className="hide_comments" onClick={() => {
+                            {showAllComments(postComments, e)}
+                            {/* <p className="hide_comments" onClick={() => {
                               setComments({
                                 commentsModal: false,
                                 id: e?.id
                               })
-                            }}>Hide comments</p>
+                            }}>Hide comments</p> */}
                           </div>
                         }
                       </>
@@ -333,7 +401,6 @@ function Home() {
           })
         }
       </div>
-
       {
         editor && <div className="modal-text-editor">
           <div className="overlay"></div>
