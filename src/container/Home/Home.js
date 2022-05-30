@@ -289,6 +289,9 @@ function Home() {
                         }
                       </div>
                     </div>
+                    <h2 style={{ color: "green" }}>Quote title is {e?.quote_title}</h2>
+                    <h2 style={{ color: "green" }}>Quote category is {e?.book_category}</h2>
+                    <h2 style={{ color: "green" }}>Quote author is {e?.book_author}</h2>
                     <div className="post__text" id={e?.id}
                       style={{
                         color: JSON.parse(e?.styles)?.color,
@@ -297,6 +300,7 @@ function Home() {
                         fontSize: JSON.parse(e?.styles)?.size + "px"
                       }}
                     >
+
                       {
                         e?.quote_text.length > 400 ? (
                           <>
