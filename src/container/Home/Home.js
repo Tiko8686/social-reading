@@ -218,11 +218,8 @@ function Home() {
                       />
                     </div> */}
 
-(222 kB)
-https://social-reading-application.herokuapp.com/images/section_1.png
 
-12:50
-{
+                    {
                       userToken &&
                       <>
                         <div className="post_footer">
@@ -336,8 +333,8 @@ https://social-reading-application.herokuapp.com/images/section_1.png
           })
         }
       </div>
-12:50
-{
+
+      {
         editor && <div className="modal-text-editor">
           <div className="overlay"></div>
           <div className="modal-content-text-editor">
