@@ -25,6 +25,8 @@ function Home() {
   }, [navigate]);
   console.log(post)
 
+
+
   // comments
   const [idPost, setIdPost] = useState("")
   const [value, setValue] = useState("")
@@ -187,6 +189,7 @@ function Home() {
           post.map(e => {
             return (
               <div key={e?.id}>
+                
                 {e?.published && e?.is_active &&
                   <div className="post__item">
                     <div className="post__header">
