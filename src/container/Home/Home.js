@@ -13,7 +13,7 @@ function Home() {
   const [value, setValue] = useState("")
   const [changingComment, setChangingComment] = useState("")
   const [answers, setAnswers] = useState("")
-  const [ reply, setReply] = useState(false)
+  const [reply, setReply] = useState(false)
   const [isEditing, setIsEditing] = useState({
     editing: false,
     id: ""
@@ -239,60 +239,51 @@ function Home() {
                         }} onChange={(e) => { commentInputValue(e) }} />
                       </form>
                     </div>
-                    {
-                      comments?.id === e.id && comments?.commentsModal && <div className="comments">
-                        {
-                          postComments?.map((comment, index) => {
-                            return <div key={index}>
-                              <div className="comment" >
-                                <img src={comment?.user.avatar} className="add_comment_avatar" />
-                                <p>{comment?.user.first_name}</p>
-                                <p>{comment?.user.last_name}</p>
-                              </div>
-                              {
-                                isEditing.editing && isEditing.id === comment.id ?
-                                  <input
-                                    value={changingComment}
-                                    onChange={(event) => editComment(event, comment.id)}
-                                  /> :
-                                  <p className="comment_text">{comment?.body}</p>
-                              }
-                              {
-                                comment?.children?.length !== 0 && <p
-                                  onClick={() => replies()}
-                                >See more</p>
-                              }
-                              {
-                                reply && comment?.children?.map(child => {
-                                  return (<div key={e?.id} style={{ color: "red" }}>{child?.body}</div>)
-                                })
-                              }
-                              {user?.id === comment?.user.id && (<div><button onClick={() => {
-                                setChangingComment(comment.body)
-                                setIsEditing({
-                                  editing: comment.id === isEditing.id ? !isEditing.editing : true,
-                                  id: comment.id
-                                })
-                                // console.log(isEditing);
-                              }}>Edit</button>
-                                <button
-                                  onClick={() => deleteComment(comment.id)}>delete
-                                </button>
-                                <button onClick={() => doneEditing(comment.id)}>done</button>
-                              </div>
-                              )
-                              }
+                    {comments?.id === e.id && comments?.commentsModal && <div className="comments">
+                      {
+                        postComments?.map((comment, index) => {
+                          return <div key={index}>
+                            <div className="comment" >
+                              <img src={comment?.user.avatar} className="add_comment_avatar" />
+                              <p>{comment?.user.first_name}</p>
+                              <p>{comment?.user.last_name}</p>
                             </div>
-                          })
-                        }
-                        <p className="hide_comments" onClick={() => {
-                          setComments({
-                            commentsModal: false,
-                            id: e?.id
-                          })
-                        }}>Hide comments</p>
-                      </div>
-                    }
+                            {
+                              isEditing.editing && isEditing.id === comment.id ?
+                                <input
+                                  value={changingComment}
+                                  onChange={(event) => editComment(event, comment.id)}
+                                /> :
+                                <p className="comment_text">{comment?.body}</p>
+                            }
+                            {
+                              comment?.children?.length !== 0 && <p
+                                onClick={() => replies()}
+                              >See more</p>
+                            }
+                            {reply && comment?.children?.map(child => {
+                              return (<div key={e?.id} style={{ color: "red" }}>{child?.body}</div>)
+                            })}
+                            {user?.id === comment?.user.id && (<div><button onClick={() => {
+                              setChangingComment(comment.body)
+                              setIsEditing({
+                                editing: comment.id === isEditing.id ? !isEditing.editing : true,
+                                id: comment.id
+                              })
+                              // console.log(isEditing);
+                            }}>Edit</button>
+                              <button 
+                              onClick={() => deleteComment(comment.id)}>delete</button><button onClick={() => doneEditing(comment.id)}>done</button></div>)}
+                          </div>
+                        })
+                      }
+                      <p className="hide_comments" onClick={() => {
+                        setComments({
+                          commentsModal: false,
+                          id: e?.id
+                        })
+                      }}>Hide comments</p>
+                    </div>}
                   </>
                 }
               </div>

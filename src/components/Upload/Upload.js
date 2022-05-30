@@ -18,34 +18,34 @@ export function Upload() {
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("");
 
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))
     if (token) {
       setUser("JWT " + token.access)
+      axios.get("https://socialreading.xyz/categories/").then((resp) => {
+        setCategories(
+          resp.data.map((category) => {
+            return category.name;
+          })
+        );
+      });
     }
 
   }, []);
   useEffect(() => {
-    axios.get("https://socialreading.xyz/categories/").then((resp) => {
-      setCategories(
-        resp.data.map((category) => {
-          return category.name;
-        })
-      );
+    axios.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCm5RYrRxcdoJ7RxVJJq12lWT_rto8315A").then(res => {
+      // setFontFamily(res.data.items)
+      console.log(res)
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
     });
-
-    // axios.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCm5RYrRxcdoJ7RxVJJq12lWT_rto8315A").then(res => {
-    //   setFontFamily(res.data.items)
-    //   console.log(res)
-    // }).catch((error) => {
-    //   if (error.response) {
-    //     console.log("error.response ", error.response);
-    //   } else if (error.request) {
-    //     console.log("error.request ", error.request);
-    //   } else if (error.message) {
-    //     console.log("error.request ", error.message);
-    //   }
-    // });
   }, []);
   function showPreview(event) {
     if (event.target.files.length > 0) {
@@ -120,10 +120,8 @@ export function Upload() {
     }
   };
 
-  const [textEditor, setTextEditor] = useState(false)
-  const [quoteText, setQuoteText] = useState("")
-  const [id, setId] = useState("")
 
+  //upload
   const onSubmit = (data) => {
     if (categoryValue && file) {
       const formData = new FormData();
@@ -155,6 +153,14 @@ export function Upload() {
       toggleModal();
     }
   };
+  //text editor
+  const [textEditor, setTextEditor] = useState(false)
+  const [quoteText, setQuoteText] = useState("")
+  const [id, setId] = useState("");
+  const [publishedDiv, setPublishedDiv] = useState(false)
+  const [published, setPublished] = useState(false)
+
+
 
   // let _contentState = ContentState.createFromText('Sample content state');
 
@@ -390,28 +396,30 @@ export function Upload() {
                   <div onClick={() => { setTextStyle({ ...textStyle, background: "white" }) }}
                     style={{ backgroundColor: "white", width: "25px", height: "25px", borderRadius: "100%", border: "1px solid grey" }}
                   ></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "black" }) }}
-                    style={{ backgroundColor: "black", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#3998EA" }) }}
-                    style={{ backgroundColor: "#3998EA", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#71C049" }) }}
-                    style={{ backgroundColor: "#71C049", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FDCA5A" }) }}
-                    style={{ backgroundColor: "#FDCA5A", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FFB8DE" }) }}
+                    style={{ backgroundColor: "#FFB8DE", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FF74D4" }) }}
+                    style={{ backgroundColor: "#FF74D4", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FF36AB" }) }}
+                    style={{ backgroundColor: "#FF36AB", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#642CA9" }) }}
+                    style={{ backgroundColor: "#642CA9", width: "25px", height: "25px", borderRadius: "100%" }}></div>
                 </div>
                 <div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FE8C35" }) }}
-                    style={{ backgroundColor: "#FE8C35", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#F3465B" }) }}
-                    style={{ backgroundColor: "#F3465B", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#A207BA" }) }}
-                    style={{ backgroundColor: "#A207BA", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "linear-gradient(90deg, #FBDA61 0%, #FF5ACD 100%), #8447FF" }) }}
+                    style={{
+                      background: "linear-gradient(90deg, #FBDA61 0%, #FF5ACD 100%), #8447FF",
+                      width: "25px", height: "25px", borderRadius: "100%"
+                    }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FFBA66" }) }}
+                    style={{ backgroundColor: "#FFBA66", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FF828F" }) }}
+                    style={{ backgroundColor: "#FF828F", width: "25px", height: "25px", borderRadius: "100%" }}></div>
                   <div onClick={() => { setTextStyle({ ...textStyle, background: "#00CEC9" }) }}
                     style={{ backgroundColor: "#00CEC9", width: "25px", height: "25px", borderRadius: "100%" }}></div>
-                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#9832FE" }) }}
-                    style={{ backgroundColor: "#9832FE", width: "25px", height: "25px", borderRadius: "100%" }}></div>
+                  <div onClick={() => { setTextStyle({ ...textStyle, background: "#FF7497" }) }}
+                    style={{ backgroundColor: "#FF7497", width: "25px", height: "25px", borderRadius: "100%" }}></div>
                 </div>
-
               </div>
               <div className="text-editor-button">
                 <button className="text-editor-button-discard" onClick={() => {
@@ -420,20 +428,7 @@ export function Upload() {
                 }
                 }>Discard</button>
                 <button className="text-editor-button-save" onClick={() => {
-                  let a = JSON.stringify(textStyle)
-                  axios.patch(`https://www.socialreading.xyz/quotes/${id}/`, { styles: a, quote_text: quoteText }).then(res => {
-                    console.log(res.data)
-                  }).catch((error) => {
-                    if (error.response) {
-                      console.log("error.response ", error.response);
-                    } else if (error.request) {
-                      console.log("error.request ", error.request);
-                    } else if (error.message) {
-                      console.log("error.request ", error.message);
-                    }
-                  });
-                  setTextStyle({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
-                  setTextEditor(false)
+                  setPublishedDiv(true)
                 }} >Save</button>
               </div>
             </div>
@@ -441,55 +436,109 @@ export function Upload() {
               <textarea
                 value={quoteText}
                 style={{
-                  width: "400px", height: "300px", resize: "none",
                   color: textStyle.color,
-                  backgroundColor: textStyle.background,
+                  background: textStyle.background,
                   fontStyle: textStyle.font,
                   fontSize: textStyle.size + "px",
-                  textAlign: "center",
-                  padding: "10px",
-                  paddingTop: "50px"
                 }}
                 onChange={(e) => { setQuoteText(e.target.value) }}
               ></textarea>
             </div>
-
-            {/* <canvas width="500px" height="500px" style={{ backgroundColor: textStyle.background, border: "1px solid" }} ref={canvasRef}></canvas> */}
           </div>
         </div>
       }
-      {/* {textEditor && <div className="editor">
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={handleEditorChange}
-          wrapperClassName="wrapper-class"
-          editorClassName="editor-class"
-          toolbarClassName="toolbar-class"
-        // value="dad"
-        />
-      
-        <button onClick={() => {
-          if (convertedContent) {
-            axios.patch(`https://www.socialreading.xyz/quotes/${id}/`, { quote_text: convertedContent }).then(res => {
-              console.log(res.data)
-            }).catch((error) => {
-              if (error.response) {
-                console.log("error.response ", error.response);
-              } else if (error.request) {
-                console.log("error.request ", error.request);
-              } else if (error.message) {
-                console.log("error.request ", error.message);
-              }
-            });
-          }
-          
-        }} >Save</button>
-        <button>cancel</button>
-      </div>} */}
-      {/* <button onClick={()=> a()}>a</button>
-      <div id="node" style={{color:"red", backgroundColor: "blue",fontSize:"50px"}}>
-        barev
-      </div> */}
+      {
+        publishedDiv && <div className="modal-text-editor">
+          <div className="overlay"></div>
+          <div className="modal-content-published_or_not">
+            <div className="modal-content-published-text">Do you want to show on the news feed?</div>
+            <div className="modal-content_yes_or_no">
+              <div>
+                <input type="radio" name="published" id="published_yes" required onClick={(e) => {
+                  setPublished(e.target.checked)
+                }} />
+                <label for="published_yes">Yes</label>
+              </div>
+              <div>
+                <input type="radio" name="published" id="published_no" required onClick={(e) => {
+                  setPublished(!e.target.checked)
+                }} />
+                <label for="published_no">No</label>
+              </div>
+            </div>
+            <button onClick={() => {
+              console.log(published)
+              let a = JSON.stringify(textStyle)
+              axios.patch(`https://www.socialreading.xyz/quotes/${id}/`,
+                { styles: a, quote_text: quoteText, published, is_active: true }
+              ).then(res => {
+                console.log(res.data)
+              }).catch((error) => {
+                if (error.response) {
+                  console.log("error.response ", error.response);
+                } else if (error.request) {
+                  console.log("error.request ", error.request);
+                } else if (error.message) {
+                  console.log("error.request ", error.message);
+                }
+              });
+              setTextStyle({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
+              setTextEditor(false)
+              setPublishedDiv(false)
+            }}>Save</button>
+          </div>
+        </div>
+      }
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <canvas width="500px" height="500px" style={{ backgroundColor: textStyle.background, border: "1px solid" }} ref={canvasRef}></canvas> */ }
+
+{/* {textEditor && <div className="editor">
+ <Editor
+   editorState={editorState}
+   onEditorStateChange={handleEditorChange}
+   wrapperClassName="wrapper-class"
+   editorClassName="editor-class"
+   toolbarClassName="toolbar-class"
+ // value="dad"
+ />
+
+ <button onClick={() => {
+   if (convertedContent) {
+     axios.patch(`https://www.socialreading.xyz/quotes/${id}/`, { quote_text: convertedContent }).then(res => {
+       console.log(res.data)
+     }).catch((error) => {
+       if (error.response) {
+         console.log("error.response ", error.response);
+       } else if (error.request) {
+         console.log("error.request ", error.request);
+       } else if (error.message) {
+         console.log("error.request ", error.message);
+       }
+     });
+   }
+   
+ }} >Save</button>
+ <button>cancel</button>
+</div>} */}
+{/* <button onClick={()=> a()}>a</button>
+<div id="node" style={{color:"red", backgroundColor: "blue",fontSize:"50px"}}>
+ barev
+</div> */}
