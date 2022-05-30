@@ -21,7 +21,7 @@ export function Signin() {
   const [password1Eye, setPassword1Eye] = useState(false);
   const [loginEye, setLoginEye] = useState(false);
   const [password2Eye, setPassword2Eye] = useState(false);
-  const [wrongEmailOrPass, setWrongEmailOrPass] = useState({ email: "", pass: "" });
+  const [wrongEmailOrPass, setWrongEmailOrPass] = useState("");
   const [emailRe, setEmailRe] = useState("");
   const [spanResend, setSpanResend] = useState(false)
 
@@ -84,6 +84,7 @@ export function Signin() {
 
   // toggle for signup
   const toggleModal = () => {
+    setLogin({ email: "", password: "" });
     setSigin(false);
     setSignup(!signup);
     reset();
@@ -96,8 +97,9 @@ export function Signin() {
 
   const toggleModalSignIn = () => {
     setSignup(false);
-    setWrongEmailOrPass({ email: "", pass: "" });
+    setWrongEmailOrPass("");
     setSigin(!signin);
+    reset();
     setLogin({ email: "", password: "" });
     setLoginEye(false);
   };
@@ -176,26 +178,7 @@ export function Signin() {
         if (error.response) {
           console.log("error.response ", error.response);
           if (error.response.data.detail) {
-            console.log("stex");
-            axios
-              .get("https://www.socialreading.xyz/register/")
-              .then((result) => {
-                console.log("all users", result.data);
-                for (const user of result.data) {
-                  if (user.email === login.email) {
-                    setWrongEmailOrPass({
-                      email: "",
-                      pass: "Password is wrong.",
-                    });
-                    break;
-                  } else {
-                    setWrongEmailOrPass({
-                      ...wrongEmailOrPass,
-                      email: "User with this email doesn't exists.",
-                    });
-                  }
-                }
-              });
+            setWrongEmailOrPass(error.response.data.detail)
           }
         } else if (error.request) {
           console.log("error.request ", error.request);
@@ -431,6 +414,9 @@ export function Signin() {
             </button>
             <form onSubmit={signIn} className="form_style">
               <h2>Log In</h2>
+              {wrongEmailOrPass &&
+                <p className="login_error"> {wrongEmailOrPass}</p>
+              }
               <div>
                 <label htmlFor="emailLogin">Email</label>
                 <input
@@ -439,15 +425,12 @@ export function Signin() {
                   value={login.email}
                   required
                   onClick={() => {
-                    setWrongEmailOrPass({ email: "", pass: "" });
+                    setWrongEmailOrPass("");
                   }}
                   onChange={(e) => {
                     setLogin({ ...login, email: e.target.value });
                   }}
                 />
-                {wrongEmailOrPass.email && (
-                  <span>{wrongEmailOrPass.email}</span>
-                )}
               </div>
               <div className="password_div">
                 <label htmlFor="passwordLogin">Password</label>
@@ -457,7 +440,7 @@ export function Signin() {
                   value={login.password}
                   required
                   onClick={() => {
-                    setWrongEmailOrPass({ email: "", pass: "" });
+                    setWrongEmailOrPass("");
                   }}
                   onChange={(e) => {
                     setLogin({ ...login, password: e.target.value });
@@ -499,7 +482,6 @@ export function Signin() {
                     </svg>
                   </div>
                 )}
-                {wrongEmailOrPass.pass && <span>{wrongEmailOrPass.pass}</span>}
               </div>
 
               <div className="submit_and_forgot">
