@@ -79,6 +79,7 @@ function Home() {
       })
     }
   }
+  
   const onSubmit = (event) => {
     event.preventDefault()
     axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
@@ -110,6 +111,7 @@ function Home() {
   const [textStyle, setTextStyle] = useState({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
   const [quoteText, setQuoteText] = useState("")
   const [id, setId] = useState("")
+
   // edit post
   function edit(id, style, text) {
     setEditor(true)
@@ -121,17 +123,91 @@ function Home() {
   function like(id) {
     console.log(id)
     // console.log(user.id)
-    // axios.post("https://socialreading.xyz/quote/",{},{ headers: { "Authorization": userToken } })
+    axios.post("https://socialreading.xyz/likes/", {
+      quote: id
+    }, {
+      headers: { "Authorization": userToken }
+    }
+    ).then(res => {
+      console.log(res)
+      fetch("https://www.socialreading.xyz/quotes/")
+        .then((response) => response.json())
+        .then((response) => {
+          setPost(response);
+        });
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
   }
   //unlike
   function unlike(id) {
+    axios.delete("https://socialreading.xyz/likes/" + id).then(res => {
+      console.log(res)
+      fetch("https://www.socialreading.xyz/quotes/")
+        .then((response) => response.json())
+        .then((response) => {
+          setPost(response);
+        });
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
   }
   //save
   function save(id) {
+    axios.post("https://socialreading.xyz/save/", {
+      quote: id
+    }, {
+      headers: { "Authorization": userToken }
+    }
+    ).then(res => {
+      console.log(res)
+      fetch("https://www.socialreading.xyz/quotes/")
+        .then((response) => response.json())
+        .then((response) => {
+          setPost(response);
+        });
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
   }
   //unsave
   function unSave(id) {
+    axios.delete("https://socialreading.xyz/save/" + id).then(res => {
+      console.log(res)
+      fetch("https://www.socialreading.xyz/quotes/")
+        .then((response) => response.json())
+        .then((response) => {
+          setPost(response);
+        });
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
   }
+  console.log(post)
   return (
     <>
       <div className="section_1">
@@ -195,7 +271,6 @@ function Home() {
                         fontSize: JSON.parse(e?.styles)?.size + "px"
                       }}
                     >
-
                       {
                         e?.quote_text.length > 400 ? (
                           <>
@@ -221,8 +296,6 @@ function Home() {
                         alt="img"
                       />
                     </div> */}
-
-
                     {
                       userToken &&
                       <>
@@ -230,14 +303,21 @@ function Home() {
                           <>
                             <div className="left_buttons">
                               {
-                                !e?.likes_by_user.includes(user?.id) ? <button onClick={() => like(e?.id)}>
+                                !e?.likes?.find(like => like?.user?.id === user?.id) ? <button onClick={() => like(e?.id)}>
                                   <svg width="18" height="14" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.807 2.40351C9.7193 0.947368 7.96491 0 6 0C2.68421 0 5.96046e-08 2.68421 5.96046e-08 6C5.96046e-08 12.0702 4.7193 15.9825 7.45614 17.7193C9.14035 18.807 10.8596 18.807 12.5439 17.7193C15.2807 15.9825 20 12.0702 20 6C20 2.68421 17.3158 0 14 0C12.0351 0 10.2807 0.947368 9.19298 2.40351C9.07018 2.5614 9 2.77193 9 3C9 3.54386 9.45614 4 10 4C10.3333 4 10.614 3.8421 10.807 3.59649C11.5789 2.5614 12.614 2 14 2C16.3333 2 18 3.66667 18 6C18 11.0877 14.0526 14.386 11.4561 16.0351C10.3509 16.7544 9.64912 16.7544 8.54386 16.0351C5.94737 14.386 2 11.0877 2 6C2 3.66667 3.66667 2 6 2C7.38596 2 8.42105 2.5614 9.19298 3.59649C9.38597 3.8421 9.66667 4 10 4C10.5439 4 11 3.54386 11 3C11 2.77193 10.9298 2.5614 10.807 2.40351Z" fill="#3D424E" />
                                   </svg>&nbsp;Like
-                                </button> : <button onClick={() => unlike(e?.id)}>
+                                </button> : <button onClick={() => {
+                                  let a = e?.likes?.find(like => {
+                                    if (like?.user?.id === user?.id) {
+                                      return like?.id
+                                    }
+                                  })
+                                  unlike(a?.id)
+                                }}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                  </svg>&nbsp;Unlike
+                                  </svg>&nbsp;Like
                                 </button>
                               }
                               <button onClick={() => {
@@ -260,12 +340,20 @@ function Home() {
                             </div>
                             <div>
                               {
-                                !e?.save_users.includes(user?.id) ? <button onClick={() => save(e?.id)}>
+                                !e?.save_users?.find(save => save?.user?.id === user?.id) ? <button onClick={() => save(e?.id)}>
                                   <svg width="18" height="14" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2 19V4C2 2.73684 2.73684 2 4 2H12C13.2632 2 14 2.73684 14 4V19C14 19.5439 14.4561 20 15 20C15.5439 20 16 19.5439 16 19V4C16 1.75439 14.2456 -4.76837e-07 12 -4.76837e-07H4C1.75439 -4.76837e-07 1.19209e-07 1.75439 1.19209e-07 4V19C1.19209e-07 19.5439 0.456141 20 1 20C1.54386 20 2 19.5439 2 19ZM15.4912 18.1404L8 13.8421L0.508772 18.1404C0.210526 18.2982 1.19209e-07 18.6316 1.19209e-07 19C1.19209e-07 19.5439 0.456141 20 1 20C1.17544 20 1.35088 19.9474 1.49123 19.8596L8 16.1579L14.5088 19.8596C14.6491 19.9474 14.8246 20 15 20C15.5439 20 16 19.5439 16 19C16 18.6316 15.7895 18.2982 15.4912 18.1404Z" fill="#3D424E" />
                                   </svg>
-                                </button> : <button onClick={() => unSave(e?.id)}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                                </button> : <button onClick={() => {
+                                   let a = e?.save_users?.find(save => {
+                                    if (save?.user?.id === user?.id) {
+                                      return save?.id
+                                    }
+                                  })
+                                  unSave(a?.id)
+                                }
+                                }>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bookmark-fill" viewBox="0 0 16 16">
                                     <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
                                   </svg>
                                 </button>
@@ -337,7 +425,6 @@ function Home() {
           })
         }
       </div>
-
       {
         editor && <div className="modal-text-editor">
           <div className="overlay"></div>
