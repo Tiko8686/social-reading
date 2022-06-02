@@ -225,52 +225,53 @@
 .comments{
   overflow-y: auto;
   max-height: 500px;
+  margin-top: 10px;
 }
-.comments div {
+/* .comments div {
   overflow: hidden;
   max-height: 100% ;
-}
-.author{
+} */
+/* .author{
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 .children{
   margin-left: 30px;
 }
-.userInfo{
+/* .userInfo{
   display: flex;
   align-items: center;
-}
-.buttons{
+} */
+/* .buttons{
   display: flex;
   width: 100px;
   flex-wrap: wrap;
   position: relative;
   top: 100px;
-}
-.more{
+} */
+/* .more{
   border: none;
   outline: none;
   background: none;
   font-size: 20px;
   color: #878787  ;
-}
-.more_modal{
+} */
+/* .more_modal{
   text-align: center;
   padding: 20px;
   background: #FFFFFF;
   box-shadow: 0px 5px 50px rgba(40, 44, 46, 0.08);
   border-radius: 16px;
-}
-.done{
+} */
+/* .done{
   margin-left: -45px;
-}
-form{
+} */
+/* form{
   display: inline
   ;
-}
-.hide_comments {
+} */
+/* .hide_comments {
   cursor: pointer;
   color: #878787;
   width: 132px;
@@ -282,7 +283,7 @@ form{
   line-height: 16px;
   text-align: right;
   width: 580px;
-}
+} */
 
 .show_more_less {
   border: none;
