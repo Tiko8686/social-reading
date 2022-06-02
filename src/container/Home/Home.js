@@ -400,6 +400,9 @@ function Home() {
                         alt="img"
                       />
                     </div> */}
+                    <div className="about_post_section">
+                      <p className="likes_count">{e?.likes?.length} likes</p>
+                    </div>
                     {
                       userToken &&
                       <>
