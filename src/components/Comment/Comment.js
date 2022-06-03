@@ -27,7 +27,6 @@ function Comment({ comment, getComments, post }) {
             console.log(resp);
             getComments(post.id)
             setCom("")
-
         })
 
     }
@@ -52,6 +51,7 @@ function Comment({ comment, getComments, post }) {
             setCom("")
             setReplyComment("")
             getComments(post.id)
+            setReplyModal(!replyModal)
         });
     }
 
@@ -109,7 +109,7 @@ function Comment({ comment, getComments, post }) {
 
                         <div className='edit_show_hide_buttons'>
                             {/* replay */}
-                            {!replyModal &&<button onClick={() => { setReplyModal(!replyModal); setCom(comment?.id) }}>Reply</button>}
+                            {!replyModal && <button onClick={() => { setReplyModal(!replyModal); setCom(comment?.id) }}>Reply</button>}
                             {
                                 childrenId.includes(comment?.id) ? <button onClick={() => {
                                     childrenId.splice(childrenId.indexOf(comment?.id), 1);
