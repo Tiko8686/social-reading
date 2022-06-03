@@ -54,9 +54,11 @@ function Home() {
   //get and show comments
 
   const getComments = (post_id) => {
+    if (post_id) {
     axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
+  }
   }
 
 
