@@ -373,20 +373,11 @@ export function Upload() {
                   <option value="blue">blue</option>
                   <option value="black">black</option>
                 </select><br />
-                <select onChange={(e) => setTextStyle({ ...textStyle, hedline: e.target.value })}>
-                  <option value="">Aa Headline</option>
-                </select><br />
-                <select onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })}>
-                  <option value="">Aa Font size</option>
-                  <option value={10}>10</option>
-                  <option value={11}>11</option>
-                  <option value={12}>12</option>
-                  <option value={13}>13</option>
-                  <option value={14}>14</option>
-                  <option value={15}>15</option>
-                  <option value={16}>16</option>
-                  <option value={17}>17</option>
-                </select>
+
+                <input type="number" onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })} min="1" max="100"
+                  style={{ border: "1px solid grey", outline: "none" }}
+                />
+                
               </div>
               <div>
                 <h1>Backgrounds</h1>
