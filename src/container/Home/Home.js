@@ -54,22 +54,23 @@ function Home() {
   //get and show comments
 
   const getComments = (post_id) => {
-    axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
+    post_id && axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
+
   }
 
 
   //kanchum e comment komponenty
   const showAllComments = (comments, post) => {
-  return  comments.length > 0 ?<>
-    {
-      comments.map((comment) => {
-        return <Comment comment={comment} getComments={getComments} post={post} />
-      })
-    }
-  </> : <p className="canBeFirst" >Your comment can be first!</p>
-    
+    return comments.length > 0 ? <>
+      {
+        comments.map((comment) => {
+          return <Comment comment={comment} getComments={getComments} post={post} />
+        })
+      }
+    </> : <p className="canBeFirst" >Your comment can be first!</p>
+
 
   }
 
@@ -219,15 +220,15 @@ function Home() {
 
   return (
     <div
-     onClick={() => {
-      if (postIdforMenu) {
-        setPostIdforMenu("")
-      }
-    }}
+      onClick={() => {
+        if (postIdforMenu) {
+          setPostIdforMenu("")
+        }
+      }}
     >
       <div className="section_1">
         <div className="hometext">
-          <h1 style={{fontFamily: "Candara Light Italic"}} >
+          <h1 style={{ fontFamily: "Candara Light Italic" }} >
             Ձեռքին լավ գիրք ունենալով, մարդ երբեք չի կարող
             <span className="ancolortxt"> միայնակ լինել:</span>
           </h1>
@@ -274,7 +275,7 @@ function Home() {
                               setPostIdforMenu("")
                             else setPostIdforMenu(e?.id)
                           }}
-                          >{postIdforMenu === e?.id ? <span>x</span>:<span>...</span>}</button>
+                          >{postIdforMenu === e?.id ? <span>x</span> : <span>...</span>}</button>
                           {
                             postIdforMenu === e?.id && <div className="post_modal_menu">
                               <button onClick={() => download(e?.id)}>Download post</button>
@@ -431,11 +432,11 @@ function Home() {
               <div className="text-editor-select-section">
                 <select onChange={(e) => setTextStyle({ ...textStyle, font: e.target.value })}>
                   <option value="">Aa Font</option>
-                 {
-                   Object.values(fonts)?.map(font => {
-                     return (<option value={font}>{font}</option>)
-                   })
-                 }
+                  {
+                    Object.values(fonts)?.map(font => {
+                      return (<option value={font}>{font}</option>)
+                    })
+                  }
                 </select><br />
                 <select onChange={(e) => setTextStyle({ ...textStyle, color: e.target.value })}>
                   <option value="">Aa Font color</option>

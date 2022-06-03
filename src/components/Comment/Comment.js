@@ -58,33 +58,33 @@ function Comment({ comment, getComments, post }) {
             showReplies(replyId)
         });
     }
-     //showReplies
-     const showReplies   = (id) =>{
+    //showReplies
+    const showReplies = (id) => {
         setChildrenId([...childrenId, id])
-     }
+    }
 
     const showComment = (comment) => {
         return (
             <>
-                <div className={!comment?.parent ? 'comment' : "children"}
+                <div className={!comment?.parent ? 'comment' : "children" }
                     style={
                         childrenId?.includes(comment?.parent) || !comment?.parent ? { display: "block" } : { display: "none" }
                     }
                 >
-                    <div className='comment_user_and_body'>
+                    <div className='comment_user_and_body' key={comment?.id}>
                         <img src={comment?.user?.avatar} className="add_comment_avatar" />
                         <div className='name_and_body'>
                             <p className='username'>{comment?.user?.first_name} {comment?.user?.last_name}</p>
                             {!isEditing ?
                                 <p className='comment_body'>{comment?.body}</p>
                                 : com === comment?.id ?
-                                    <form onSubmit={(e) => doneEditing(comment?.id, e)} style = {{display:"flex", gap: "10px"}}>
+                                    <form onSubmit={(e) => doneEditing(comment?.id, e)} style={{ display: "flex", gap: "10px" }}>
                                         <input
                                             className='edit_comment_input'
                                             value={editingCommentValue}
                                             onChange={(e) => { setEditingCommentValue(e.target.value) }}
                                         />
-                                        <input type="submit" value="done" className='done_btn'/>
+                                        <input type="submit" value="done" className='done_btn' />
                                     </form> : ""
                             }
                             {isEditing && com !== comment?.id &&
@@ -101,6 +101,7 @@ function Comment({ comment, getComments, post }) {
                                 {/* edit */}
                                 <button className='comment_edit_btn' onClick={() => {
                                     setIsEditing(true)
+                                    setReplyModal(false)
                                     setOptionsModal(false)
                                     setEditingCommentValue(comment?.body)
                                     setCom(comment?.id)
@@ -117,7 +118,11 @@ function Comment({ comment, getComments, post }) {
 
                         <div className='edit_show_hide_buttons'>
                             {/* replay */}
-                            {!replyModal && <button onClick={() => { setReplyModal(!replyModal); setCom(comment?.id) }}>Reply</button>}
+                            {!replyModal && <button onClick={() => {
+                                setReplyModal(!replyModal);
+                                setCom(comment?.id);
+                                setIsEditing(false)
+                            }}>Reply</button>}
                             {
                                 childrenId.includes(comment?.id) ? <button onClick={() => {
                                     childrenId.splice(childrenId.indexOf(comment?.id), 1);
@@ -125,15 +130,15 @@ function Comment({ comment, getComments, post }) {
                                 }}><b>Hide replies</b></button> : comment?.children?.length > 0 ?
                                     <button onClick={() => {
                                         showReplies(comment?.id)
-                                        
+
                                     }}><b>Show replies</b></button> : ""
                             }
                         </div>
                         {replyModal && com === comment?.id &&
-                            <form onSubmit={(e) => replaySubmit(e)}  style = {{display:"flex", gap: "10px", paddingLeft: "65px"}}>
+                            <form onSubmit={(e) => replaySubmit(e)} style={{ display: "flex", gap: "10px", paddingLeft: "65px" }}>
                                 <input
-                                placeholder='Write replay...'
-                                className='reply_input'
+                                    placeholder='Write replay...'
+                                    className='reply_input'
                                     onClick={() => setReplyId(comment?.id)}
                                     value={replyComment}
                                     onChange={(e) => { setReplyComment(e.target.value) }}
