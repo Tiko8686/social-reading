@@ -12,6 +12,7 @@ function Comment({ comment, getComments, post }) {
     const [editingCommentValue, setEditingCommentValue] = useState("")
     const [replyId, setReplyId] = useState("")
     const [childrenId, setChildrenId] = useState([])
+
     // create token
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -21,6 +22,7 @@ function Comment({ comment, getComments, post }) {
         }
     }, []);
     const [com, setCom] = useState("")
+
     // delete
     const deleteComment = (id) => {
         axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
@@ -43,6 +45,7 @@ function Comment({ comment, getComments, post }) {
         })
     }
 
+    //reply
     const replaySubmit = (e) => {
         e.preventDefault()
         axios.post("https://socialreading.xyz/comments/", { body: replyComment, parent: replyId, quote: comment?.quote },
@@ -52,8 +55,13 @@ function Comment({ comment, getComments, post }) {
             setReplyComment("")
             getComments(post.id)
             setReplyModal(!replyModal)
+            showReplies(replyId)
         });
     }
+     //showReplies
+     const showReplies   = (id) =>{
+        setChildrenId([...childrenId, id])
+     }
 
     const showComment = (comment) => {
         return (
@@ -114,10 +122,11 @@ function Comment({ comment, getComments, post }) {
                                 childrenId.includes(comment?.id) ? <button onClick={() => {
                                     childrenId.splice(childrenId.indexOf(comment?.id), 1);
                                     setChildrenId([...childrenId])
-                                }}>Hide replies</button> : comment?.children?.length > 0 ?
+                                }}><b>Hide replies</b></button> : comment?.children?.length > 0 ?
                                     <button onClick={() => {
-                                        setChildrenId([...childrenId, comment.id])
-                                    }}>Show replies</button> : ""
+                                        showReplies(comment?.id)
+                                        
+                                    }}><b>Show replies</b></button> : ""
                             }
                         </div>
                         {replyModal && com === comment?.id &&
