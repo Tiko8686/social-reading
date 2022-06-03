@@ -29,7 +29,7 @@ export function Menu() {
           <li>
             <Link to="/">
               <img
-                src="http://localhost:3000//images/logo.png"
+                src="https://social-reading-application.herokuapp.com/images/logo.png"
                 width="35px"
                 className="book-icon"
                 alt="book_icon"
