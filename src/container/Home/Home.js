@@ -65,7 +65,7 @@ function Home() {
     return comments.length > 0 ? <>
       {
         comments.map((comment) => {
-          return <Comment comment={comment} getComments={getComments} post={post} />
+          return <Comment comment={comment} getComments={getComments} post={post} key={comment?.id}/>
         })
       }
     </> : <p className="canBeFirst" >Your comment can be first!</p>
