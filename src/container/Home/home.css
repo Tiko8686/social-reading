@@ -54,40 +54,6 @@
   margin: 20px;
 }
 
-@media (min-width: 300px) and (max-width: 600px) {
-  .section_1>div {
-    text-align: center;
-  }
-
-  .section_1 {
-    flex-direction: column;
-  }
-
-  .hometext {
-    width: 285px;
-  }
-
-  .section_1_img {
-    width: 284px;
-  }
-
-  .section_1>div>h1 {
-    font-size: 16px;
-  }
-
-  .ancolortxt {
-    font-size: 16px;
-  }
-
-  .section_1>div>p {
-    font-size: 12px;
-  }
-
-  .quote_image {
-    width: 290px;
-  }
-}
-
 .post__item {
   width: 600px;
   background-color: rgb(255, 255, 255);
@@ -369,6 +335,52 @@
   font-size: 20px;
   text-align: center;
   margin-bottom: 0;
+}
+
+/* phone */
+@media (min-width: 300px) and (max-width: 600px) {
+  .section_1>div {
+    text-align: center;
+  }
+
+  .section_1 {
+    flex-direction: column;
+  }
+
+  .hometext {
+    width: 285px;
+  }
+
+  .section_1_img {
+    width: 284px;
+  }
+
+  .section_1>div>h1 {
+    font-size: 16px;
+  }
+
+  .ancolortxt {
+    font-size: 16px;
+  }
+
+  .section_1>div>p {
+    font-size: 12px;
+  }
+
+  .quote_image {
+    width: 290px;
+  }
+  .post__item {
+    width: 450px;
+  }
+  .add_comment_input{
+    width: 360px;
+  }
+  .comment_options_modal{
+    padding: 5px 10px;
+    width: 130px;
+    height: 80px;
+  }
 }
 
 
