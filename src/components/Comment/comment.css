@@ -86,9 +86,6 @@
     padding: 5px;
 }
 
-
-
-
 .edit_comment_input {
     width: 80%;
     border-radius: 15px;
@@ -116,12 +113,14 @@
     height: 30px;
     border: none;
     outline: none;
+    margin-bottom: 5px;
     margin-top: 2px;
     padding: 0 10px;
     background: #F1F2F5;
 }
 
 .reply_btn {
+    height: 30px;
     border-radius: 15px;
     padding: 8px;
     border: none;
