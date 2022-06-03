@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import * as htmlToImage from 'html-to-image';
+import Comment from "../../components/Comment/Comment";
 
 function Home() {
   const navigate = useNavigate()
@@ -16,22 +17,20 @@ function Home() {
     value: "",
     id: ""
   })
-  const [changingComment, setChangingComment] = useState("")
-  const [isEditing, setIsEditing] = useState({ editing: false, id: "" })
+  // const [changingComment, setChangingComment] = useState("")
+  // const [isEditing, setIsEditing] = useState({ editing: false, id: "" })
   const [comments, setComments] = useState({ commentsModal: true, id: "" })
   const [postComments, setPostComments] = useState([])
-  const [replyComment, setReplyComment] = useState("")
-  const [replayId, setReplayId] = useState("")
-  const [parent, setParent] = useState("")
-  // const [max_height, setMax_height] = useState("500px")
-  const [replyInputMoadl, setReplyInputModal] = useState({
-    modal: false,
-    id: ""
-  })
-  const [editDeleteModal, setEditDeleteModal] = useState({
-    modal: false,
-    id: ""
-  })
+  // const [replyComment, setReplyComment] = useState("")
+  // const [replayId, setReplayId] = useState("")
+  // const [replyInputMoadl, setReplyInputModal] = useState({
+  //   modal: false,
+  //   id: ""
+  // })
+  // const [editDeleteModal, setEditDeleteModal] = useState({
+  //   modal: false,
+  //   id: ""
+  // })
 
   //create user and token
   useEffect(() => {
@@ -46,133 +45,152 @@ function Home() {
       setUserToken("JWT " + token.access)
     }
   }, [navigate]);
-
+  useEffect(() => {
+    getComments()
+  }, [postComments])
   //get and show comments
   const getComments = (post_id) => {
     axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
+    // showAllComments(postComments)
   }
 
-  const parents = (parent_id) => {
-    axios.get("https://socialreading.xyz/comments/" + parent_id).then((resp) => {
-      return setParent(<p>{resp.data.user.first_name} {resp.data.user.last_name}</p>);
-    });
-    return parent
-  }
-  
+  // const [parentId, setParentId] = useState("")
+
+
+
   const showAllComments = (comments) => {
-    return (
-      <>
-        {/* <div style={{ maxHeight: max_height, overflow: "hidden" }}> */}
-        {comments.length === 0 && <div className="empty"><p>Your comment can be first!</p></div>}
-        <div className="comments">
-          {
-            comments?.map((comment) => {
-              return <>
-                <div key={comment?.id} className={comment?.parent ? "children" : "comment"}>
-                  <div className="author">
-                    <div className="userInfo">
-                      <img src={comment?.user.avatar} className="add_comment_avatar" />
-                      <p className="first_name">{comment?.user?.first_name} {comment?.user?.last_name}</p>
-                      {
-                        comment?.parent &&
-                        parents(comment.parent)
-                      }
-                    </div>
-                    {user?.id === comment?.user?.id && <button className="more" onClick={() => {
-                      setReplyInputModal({
-                        modal: false,
-                        id: ""
-                      })
-                      setEditDeleteModal({
-                        id: comment.id,
-                        modal: editDeleteModal.id === comment.id ? !editDeleteModal.modal : true
-                      })
-                      setIsEditing({
-                        editing: false,
-                        id: ""
-                      })
-                    }} >...</button>}
-                    {editDeleteModal.modal && comment.id === editDeleteModal.id && <div className="more_modal">
-                      <p onClick={() => deleteComment(comment.id)}>
-                        Delete
-                      </p>
-                      <p
-                        onClick={() => {
-                          setReplyInputModal({
-                            modal: false,
-                            id: ""
-                          })
-                          setChangingComment(comment.body)
-                          setIsEditing({
-                            editing: comment.id === isEditing.id ? !isEditing.editing : true,
-                            id: comment.id
-                          })
-                          setEditDeleteModal({
-                            modal: false,
-                            id: ""
-                          })
-                        }}>
-                        Edit
-                      </p>
-                    </div>}
-                  </div>
-                  {
-                    isEditing.editing && isEditing.id === comment.id ?
-                      <div>
-                        <form onSubmit={() => doneEditing(comment.id)}>
-                          <input className="add_comment_input" value={changingComment} onChange={(event) => editComment(event, comment.id)} />
-                        </form>
-                        <span onClick={() => doneEditing(comment.id)} className="done">Done</span>
-                      </div> : isEditing.editing && isEditing.id !== comment.id ? <p>{comment?.body}</p> : !isEditing.editing ? <p>{comment?.body}</p> :
-                        ""}
-                  {
-                    replyInputMoadl.modal && replyInputMoadl.id === comment.id ? <form onSubmit={replaySubmit}>
-                      <input
-                        placeholder="Your reply..."
-                        className="add_comment_input"
-                        onChange={(e) => {
-                          setReplyComment(e.target.value)
-                        }}
-                        value={replyComment}
-                      />
-                      <span onClick={(e) => replaySubmit(e)} className="done">Reply</span>
-                    </form> :
-                      <form onSubmit={doneEditing}>
-                        <p onClick={(e) => {
-                          setIsEditing({
-                            editing: false,
-                            id: ""
-                          })
-                          setReplayId(comment?.id)
-                          setIdPost(idPost)
-                          reply(comment?.id)
-                          setEditDeleteModal({
-                            modal: false,
-                            id: ""
-                          })
-                        }}>Reply</p>
-                      </form>
-                  }
-                </div>
-                {comment?.children?.length > 0 ? showAllComments(comment?.children,) : ""}
-              </>
-            })
-          }
-        </div>
-        {/* {max_height !== "100%" &&
-        <label onClick={() => { setMax_height("100%") }}>Show All</label>} */}
-      </>
-    )
+
+
+    //es en kodn a vor  hima  ashxatum a
+
+    return <div className="comments">
+      {comments.map((comment) => {
+        return <Comment comment={comment} />
+      })}
+      {/* {comments.map((comment) => {
+         comment?.children?.length >0 && showAllComments(comment?.children?.map((child)=>{
+           return <Comment comment={child} />
+         }))  
+      })} */}
+    </div>
+
+
+
+
+// stexic nerqev hin kodn a
+
+
+    // return 
+    // (
+    //   <>
+    //     {/* <div style={{ maxHeight: max_height, overflow: "hidden" }}> */}
+    //     {comments.length === 0 && <div className="empty"><p>Your comment can be first!</p></div>}
+    //     <div className="comments">
+    //       {
+    //         comments?.map((comment) => {
+    //           return <>
+    //             <div key={comment?.id} className={comment?.parent ? "children" : "comment"}>
+    //               <div className="author">
+    //                 <div className="userInfo">
+    //                   <img src={comment?.user.avatar} className="add_comment_avatar" />
+    //                   <p className="first_name">{comment?.user?.first_name} {comment?.user?.last_name}</p>
+    //                 </div>
+    //                 {user?.id === comment?.user?.id && <button className="more" onClick={() => {
+    //                   setReplyInputModal({
+    //                     modal: false,
+    //                     id: ""
+    //                   })
+    //                   setEditDeleteModal({
+    //                     id: comment.id,
+    //                     modal: editDeleteModal.id === comment.id ? !editDeleteModal.modal : true
+    //                   })
+    //                   setIsEditing({
+    //                     editing: false,
+    //                     id: ""
+    //                   })
+    //                 }} >...</button>}
+    //                 {editDeleteModal.modal && comment.id === editDeleteModal.id && <div className="more_modal">
+    //                   <p onClick={() => deleteComment(comment.id)}>
+    //                     Delete
+    //                   </p>
+    //                   <p
+    //                     onClick={() => {
+    //                       setReplyInputModal({
+    //                         modal: false,
+    //                         id: ""
+    //                       })
+    //                       setChangingComment(comment.body)
+    //                       setIsEditing({
+    //                         editing: comment.id === isEditing.id ? !isEditing.editing : true,
+    //                         id: comment.id
+    //                       })
+    //                       setEditDeleteModal({
+    //                         modal: false,
+    //                         id: ""
+    //                       })
+    //                     }}>
+    //                     Edit
+    //                   </p>
+    //                 </div>}
+    //               </div>
+    //               {
+    //                 isEditing.editing && isEditing.id === comment.id ?
+    //                   <div>
+    //                     <form onSubmit={() => doneEditing(comment.id)}>
+    //                       <input className="add_comment_input" value={changingComment} onChange={(event) => editComment(event, comment.id)} />
+    //                     </form>
+    //                     <span onClick={() => doneEditing(comment.id)} className="done">Done</span>
+    //                   </div> : isEditing.editing && isEditing.id !== comment.id ? <p>{comment?.body}</p> : !isEditing.editing ? <p>{comment?.body}</p> :
+    //                     ""}
+    //               {comment.children.length > 0 && <button onClick={() => {
+    //                 // setParentId(comment?.id)
+    //               }}>Show Replies</button>}
+    //               {
+    //                 replyInputMoadl.modal && replyInputMoadl.id === comment.id ? <form onSubmit={replaySubmit}>
+    //                   <input
+    //                     placeholder="Your reply..."
+    //                     className="add_comment_input"
+    //                     onChange={(e) => {
+    //                       setReplyComment(e.target.value)
+    //                     }}
+    //                     value={replyComment}
+    //                   />
+    //                   <span onClick={(e) => replaySubmit(e)} className="done">Reply</span>
+    //                 </form> :
+    //                   <form onSubmit={doneEditing}>
+    //                     <p onClick={(e) => {
+    //                       setIsEditing({
+    //                         editing: false,
+    //                         id: ""
+    //                       })
+    //                       setReplayId(comment?.id)
+    //                       setIdPost(idPost)
+    //                       reply(comment?.id)
+    //                       setEditDeleteModal({
+    //                         modal: false,
+    //                         id: ""
+    //                       })
+    //                     }}>Reply</p>
+    //                   </form>
+    //               }
+    //             </div>
+    //             {comment?.children?.length > 0 ? showAllComments(comment?.children,) : ""}
+    //           </>
+    //         })
+    //       }
+    //     </div>
+    //   </>
+    // )
   }
 
   //add comment
   const commentInputValue = (e) => {
-    setReplyInputModal({
-      modal: false,
-      id: ""
-    })
+    // setReplyInputModal({
+    //   modal: false,
+    //   id: ""
+    // })
     setValue({
       value: e.target.value,
       id: e.target.id
@@ -196,79 +214,79 @@ function Home() {
   }
 
   //delete comment
-  const deleteComment = (id) => {
-    setReplyInputModal({
-      modal: false,
-      id: ""
-    })
-    setEditDeleteModal({
-      modal: !editDeleteModal.modal,
-      id: ""
-    })
-    axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
-      getComments(idPost)
-      setComments({
-        commentsModal: true,
-        id: comments.id
-      })
-    })
-  }
+  // const deleteComment = (id) => {
+  //   setReplyInputModal({
+  //     modal: false,
+  //     id: ""
+  //   })
+  //   setEditDeleteModal({
+  //     modal: !editDeleteModal.modal,
+  //     id: ""
+  //   })
+  //   axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
+  //     getComments(idPost)
+  //     setComments({
+  //       commentsModal: true,
+  //       id: comments.id
+  //     })
+  //   })
+  // }
 
   //edit comment
-  const editComment = (e, id) => {
-    setReplyInputModal({
-      modal: false,
-      id: ""
-    })
-    setChangingComment(e.target.value);
-    console.log(changingComment);
-  }
+  // const editComment = (e, id) => {
+  //   setReplyInputModal({
+  //     modal: false,
+  //     id: ""
+  //   })
+  //   setChangingComment(e.target.value);
+  //   console.log(changingComment);
+  // }
 
   // done edit
-  const doneEditing = (id) => {
-    setReplyInputModal({
-      modal: false,
-      id: ""
-    })
-    setEditDeleteModal({
-      modal: false,
-      id: ""
-    })
-    setIsEditing({
-      id: "",
-      editing: false
-    })
-    setComments({
-      commentsModal: true,
-      id: comments.id
-    })
-    axios.patch("https://socialreading.xyz/comments/" + id + "/", { body: changingComment }).then((resp) => {
-      getComments(idPost)
-      setValue("")
-      document.getElementById(idPost).value = ""
-    })
-  }
+  // const doneEditing = (id) => {
+  //   setReplyInputModal({
+  //     modal: false,
+  //     id: ""
+  //   })
+  //   setEditDeleteModal({
+  //     modal: false,
+  //     id: ""
+  //   })
+  //   setIsEditing({
+  //     id: "",
+  //     editing: false
+  //   })
+  //   setComments({
+  //     commentsModal: true,
+  //     id: comments.id
+  //   })
+  //   axios.patch("https://socialreading.xyz/comments/" + id + "/", { body: changingComment }).then((resp) => {
+  //     getComments(idPost)
+  //     setValue("")
+  //     document.getElementById(idPost).value = ""
+  //   })
+  // }
 
   //reply comment
-  const reply = (id) => {
-    setReplyInputModal({
-      id: id,
-      modal: true
-    })
-  }
-  const replaySubmit = (e) => {
-    e.preventDefault()
-    axios.post("https://socialreading.xyz/comments/", { body: replyComment, parent: replayId, quote: idPost },
-      { headers: { "Authorization": userToken } }
-    ).then((resp) => {
-      getComments(idPost)
-      setReplyInputModal({ modal: false, id: "" })
-      setReplyComment("")
-    });
-    console.log(replyComment);
-    console.log(idPost);
-    console.log(replayId);
-  }
+  // const reply = (id) => {
+  //   setReplyInputModal({
+  //     id: id,
+  //     modal: true
+  //   })
+  // }
+  // const replaySubmit = (e) => {
+  //   e.preventDefault()
+  //   axios.post("https://socialreading.xyz/comments/", { body: replyComment, parent: replayId, quote: idPost },
+  //     { headers: { "Authorization": userToken } }
+  //   ).then((resp) => {
+  //     getComments(idPost)
+  //     setReplyInputModal({ modal: false, id: "" })
+  //     setReplyComment("")
+  //   });
+  //   console.log(replyComment);
+  //   console.log(idPost);
+  //   console.log(replayId);
+  // }
 
   //download post
   function download(id) {
@@ -386,7 +404,6 @@ function Home() {
       }
     });
   }
-  console.log(post)
   return (
     <>
       <div className="section_1">
@@ -527,7 +544,7 @@ function Home() {
                                     <path d="M2 19V4C2 2.73684 2.73684 2 4 2H12C13.2632 2 14 2.73684 14 4V19C14 19.5439 14.4561 20 15 20C15.5439 20 16 19.5439 16 19V4C16 1.75439 14.2456 -4.76837e-07 12 -4.76837e-07H4C1.75439 -4.76837e-07 1.19209e-07 1.75439 1.19209e-07 4V19C1.19209e-07 19.5439 0.456141 20 1 20C1.54386 20 2 19.5439 2 19ZM15.4912 18.1404L8 13.8421L0.508772 18.1404C0.210526 18.2982 1.19209e-07 18.6316 1.19209e-07 19C1.19209e-07 19.5439 0.456141 20 1 20C1.17544 20 1.35088 19.9474 1.49123 19.8596L8 16.1579L14.5088 19.8596C14.6491 19.9474 14.8246 20 15 20C15.5439 20 16 19.5439 16 19C16 18.6316 15.7895 18.2982 15.4912 18.1404Z" fill="#3D424E" />
                                   </svg>
                                 </button> : <button onClick={() => {
-                                   let a = e?.save_users?.find(save => {
+                                  let a = e?.save_users?.find(save => {
                                     if (save?.user?.id === user?.id) {
                                       return save?.id
                                     }
@@ -544,14 +561,14 @@ function Home() {
                           </>
                         </div>
                         <div className="comment_always" onClick={() => {
-                          setEditDeleteModal({
-                            modal: false,
-                            id: ""
-                          })
-                          setReplyInputModal({
-                            modal: false,
-                            id: ""
-                          })
+                          // setEditDeleteModal({
+                          //   modal: false,
+                          //   id: ""
+                          // })
+                          // setReplyInputModal({
+                          //   modal: false,
+                          //   id: ""
+                          // })
                         }}>
                           <img alt="avatar"
                             className="add_comment_avatar"
