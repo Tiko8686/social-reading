@@ -57,8 +57,6 @@ function Home() {
     post_id && axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
-
-  }
   }
 
 
