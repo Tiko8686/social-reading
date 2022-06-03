@@ -62,13 +62,14 @@ function Home() {
 
   //kanchum e comment komponenty
   const showAllComments = (comments, post) => {
-    return <>
-      {
-        comments.map((comment) => {
-          return <Comment comment={comment} getComments={getComments} post={post} />
-        })
-      }
-    </>
+  return  comments.length > 0 ?<>
+    {
+      comments.map((comment) => {
+        return <Comment comment={comment} getComments={getComments} post={post} />
+      })
+    }
+  </> : <p className="canBeFirst" >Your comment can be first!</p>
+    
 
   }
 

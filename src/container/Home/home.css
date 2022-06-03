@@ -365,6 +365,11 @@
   resize: none;
   padding: 10px;
 }
+.canBeFirst{
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 0;
+}
 
 
 
