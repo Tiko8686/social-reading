@@ -59,6 +59,7 @@ function Home() {
     })
 
   }
+  }
 
 
   //kanchum e comment komponenty
