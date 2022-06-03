@@ -127,10 +127,11 @@ function Comment({ comment, getComments, post }) {
                                 childrenId.includes(comment?.id) ? <button onClick={() => {
                                     childrenId.splice(childrenId.indexOf(comment?.id), 1);
                                     setChildrenId([...childrenId])
+                                    setReplyModal(false)
                                 }}><b>Hide replies</b></button> : comment?.children?.length > 0 ?
                                     <button onClick={() => {
                                         showReplies(comment?.id)
-
+                                        setReplyModal(false)
                                     }}><b>Show replies</b></button> : ""
                             }
                         </div>
