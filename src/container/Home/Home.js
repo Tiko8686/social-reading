@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./home.css";
 import * as htmlToImage from 'html-to-image';
 import Comment from "../../components/Comment/Comment";
+import fonts from "./../../components/fonts.json"
 
 function Home() {
   const navigate = useNavigate()
@@ -11,192 +12,74 @@ function Home() {
   const [post, setPost] = useState([]);
   const [userToken, setUserToken] = useState("");
 
+
+  //font size numbers
+  const [numbers, setNumbers] = useState([])
+  const getNumbers = () => {
+    let a = []
+    for (let i = 1; i <= 200; i++) {
+      a.push(i)
+    }
+    return a
+  }
+
   // comments
   const [idPost, setIdPost] = useState("")
-  const [value, setValue] = useState({
-    value: "",
-    id: ""
-  })
-  // const [changingComment, setChangingComment] = useState("")
-  // const [isEditing, setIsEditing] = useState({ editing: false, id: "" })
+  const [value, setValue] = useState({ value: "", id: "" })
+
   const [comments, setComments] = useState({ commentsModal: true, id: "" })
   const [postComments, setPostComments] = useState([])
-  // const [replyComment, setReplyComment] = useState("")
-  // const [replayId, setReplayId] = useState("")
-  // const [replyInputMoadl, setReplyInputModal] = useState({
-  //   modal: false,
-  //   id: ""
-  // })
-  // const [editDeleteModal, setEditDeleteModal] = useState({
-  //   modal: false,
-  //   id: ""
-  // })
+
 
   //create user and token
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user")));
     fetch("https://www.socialreading.xyz/quotes/")
       .then((response) => response.json())
       .then((response) => {
         setPost(response);
       });
+
     const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
       setUserToken("JWT " + token.access)
+      setNumbers(getNumbers())
+      setUser(JSON.parse(localStorage.getItem("user")));
     }
   }, [navigate]);
+
   useEffect(() => {
     getComments()
   }, [postComments])
+
   //get and show comments
+
   const getComments = (post_id) => {
     axios.get("https://socialreading.xyz/quotes/" + post_id).then((resp) => {
       setPostComments(resp.data.comments)
     })
-    // showAllComments(postComments)
   }
 
-  // const [parentId, setParentId] = useState("")
 
+  //kanchum e comment komponenty
+  const showAllComments = (comments, post) => {
+    return <>
+      {
+        comments.map((comment) => {
+          return <Comment comment={comment} getComments={getComments} post={post} />
+        })
+      }
+    </>
 
-
-  const showAllComments = (comments) => {
-
-
-    //es en kodn a vor  hima  ashxatum a
-
-    return <div className="comments">
-      {comments.map((comment) => {
-        return <Comment comment={comment} />
-      })}
-      {/* {comments.map((comment) => {
-         comment?.children?.length >0 && showAllComments(comment?.children?.map((child)=>{
-           return <Comment comment={child} />
-         }))  
-      })} */}
-    </div>
-
-
-
-
-// stexic nerqev hin kodn a
-
-
-    // return 
-    // (
-    //   <>
-    //     {/* <div style={{ maxHeight: max_height, overflow: "hidden" }}> */}
-    //     {comments.length === 0 && <div className="empty"><p>Your comment can be first!</p></div>}
-    //     <div className="comments">
-    //       {
-    //         comments?.map((comment) => {
-    //           return <>
-    //             <div key={comment?.id} className={comment?.parent ? "children" : "comment"}>
-    //               <div className="author">
-    //                 <div className="userInfo">
-    //                   <img src={comment?.user.avatar} className="add_comment_avatar" />
-    //                   <p className="first_name">{comment?.user?.first_name} {comment?.user?.last_name}</p>
-    //                 </div>
-    //                 {user?.id === comment?.user?.id && <button className="more" onClick={() => {
-    //                   setReplyInputModal({
-    //                     modal: false,
-    //                     id: ""
-    //                   })
-    //                   setEditDeleteModal({
-    //                     id: comment.id,
-    //                     modal: editDeleteModal.id === comment.id ? !editDeleteModal.modal : true
-    //                   })
-    //                   setIsEditing({
-    //                     editing: false,
-    //                     id: ""
-    //                   })
-    //                 }} >...</button>}
-    //                 {editDeleteModal.modal && comment.id === editDeleteModal.id && <div className="more_modal">
-    //                   <p onClick={() => deleteComment(comment.id)}>
-    //                     Delete
-    //                   </p>
-    //                   <p
-    //                     onClick={() => {
-    //                       setReplyInputModal({
-    //                         modal: false,
-    //                         id: ""
-    //                       })
-    //                       setChangingComment(comment.body)
-    //                       setIsEditing({
-    //                         editing: comment.id === isEditing.id ? !isEditing.editing : true,
-    //                         id: comment.id
-    //                       })
-    //                       setEditDeleteModal({
-    //                         modal: false,
-    //                         id: ""
-    //                       })
-    //                     }}>
-    //                     Edit
-    //                   </p>
-    //                 </div>}
-    //               </div>
-    //               {
-    //                 isEditing.editing && isEditing.id === comment.id ?
-    //                   <div>
-    //                     <form onSubmit={() => doneEditing(comment.id)}>
-    //                       <input className="add_comment_input" value={changingComment} onChange={(event) => editComment(event, comment.id)} />
-    //                     </form>
-    //                     <span onClick={() => doneEditing(comment.id)} className="done">Done</span>
-    //                   </div> : isEditing.editing && isEditing.id !== comment.id ? <p>{comment?.body}</p> : !isEditing.editing ? <p>{comment?.body}</p> :
-    //                     ""}
-    //               {comment.children.length > 0 && <button onClick={() => {
-    //                 // setParentId(comment?.id)
-    //               }}>Show Replies</button>}
-    //               {
-    //                 replyInputMoadl.modal && replyInputMoadl.id === comment.id ? <form onSubmit={replaySubmit}>
-    //                   <input
-    //                     placeholder="Your reply..."
-    //                     className="add_comment_input"
-    //                     onChange={(e) => {
-    //                       setReplyComment(e.target.value)
-    //                     }}
-    //                     value={replyComment}
-    //                   />
-    //                   <span onClick={(e) => replaySubmit(e)} className="done">Reply</span>
-    //                 </form> :
-    //                   <form onSubmit={doneEditing}>
-    //                     <p onClick={(e) => {
-    //                       setIsEditing({
-    //                         editing: false,
-    //                         id: ""
-    //                       })
-    //                       setReplayId(comment?.id)
-    //                       setIdPost(idPost)
-    //                       reply(comment?.id)
-    //                       setEditDeleteModal({
-    //                         modal: false,
-    //                         id: ""
-    //                       })
-    //                     }}>Reply</p>
-    //                   </form>
-    //               }
-    //             </div>
-    //             {comment?.children?.length > 0 ? showAllComments(comment?.children,) : ""}
-    //           </>
-    //         })
-    //       }
-    //     </div>
-    //   </>
-    // )
   }
 
-  //add comment
   const commentInputValue = (e) => {
-    // setReplyInputModal({
-    //   modal: false,
-    //   id: ""
-    // })
     setValue({
       value: e.target.value,
       id: e.target.id
     })
     setIdPost(e.target.id)
   }
+
   const onSubmit = (event) => {
     event.preventDefault()
     axios.post("https://socialreading.xyz/comments/", { body: value.value, quote: idPost },
@@ -213,82 +96,6 @@ function Home() {
     })
   }
 
-  //delete comment
-  // const deleteComment = (id) => {
-  //   setReplyInputModal({
-  //     modal: false,
-  //     id: ""
-  //   })
-  //   setEditDeleteModal({
-  //     modal: !editDeleteModal.modal,
-  //     id: ""
-  //   })
-  //   axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
-  //     getComments(idPost)
-  //     setComments({
-  //       commentsModal: true,
-  //       id: comments.id
-  //     })
-  //   })
-  // }
-
-  //edit comment
-  // const editComment = (e, id) => {
-  //   setReplyInputModal({
-  //     modal: false,
-  //     id: ""
-  //   })
-  //   setChangingComment(e.target.value);
-  //   console.log(changingComment);
-  // }
-
-  // done edit
-  // const doneEditing = (id) => {
-  //   setReplyInputModal({
-  //     modal: false,
-  //     id: ""
-  //   })
-  //   setEditDeleteModal({
-  //     modal: false,
-  //     id: ""
-  //   })
-  //   setIsEditing({
-  //     id: "",
-  //     editing: false
-  //   })
-  //   setComments({
-  //     commentsModal: true,
-  //     id: comments.id
-  //   })
-  //   axios.patch("https://socialreading.xyz/comments/" + id + "/", { body: changingComment }).then((resp) => {
-  //     getComments(idPost)
-  //     setValue("")
-  //     document.getElementById(idPost).value = ""
-  //   })
-  // }
-
-  //reply comment
-  // const reply = (id) => {
-  //   setReplyInputModal({
-  //     id: id,
-  //     modal: true
-  //   })
-  // }
-  // const replaySubmit = (e) => {
-  //   e.preventDefault()
-  //   axios.post("https://socialreading.xyz/comments/", { body: replyComment, parent: replayId, quote: idPost },
-  //     { headers: { "Authorization": userToken } }
-  //   ).then((resp) => {
-  //     getComments(idPost)
-  //     setReplyInputModal({ modal: false, id: "" })
-  //     setReplyComment("")
-  //   });
-  //   console.log(replyComment);
-  //   console.log(idPost);
-  //   console.log(replayId);
-  // }
-
-  //download post
   function download(id) {
     htmlToImage.toJpeg(document.getElementById(id))
       .then(function (dataUrl) {
@@ -404,11 +211,22 @@ function Home() {
       }
     });
   }
+
+  //post id for post menu
+  const [postIdforMenu, setPostIdforMenu] = useState("")
+
+
   return (
-    <>
+    <div
+     onClick={() => {
+      if (postIdforMenu) {
+        setPostIdforMenu("")
+      }
+    }}
+    >
       <div className="section_1">
         <div className="hometext">
-          <h1>
+          <h1 style={{fontFamily: "Candara Light Italic"}} >
             Ձեռքին լավ գիրք ունենալով, մարդ երբեք չի կարող
             <span className="ancolortxt"> միայնակ լինել:</span>
           </h1>
@@ -447,18 +265,31 @@ function Home() {
                           <p className="time">{e?.date_posted}</p>
                         </div>
                       </div>
-                      <div className="more_div">
-                        <button>...</button>
-                        {user?.id === e?.author?.id && <div style={{ border: "1px solid red", width: "150px" }}>
-                          <button onClick={() => download(e?.id)}>Download post</button>
-                          <button onClick={() => editPost(e?.id, JSON.parse(e?.styles), e?.quote_text)}>Edit</button>
+                      {userToken &&
+                        <div className="more_div">
+                          <button onClick={(ev) => {
+                            ev.stopPropagation()
+                            if (postIdforMenu === e?.id)
+                              setPostIdforMenu("")
+                            else setPostIdforMenu(e?.id)
+                          }}
+                          >{postIdforMenu === e?.id ? <span>x</span>:<span>...</span>}</button>
+                          {
+                            postIdforMenu === e?.id && <div className="post_modal_menu">
+                              <button onClick={() => download(e?.id)}>Download post</button>
+                              {user?.id === e?.author?.id &&
+                                <button onClick={() => editPost(e?.id, JSON.parse(e?.styles), e?.quote_text)}>Edit</button>
+                              }
+                            </div>
+                          }
                         </div>
-                        }
-                      </div>
+                      }
                     </div>
-                    <h2 style={{ color: "green" }}>Quote title is {e?.quote_title}</h2>
-                    <h2 style={{ color: "green" }}>Quote category is {e?.book_category}</h2>
-                    <h2 style={{ color: "green" }}>Quote author is {e?.book_author}</h2>
+                    <div className="quote_info">
+                      <p>Book title is {e?.quote_title}</p>
+                      <p>Book category is {e?.book_category}</p>
+                      <p>Book author is {e?.book_author}</p>
+                    </div>
                     <div className="post__text"
                       style={{
                         color: JSON.parse(e?.styles)?.color,
@@ -485,13 +316,6 @@ function Home() {
                         ) : (<span>{e?.quote_text}</span>)
                       }
                     </div>
-                    {/* <div className="post__img">
-                      <img
-                        src={e?.quote_file}
-                        width="100%"
-                        alt="img"
-                      />
-                    </div> */}
                     <div className="about_post_section">
                       <p className="likes_count">{e?.likes?.length} likes</p>
                     </div>
@@ -520,6 +344,7 @@ function Home() {
                                 </button>
                               }
                               <button onClick={() => {
+                                setPostComments([])
                                 setComments({
                                   commentsModal: true,
                                   id: e?.id
@@ -560,16 +385,7 @@ function Home() {
                             </div>
                           </>
                         </div>
-                        <div className="comment_always" onClick={() => {
-                          // setEditDeleteModal({
-                          //   modal: false,
-                          //   id: ""
-                          // })
-                          // setReplyInputModal({
-                          //   modal: false,
-                          //   id: ""
-                          // })
-                        }}>
+                        <div className="comment_always">
                           <img alt="avatar"
                             className="add_comment_avatar"
                             src={user?.avatar}
@@ -586,14 +402,12 @@ function Home() {
                           </form>
                         </div>
                         {
-                          comments?.id === e.id && comments?.commentsModal && <div>
+                          comments?.id === e.id && comments?.commentsModal && <div style={{
+                            padding: " 20px",
+                            overflowY: "auto",
+                            maxHeight: "500px",
+                          }}>
                             {showAllComments(postComments, e)}
-                            {/* <p className="hide_comments" onClick={() => {
-                              setComments({
-                                commentsModal: false,
-                                id: e?.id
-                              })
-                            }}>Hide comments</p> */}
                           </div>
                         }
                       </>
@@ -616,18 +430,11 @@ function Home() {
               <div className="text-editor-select-section">
                 <select onChange={(e) => setTextStyle({ ...textStyle, font: e.target.value })}>
                   <option value="">Aa Font</option>
-                  <option value="inherit">Inherit</option>
-                  <option value="initial">Initialt</option>
-                  <option value="italic">italic</option>
-                  <option value="normal">normal</option>
-                  <option value="oblique">oblique</option>
-                  <option value="revert">revert</option>
-                  <option value="unset">unset</option>
-                  {/* {
-                  fontFamily && fontFamily?.map(e => {
-                    return (<option key={e?.id} value={e?.family}>{e?.family}</option>)
-                  })
-                } */}
+                 {
+                   Object.values(fonts)?.map(font => {
+                     return (<option value={font}>{font}</option>)
+                   })
+                 }
                 </select><br />
                 <select onChange={(e) => setTextStyle({ ...textStyle, color: e.target.value })}>
                   <option value="">Aa Font color</option>
@@ -635,9 +442,13 @@ function Home() {
                   <option value="blue">blue</option>
                   <option value="black">black</option>
                 </select><br />
-                <input type="number" onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })} min="1" max="100"
-                style={{border: "1px solid grey", outline: "none"}}
-                />
+                <select onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })}
+                >
+                  <option value="">Aa Font size</option>
+                  {numbers.map(number => {
+                    return (<option value={number} key={number}>{number}</option>)
+                  })}
+                </select><br />
               </div>
               <div>
                 <h1>Backgrounds</h1>
@@ -704,7 +515,7 @@ function Home() {
                 style={{
                   color: textStyle?.color,
                   backgroundColor: textStyle?.background,
-                  fontStyle: textStyle?.font,
+                  fontFamily: textStyle?.font,
                   fontSize: textStyle?.size + "px",
                 }}
                 onChange={(e) => { setQuoteText(e.target.value) }}
@@ -713,7 +524,7 @@ function Home() {
           </div>
         </div>
       }
-    </>
+    </div>
   );
 }
 export default Home;

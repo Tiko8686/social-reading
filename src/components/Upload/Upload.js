@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./Upload.css";
+import fonts from "./../../components/fonts.json"
 
 export function Upload() {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm();
@@ -18,6 +19,14 @@ export function Upload() {
   const [suggestWindow, setSuggestWindow] = useState(false);
   const [user, setUser] = useState("");
 
+  const [numbers, setNumbers] = useState([])
+  const getNumbers = () => {
+    let a = []
+    for (let i = 1; i <= 200; i++) {
+      a.push(i)
+    }
+    return a
+  }
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))
@@ -30,23 +39,27 @@ export function Upload() {
           })
         );
       });
+      setNumbers(getNumbers())
     }
 
   }, []);
-  useEffect(() => {
-    axios.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCm5RYrRxcdoJ7RxVJJq12lWT_rto8315A").then(res => {
-      // setFontFamily(res.data.items)
-      console.log(res)
-    }).catch((error) => {
-      if (error.response) {
-        console.log("error.response ", error.response);
-      } else if (error.request) {
-        console.log("error.request ", error.request);
-      } else if (error.message) {
-        console.log("error.request ", error.message);
-      }
-    });
-  }, []);
+
+  // google fonts
+  // useEffect(() => {
+  //   axios.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCm5RYrRxcdoJ7RxVJJq12lWT_rto8315A").then(res => {
+  //     // setFontFamily(res.data.items)
+  //     console.log(res)
+  //   }).catch((error) => {
+  //     if (error.response) {
+  //       console.log("error.response ", error.response);
+  //     } else if (error.request) {
+  //       console.log("error.request ", error.request);
+  //     } else if (error.message) {
+  //       console.log("error.request ", error.message);
+  //     }
+  //   });
+  // }, []);
+
   function showPreview(event) {
     if (event.target.files.length > 0) {
       setFileErr(false);
@@ -60,6 +73,7 @@ export function Upload() {
       preview.style.borderRadius = "30px";
     }
   }
+
   const categoryValueChange = (event) => {
     setCategoryErr({ required: false, minLength: false, maxLength: false, fileRequired: false });
 
@@ -96,6 +110,7 @@ export function Upload() {
     }
     setFilteredCategories(searchedWords);
   };
+
   const toggleModal = () => {
     setFile(undefined);
     setFileErr(false);
@@ -107,6 +122,7 @@ export function Upload() {
     reset({ bookName: "" });
     reset({ image: "" });
   };
+
   const checkCategory = () => {
     if (file === undefined) {
       setFileErr(true);
@@ -119,7 +135,6 @@ export function Upload() {
       setCategoryErr({ ...categoryErr, maxLength: true });
     }
   };
-
 
   //upload
   const onSubmit = (data) => {
@@ -153,6 +168,7 @@ export function Upload() {
       toggleModal();
     }
   };
+
   //text editor
   const [textEditor, setTextEditor] = useState(false)
   const [quoteText, setQuoteText] = useState("")
@@ -160,42 +176,7 @@ export function Upload() {
   const [publishedDiv, setPublishedDiv] = useState(false)
   const [published, setPublished] = useState(false)
 
-
-
-  // let _contentState = ContentState.createFromText('Sample content state');
-
-  // const raw = convertToRaw(_contentState)
-  // const [contentState, setContentState] = useState(raw)
-  // console.log("contentState", contentState)
-
-  // const [editorState, setEditorState] = useState(
-  //   EditorState.createWithContent(
-  //     ContentState.createFromBlockArray(
-  //       convertFromHTML('<p>...</p>')
-  //     )
-  //   ),
-  // );
-
-  // const [convertedContent, setConvertedContent] = useState("")
-  // const [id, setId] = useState("")
-
-
-  // const handleEditorChange = (state) => {
-  //   setEditorState(state);
-  //   convertContentToHTML();
-  //   console.log("state", state);
-  // }
-
-  // const convertContentToHTML = () => {
-  //   let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
-  //   console.log("currentContentAsHTML", currentContentAsHTML)
-  //   setConvertedContent(currentContentAsHTML);
-  // }
   const [textStyle, setTextStyle] = useState({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
-  console.log(textStyle)
-
-
-
   return (
     <>
       <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
@@ -258,11 +239,6 @@ export function Upload() {
                   Դաշտը պետք է ներառի ամենաքիչը 2 նիշ
                 </span>
               )}
-              {/* {errors.bookName && errors.bookName.type === "required" && (
-                <span className="bookNameErr">
-                  Այս դաշտը պարտադիր է լրացման
-                </span>
-              )} */}
               <div className="category_search">
                 <img
                   src="https://social-reading-application.herokuapp.com/images/search.svg"
@@ -354,18 +330,11 @@ export function Upload() {
               <div className="text-editor-select-section">
                 <select onChange={(e) => setTextStyle({ ...textStyle, font: e.target.value })}>
                   <option value="">Aa Font</option>
-                  <option value="inherit">Inherit</option>
-                  <option value="initial">Initialt</option>
-                  <option value="italic">italic</option>
-                  <option value="normal">normal</option>
-                  <option value="oblique">oblique</option>
-                  <option value="revert">revert</option>
-                  <option value="unset">unset</option>
-                  {/* {
-                  fontFamily && fontFamily?.map(e => {
-                    return (<option key={e?.id} value={e?.family}>{e?.family}</option>)
-                  })
-                } */}
+                  {
+                    Object.values(fonts)?.map(font => {
+                      return (<option value={font}>{font}</option>)
+                    })
+                  }
                 </select><br />
                 <select onChange={(e) => setTextStyle({ ...textStyle, color: e.target.value })}>
                   <option value="">Aa Font color</option>
@@ -373,11 +342,13 @@ export function Upload() {
                   <option value="blue">blue</option>
                   <option value="black">black</option>
                 </select><br />
-
-                <input type="number" onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })} min="1" max="100"
-                  style={{ border: "1px solid grey", outline: "none" }}
-                />
-                
+                <select onChange={(e) => setTextStyle({ ...textStyle, size: e.target.value })}
+                >
+                  <option value="">Aa Font size</option>
+                  {numbers.map(number => {
+                    return (<option value={number} key={number}>{number}</option>)
+                  })}
+                </select><br />
               </div>
               <div>
                 <h1>Backgrounds</h1>
@@ -429,7 +400,7 @@ export function Upload() {
                 style={{
                   color: textStyle.color,
                   background: textStyle.background,
-                  fontStyle: textStyle.font,
+                  fontFamily: textStyle.font,
                   fontSize: textStyle.size + "px",
                 }}
                 onChange={(e) => { setQuoteText(e.target.value) }}
