@@ -136,9 +136,13 @@ export function Upload() {
     }
   };
 
+
+  const [loading, setLoading] = useState(false)
+
   //upload
   const onSubmit = (data) => {
     if (categoryValue && file) {
+      setLoading(true)
       const formData = new FormData();
       formData.append("book_author", data.authorName);
       formData.append("quote_title", data.bookName);
@@ -156,6 +160,7 @@ export function Upload() {
         setId(resp.data.id)
         setQuoteText(resp.data.quote_text)
         setTextEditor(true)
+        setLoading(false)
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
@@ -177,6 +182,7 @@ export function Upload() {
   const [published, setPublished] = useState(false)
 
   const [textStyle, setTextStyle] = useState({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
+
   return (
     <>
       <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
@@ -450,6 +456,15 @@ export function Upload() {
             }}>Save</button>
           </div>
         </div>
+      }
+      {
+        loading && <>
+          <div className="overlay_loading"></div>
+          <div className="modal_for_loading">
+            please wait....
+          </div>
+        </>
+
       }
     </>
   );

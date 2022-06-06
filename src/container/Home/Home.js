@@ -59,7 +59,6 @@ function Home() {
     })
   }
 
-
   //kanchum e comment komponenty
   const showAllComments = (comments, post) => {
     return comments.length > 0 ? <>
@@ -69,16 +68,10 @@ function Home() {
         })
       }
     </> : <p className="canBeFirst" >Your comment can be first!</p>
-
-
   }
-
-
 
   const onSubmit = (event) => {
     event.preventDefault()
-    console.log(value)
-    console.log(idPost)
     axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
       { headers: { "Authorization": userToken } }
     ).then((resp) => {
@@ -99,11 +92,10 @@ function Home() {
     });
   }
 
-
   //download post
   const [downloadPost, setDownloadPost] = useState(false)
+
   function download(id) {
-    setIdPostMore(id)
     setDownloadPost(true)
     htmlToImage.toJpeg(document.getElementById(id))
       .then(function (dataUrl) {
@@ -111,17 +103,10 @@ function Home() {
         link.download = 'post.jpeg';
         link.href = dataUrl;
         link.click();
+        setLessMore(false)
+        setIdPostMore(id)
         setDownloadPost(false)
-
-      }).catch((error) => {
-        if (error.response) {
-          console.log("error.response ", error.response);
-        } else if (error.request) {
-          console.log("error.request ", error.request);
-        } else if (error.message) {
-          console.log("error.request ", error.message);
-        }
-      });
+      })
   }
 
   // edit quote
@@ -235,12 +220,13 @@ function Home() {
 
 
   return (
-    <div
-      onClick={() => {
-        if (postIdforMenu) {
-          setPostIdforMenu("")
-        }
-      }}
+    <div onClick={() => {
+      if (postIdforMenu) {
+        setPostIdforMenu("");
+        setLessMore(false)
+        setIdPostMore("")
+      }
+    }}
     >
       <div className="section_1">
         <div className="hometext">
@@ -287,15 +273,23 @@ function Home() {
                         <div className="more_div">
                           <button onClick={(ev) => {
                             ev.stopPropagation()
-                            if (postIdforMenu === e?.id)
+                            if (postIdforMenu === e?.id) {
                               setPostIdforMenu("")
-                            else setPostIdforMenu(e?.id)
+                              setLessMore(false)
+                              setIdPostMore("")
+                            }
+                            else {
+                              setPostIdforMenu(e?.id)
+                              setLessMore(true)
+                              setIdPostMore(e?.id)
+                            }
                           }}
-                          >{postIdforMenu === e?.id ? <span>x</span> : <span>...</span>}</button>
+                          >
+                            {postIdforMenu === e?.id ? <span>x</span> : <span>...</span>}
+                          </button>
                           {
                             postIdforMenu === e?.id && <div className="post_modal_menu">
                               <button onClick={() => {
-
                                 download(e?.id)
                               }
                               }>Download post</button>
