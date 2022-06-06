@@ -25,7 +25,7 @@ function Home() {
 
   // comments
   const [idPost, setIdPost] = useState("")
-  const [value, setValue] = useState({ value: "", id: "" })
+  const [value, setValue] = useState("")
 
   const [comments, setComments] = useState({ commentsModal: true, id: "" })
   const [postComments, setPostComments] = useState([])
@@ -65,7 +65,7 @@ function Home() {
     return comments.length > 0 ? <>
       {
         comments.map((comment) => {
-          return <Comment comment={comment} getComments={getComments} post={post} key={comment?.id}/>
+          return <Comment comment={comment} getComments={getComments} post={post} key={comment?.id} />
         })
       }
     </> : <p className="canBeFirst" >Your comment can be first!</p>
@@ -73,37 +73,54 @@ function Home() {
 
   }
 
-  const commentInputValue = (e) => {
-    setValue({
-      value: e.target.value,
-      id: e.target.id
-    })
-    setIdPost(e.target.id)
-  }
+
 
   const onSubmit = (event) => {
     event.preventDefault()
-    axios.post("https://socialreading.xyz/comments/", { body: value.value, quote: idPost },
+    console.log(value)
+    console.log(idPost)
+    axios.post("https://socialreading.xyz/comments/", { body: value, quote: idPost },
       { headers: { "Authorization": userToken } }
     ).then((resp) => {
-      document.getElementById(idPost).value = ""
       setComments({
         commentsModal: true,
         id: idPost
       })
       setValue("")
       getComments(idPost)
-      console.log(document.getElementById(idPost))
-    })
+    }).catch((error) => {
+      if (error.response) {
+        console.log("error.response ", error.response);
+      } else if (error.request) {
+        console.log("error.request ", error.request);
+      } else if (error.message) {
+        console.log("error.request ", error.message);
+      }
+    });
   }
 
+
+  //download post
+  const [downloadPost, setDownloadPost] = useState(false)
   function download(id) {
+    setIdPostMore(id)
+    setDownloadPost(true)
     htmlToImage.toJpeg(document.getElementById(id))
       .then(function (dataUrl) {
         var link = document.createElement('a');
         link.download = 'post.jpeg';
         link.href = dataUrl;
         link.click();
+        setDownloadPost(false)
+
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
       });
   }
 
@@ -277,7 +294,11 @@ function Home() {
                           >{postIdforMenu === e?.id ? <span>x</span> : <span>...</span>}</button>
                           {
                             postIdforMenu === e?.id && <div className="post_modal_menu">
-                              <button onClick={() => download(e?.id)}>Download post</button>
+                              <button onClick={() => {
+
+                                download(e?.id)
+                              }
+                              }>Download post</button>
                               {user?.id === e?.author?.id &&
                                 <button onClick={() => editPost(e?.id, JSON.parse(e?.styles), e?.quote_text)}>Edit</button>
                               }
@@ -298,14 +319,21 @@ function Home() {
                         fontFamily: JSON.parse(e?.styles)?.font,
                         fontSize: JSON.parse(e?.styles)?.size + "px"
                       }}
+                      id={e?.id}
                     >
                       {
                         e?.quote_text.length > 400 ? (
                           <>
-                            {lessMore && idPostMore === e?.id ? <span>{e?.quote_text}&nbsp;<button className="show_more_less" onClick={() => {
-                              setLessMore(false);
-                              setIdPostMore("")
-                            }}>Show less</button></span> : <span> {e?.quote_text?.substring(0, 400)}...&nbsp;
+                            {lessMore && idPostMore === e?.id ? <span>{e?.quote_text}&nbsp;
+                              {
+                                !downloadPost && <button
+                                  className="show_more_less"
+                                  onClick={() => {
+                                    setLessMore(false);
+                                    setIdPostMore("")
+                                  }}>Show less</button>
+                              }
+                            </span> : <span> {e?.quote_text?.substring(0, 400)}...&nbsp;
                               <button className="show_more_less" onClick={() => {
                                 setLessMore(true);
                                 setIdPostMore(e?.id)
@@ -392,14 +420,17 @@ function Home() {
                             src={user?.avatar}
                           />
                           <form onSubmit={onSubmit}>
-                            <input className="add_comment_input" id={e.id} placeholder="Write a comment..." onClick={(e) => {
-                              setIdPost(e.target.id)
-                              e.target.id !== idPost &&
-                                (setComments({
-                                  commentsModal: false,
-                                  id: e?.id
-                                }))
-                            }} onChange={(e) => { commentInputValue(e) }} />
+                            <input className="add_comment_input"
+                              value={value}
+                              placeholder="Write a comment..."
+                              onClick={() => {
+                                setIdPost(e?.id)
+                                e?.id !== idPost &&
+                                  (setComments({
+                                    commentsModal: false,
+                                    id: e?.id
+                                  }))
+                              }} onChange={(e) => setValue(e.target.value)} />
                           </form>
                         </div>
                         {

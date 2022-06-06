@@ -66,7 +66,7 @@ function Comment({ comment, getComments, post }) {
     const showComment = (comment) => {
         return (
             <>
-                <div className={!comment?.parent ? 'comment' : "children" }
+                <div className={!comment?.parent ? 'comment' : "children"}
                     style={
                         childrenId?.includes(comment?.parent) || !comment?.parent ? { display: "block" } : { display: "none" }
                     }
