@@ -9,7 +9,7 @@ import { Menu } from "./Menu/Menu";
 import AboutUs from "../container/AboutUs/AboutUs";
 import VerifyEmail from "../container/VerifyEmail/VerifyEmail";
 import Profile from "../container/Profile/Profile";
-import Post from "../container/Post/Post";
+import Posts from "../container/Posts/Posts";
 import Category from "../container/Category/Category";
 import Saved from "../container/Saved/Saved";
 import Settings from "../container/Settings/Settings";
@@ -35,7 +35,7 @@ function AllRoutes() {
           <Route path="/privacePolicy" element={<PrivacePolicy />} />
           <Route path="/confirm/:uid/:token/:code" element={<ForgotPass />} />
           <Route path="/profile" element={<Profile />} >
-            <Route path="post" element={<Post />}/>
+            <Route path="posts" element={<Posts />}/>
             <Route path="category" element={<Category />}/>
             <Route path="saved" element={<Saved />}/>
           </Route>

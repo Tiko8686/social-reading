@@ -47,7 +47,7 @@ export function Menu() {
               <Link to="/category/motivational">Motivational</Link>
               <Link to="/category/psychological">Psychological</Link>
             </div>
-          </li>
+          </li> 
           <li>
             <Link to="/aboutus">About Us</Link>
           </li>

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-function Saved() {
-  const [saved, setSaved] = useState([])
+import Post from "../../components/Post/Post";
+import "./posts.css"
+function Posts() {
+  const [userPosts, setUserPosts] = useState([])
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
-    axios.get("https://www.socialreading.xyz/quotes/?author_id=&save=" + user.id).then(resp => {
+    axios.get("https://www.socialreading.xyz/quotes/?author_id=" + user.id).then(resp => {
       console.log(resp)
-      setSaved(resp.data)
+      setUserPosts(resp.data)
     }).catch((error) => {
       if (error.response) {
         console.log("error.response ", error.response);
@@ -19,15 +19,19 @@ function Saved() {
       }
     });
   }, [])
+
   return (
-    <>
-      <div >
-        <h1>Saved</h1>
-        {saved}
-      </div>
-    </>
+    <div className="my_post">
+      {
+        userPosts?.map(post => {
+          return (
+            <Post post={post} key={post?.id} />
+          )
+        })
+      }
+    </div>
 
   );
 }
 
-export default Saved
+export default Posts

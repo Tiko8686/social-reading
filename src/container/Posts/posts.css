@@ -1,0 +1,10 @@
+.my_post {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    flex-direction: column;
+}

@@ -6,8 +6,6 @@ import AvatarEditor from "react-avatar-editor";
 import axios from "axios";
 function Profile() {
     const [userInfo, setUserInfo] = useState("");
-    // const [userGoogle, setUserGoogle] = useState("");
-    // const [userFb, setUserFb] = useState("");
     const [token, setToken] = useState("")
 
     const navigate = useNavigate();
@@ -220,10 +218,10 @@ function Profile() {
                 <div className="profile_menu">
                     <ul className="profile_menu_list">
                         <li>
-                            <Link to="post">Posts</Link>
+                            <Link to="posts">Posts</Link>
                         </li>
                         <li>
-                            <Link to="category">Categories</Link>
+                            <Link to="category">My categories</Link>
                         </li>
                         <li>
                             <Link to="saved">Saved</Link>
