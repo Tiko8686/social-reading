@@ -8,6 +8,7 @@ import FacebookLogin from "react-facebook-login";
 const googleClientId = "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
 
 function Login() {
+  
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -18,6 +19,9 @@ function Login() {
     gapi.load("client:auth2", start);
   }, []);
 
+
+
+  
   const onSuccess = (res) => {
     console.log("sucess login", res);
     axios
@@ -60,6 +64,8 @@ function Login() {
         }
       });
   };
+
+
   const onFailure = (res) => {
     console.log("failed login", res);
   };

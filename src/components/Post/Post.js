@@ -192,6 +192,7 @@ function Post({ post, setPost }) {
             }
         });
     }
+    
     //delete post
     function deletePost(postId) {
         axios.delete("https://www.socialreading.xyz/quotes/" + postId).then(resp => {
@@ -267,9 +268,7 @@ function Post({ post, setPost }) {
                         }
                     </div>
                     <div className="quote_info">
-                        <p>Book title is {post?.quote_title}</p>
-                        <p>Book category is {post?.book_category}</p>
-                        <p>Book author is {post?.book_author}</p>
+                        {post?.quote_title}  / {post?.book_author} / {post?.book_category}
                     </div>
                     <div className="post__text"
                         style={{

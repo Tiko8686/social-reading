@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Signin } from "../Signin/Signin";
@@ -8,23 +9,52 @@ import "./menu.css";
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
   const [user, setUser] = useState("");
-  const [userGoogle, setUserGoogle] = useState("");
-  const [userFb, setUserFb] = useState("");
   const [bool, setBool] = useState(false)
   const navigate = useNavigate();
+
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))
     setUser(JSON.parse(localStorage.getItem("user")));
-    setUserGoogle(JSON.parse(localStorage.getItem("userGoogle")));
-    setUserFb(JSON.parse(localStorage.getItem("userFb")));
+    if (token) {
+      axios.get("https://socialreading.xyz/auth/users/me/", {
+        headers: { Authorization: "JWT " + token.access },
+      }).then((response) => {
+        console.log(response.data);
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+          if (error.response.data.detail) {
+            axios.post("https://socialreading.xyz/auth/jwt/refresh/", { refresh: token.refresh }).
+              then((response) => {
+                console.log(response.data);
+                localStorage.setItem("token", JSON.stringify({ refresh: token.refresh, access: response.data.access }))
+              }).catch((error) => {
+                if (error.response) {
+                  console.log("error.response ", error.response);
+                  if (error.response.data.detail) {
+                    localStorage.removeItem("user")
+                    localStorage.removeItem("token")
+                  }
+                } else if (error.request) {
+                  console.log("error.request ", error.request);
+                } else if (error.message) {
+                  console.log("error.message ", error.message);
+                }
+              });
+          }
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
+    }
+
   }, [navigate]);
 
   return (
     <>
-      <nav onClick={() => {
-        if (bool) {
-          setBool(false)
-        }
-      }}>
+      <nav onClick={() => { if (bool) setBool(false) }}>
         <ul>
           <li>
             <Link to="/">
@@ -47,13 +77,13 @@ export function Menu() {
               <Link to="/category/motivational">Motivational</Link>
               <Link to="/category/psychological">Psychological</Link>
             </div>
-          </li> 
+          </li>
           <li>
             <Link to="/aboutus">About Us</Link>
           </li>
         </ul>
         <ul className="right-list">
-          <li className="upload-btn">{user || userGoogle || userFb ? <Upload /> : <Unauthorized />}</li>
+          <li className="upload-btn">{user ? <Upload /> : <Unauthorized />}</li>
           <li className="search_input">
             <img
               src="https://social-reading-application.herokuapp.com/images/search.svg"
@@ -68,7 +98,7 @@ export function Menu() {
                   <img
                     alt="profile_pic"
                     src={user.avatar}
-                    onClick={() => navigate("/profile")}
+                    onClick={() => navigate("/profile/posts")}
                     className="profile_pic_menu"
                   />
                   <button>
@@ -102,10 +132,6 @@ export function Menu() {
                             onClick={() => {
                               localStorage.removeItem("token");
                               localStorage.removeItem("user");
-                              localStorage.removeItem("tokenGoogle");
-                              localStorage.removeItem("userGoogle");
-                              localStorage.removeItem("tokenFb");
-                              localStorage.removeItem("userFb");
                               navigate("/");
                               window.location.reload();
                             }}
@@ -142,10 +168,7 @@ export function Menu() {
             <ul className="resp_ul">
               <li className="dropdown_resp">
                 <span className="resp_category">Categories</span>
-                <ul
-                  className="category_submenu"
-                  onClick={() => setMenuBool(false)}
-                >
+                <ul className="category_submenu" onClick={() => setMenuBool(false)}>
                   <li>
                     <Link to="/category/professional">Professional</Link>
                   </li>
@@ -168,16 +191,12 @@ export function Menu() {
               </li>
               <li>{user ? <Upload /> : <Unauthorized />} </li>
               <li >
-                {user ? (
-                  <img
-                    alt="profile_pic"
-                    src={user.avatar}
-                    onClick={() => { setMenuBool(false); navigate("/profile") }}
-                    className="profile_pic_menu"
-                  />
-                ) : (
-                  <Signin />
-                )}
+                {user ? <img
+                  alt="profile_pic"
+                  src={user.avatar}
+                  onClick={() => { setMenuBool(false); navigate("/profile/posts") }}
+                  className="profile_pic_menu"
+                /> : <Signin />}
               </li>
             </ul>
           </div>
