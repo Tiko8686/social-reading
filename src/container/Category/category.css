@@ -1,0 +1,31 @@
+.my_categories {
+    padding: 20px 0;
+    width: 90%;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    grid-auto-rows: 100px;
+    gap: 28px;
+    background-color: white;
+    flex-wrap: wrap;
+
+}
+
+.category_name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E5E6EB;
+    border: 1px solid #D9D9DC;
+    box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.08);
+    border-radius: 10px;
+}
+
+.category_name>a {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    color: #202029;
+
+}

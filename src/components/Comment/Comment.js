@@ -92,9 +92,9 @@ function Comment({ comment, getComments, post }) {
                         }
                     </div>
                     {
-                        user?.id === comment?.user?.id && <button className='comment_options'
+                        user?.id === comment?.user?.id ? <button className='comment_options'
                             onClick={() => { setOptionsModal(!optionsModal); setCom(comment?.id) }}>...
-                        </button>
+                        </button>: <button className="not_login_user"></button>
                     }
                     {
                         optionsModal && com === comment?.id && <div className='comment_options_modal'>

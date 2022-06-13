@@ -19,14 +19,14 @@ export function Menu() {
       axios.get("https://socialreading.xyz/auth/users/me/", {
         headers: { Authorization: "JWT " + token.access },
       }).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
       }).catch((error) => {
         if (error.response) {
-          console.log("error.response ", error.response);
+          // console.log("error.response ", error.response);
           if (error.response.data.detail) {
             axios.post("https://socialreading.xyz/auth/jwt/refresh/", { refresh: token.refresh }).
               then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 localStorage.setItem("token", JSON.stringify({ refresh: token.refresh, access: response.data.access }))
               }).catch((error) => {
                 if (error.response) {

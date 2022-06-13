@@ -86,6 +86,12 @@
     padding: 5px;
 }
 
+.not_login_user {
+    background: none;
+    border: none;
+    width: 21px;
+}
+
 .edit_comment_input {
     width: 80%;
     border-radius: 15px;

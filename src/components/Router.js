@@ -16,6 +16,7 @@ import Settings from "../container/Settings/Settings";
 import PrivacePolicy from "../container/PrivacePolicy/PrivacePolicy";
 import ForgotPass from "../container/ForgotPassword/ForgotPassword";
 import EditProfile from "../container/EditProfile/EditProfile";
+import CategoryPosts from "../container/CategoryPosts/CategoryPosts";
 
 
 function AllRoutes() {
@@ -35,11 +36,13 @@ function AllRoutes() {
           <Route path="/privacePolicy" element={<PrivacePolicy />} />
           <Route path="/confirm/:uid/:token/:code" element={<ForgotPass />} />
           <Route path="/profile" element={<Profile />} >
-            <Route path="posts" element={<Posts />}/>
-            <Route path="category" element={<Category />}/>
-            <Route path="saved" element={<Saved />}/>
+            <Route path="posts" element={<Posts />} />
+            <Route path="category" element={<Category />}>
+                <Route path=":name" element={<CategoryPosts/>}></Route>
+            </Route>
+            <Route path="saved" element={<Saved />} />
           </Route>
-          <Route path="/editProfile" element={<EditProfile />}/>
+          <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/activate/:uid/:token" element={< VerifyEmail />} />
         </Routes>
       </BrowserRouter>

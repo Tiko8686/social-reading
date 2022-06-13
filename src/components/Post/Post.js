@@ -6,7 +6,7 @@ import EditPost from "../EditPost/EditPost";
 import { useNavigate } from "react-router-dom";
 import Comment from "../../components/Comment/Comment";
 
-function Post({ post, setPost }) {
+function Post({ post, setPost, getMyPosts , getSaved }) {
     const navigate = useNavigate()
     const [userToken, setUserToken] = useState("");
     const [user, setUser] = useState("")
@@ -115,9 +115,12 @@ function Post({ post, setPost }) {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    setPost(response);
+                    if (setPost) setPost(response)
+                    else if (getSaved)getSaved()
+                    else getMyPosts() 
                 });
         }).catch((error) => {
+
             if (error.response) {
                 console.log("error.response ", error.response);
             } else if (error.request) {
@@ -135,7 +138,9 @@ function Post({ post, setPost }) {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    setPost(response);
+                    if (setPost) setPost(response)
+                    else if (getSaved)getSaved()
+                    else getMyPosts() 
                 });
         }).catch((error) => {
             if (error.response) {
@@ -160,7 +165,9 @@ function Post({ post, setPost }) {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    setPost(response);
+                    if (setPost) setPost(response)
+                    else if (getSaved)getSaved()
+                    else getMyPosts() 
                 });
         }).catch((error) => {
             if (error.response) {
@@ -180,7 +187,9 @@ function Post({ post, setPost }) {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    setPost(response);
+                    if (setPost) setPost(response)
+                    else if (getSaved)getSaved()
+                    else getMyPosts() 
                 });
         }).catch((error) => {
             if (error.response) {
@@ -195,11 +204,19 @@ function Post({ post, setPost }) {
     
     //delete post
     function deletePost(postId) {
+
+        console.log("fghj");
         axios.delete("https://www.socialreading.xyz/quotes/" + postId).then(resp => {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    setPost(response);
+                    console.log("sdfghjkjhgfd");
+                    if (setPost) setPost(response)
+                    else if (getSaved)getSaved()
+                    else getMyPosts() 
+
+
+                    setPostIdforMenu(false)
                 });
         }).catch((error) => {
             if (error.response) {
