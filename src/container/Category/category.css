@@ -20,6 +20,7 @@
     border: 1px solid #D9D9DC;
     box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.08);
     border-radius: 10px;
+    flex-direction: column;
 }
 
 .category_name>a {

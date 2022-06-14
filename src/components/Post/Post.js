@@ -6,7 +6,8 @@ import EditPost from "../EditPost/EditPost";
 import { useNavigate } from "react-router-dom";
 import Comment from "../../components/Comment/Comment";
 
-function Post({ post, setPost, getMyPosts , getSaved }) {
+
+function Post({ post, setPost, getMyPosts, getSaved }) {
     const navigate = useNavigate()
     const [userToken, setUserToken] = useState("");
     const [user, setUser] = useState("")
@@ -103,8 +104,13 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
         setTextStyle(style)
     }
 
+
+    const [loading, setLoading] = useState(false)
+
+
     //like
     function like(id) {
+        setLoading(true)
         axios.post("https://socialreading.xyz/likes/", {
             quote: id
         }, {
@@ -116,8 +122,9 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
                 .then((response) => response.json())
                 .then((response) => {
                     if (setPost) setPost(response)
-                    else if (getSaved)getSaved()
-                    else getMyPosts() 
+                    else if (getSaved) getSaved()
+                    else getMyPosts()
+                    setLoading(false)
                 });
         }).catch((error) => {
 
@@ -133,14 +140,16 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
 
     //unlike
     function unlike(id) {
+        setLoading(true)
         axios.delete("https://socialreading.xyz/likes/" + id).then(res => {
             console.log(res)
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
                     if (setPost) setPost(response)
-                    else if (getSaved)getSaved()
-                    else getMyPosts() 
+                    else if (getSaved) getSaved()
+                    else getMyPosts()
+                    setLoading(false)
                 });
         }).catch((error) => {
             if (error.response) {
@@ -155,6 +164,7 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
 
     //save
     function save(id) {
+        setLoading(true)
         axios.post("https://socialreading.xyz/save/", {
             quote: id
         }, {
@@ -166,8 +176,9 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
                 .then((response) => response.json())
                 .then((response) => {
                     if (setPost) setPost(response)
-                    else if (getSaved)getSaved()
-                    else getMyPosts() 
+                    else if (getSaved) getSaved()
+                    else getMyPosts()
+                    setLoading(false)
                 });
         }).catch((error) => {
             if (error.response) {
@@ -182,14 +193,18 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
 
     //unsave
     function unSave(id) {
+
+        setLoading(true)
         axios.delete("https://socialreading.xyz/save/" + id).then(res => {
             console.log(res)
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
                     if (setPost) setPost(response)
-                    else if (getSaved)getSaved()
-                    else getMyPosts() 
+                    else if (getSaved) getSaved()
+                    else getMyPosts()
+                    setLoading(false)
+
                 });
         }).catch((error) => {
             if (error.response) {
@@ -201,22 +216,20 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
             }
         });
     }
-    
+
     //delete post
     function deletePost(postId) {
+        setPostIdforMenu(false)
 
-        console.log("fghj");
+        setLoading(true)
         axios.delete("https://www.socialreading.xyz/quotes/" + postId).then(resp => {
             fetch("https://www.socialreading.xyz/quotes/")
                 .then((response) => response.json())
                 .then((response) => {
-                    console.log("sdfghjkjhgfd");
                     if (setPost) setPost(response)
-                    else if (getSaved)getSaved()
-                    else getMyPosts() 
-
-
-                    setPostIdforMenu(false)
+                    else if (getSaved) getSaved()
+                    else getMyPosts()
+                    setLoading(false)
                 });
         }).catch((error) => {
             if (error.response) {
@@ -275,11 +288,9 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
                                                     deletePost(post?.id)
                                                 }}>Delete</button>
                                             </>
-
                                             }
                                         </div>
                                     </>
-
                                 }
                             </div>
                         }
@@ -328,7 +339,10 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
                                 <>
                                     <div className="left_buttons">
                                         {
-                                            !post?.likes?.find(like => like?.user?.id === user?.id) ? <button onClick={() => like(post?.id)}>
+                                            !post?.likes?.find(like => like?.user?.id === user?.id) ? <button
+                                                onClick={() => like(post?.id)
+                                                }
+                                            >
                                                 <svg width="18" height="14" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.807 2.40351C9.7193 0.947368 7.96491 0 6 0C2.68421 0 5.96046e-08 2.68421 5.96046e-08 6C5.96046e-08 12.0702 4.7193 15.9825 7.45614 17.7193C9.14035 18.807 10.8596 18.807 12.5439 17.7193C15.2807 15.9825 20 12.0702 20 6C20 2.68421 17.3158 0 14 0C12.0351 0 10.2807 0.947368 9.19298 2.40351C9.07018 2.5614 9 2.77193 9 3C9 3.54386 9.45614 4 10 4C10.3333 4 10.614 3.8421 10.807 3.59649C11.5789 2.5614 12.614 2 14 2C16.3333 2 18 3.66667 18 6C18 11.0877 14.0526 14.386 11.4561 16.0351C10.3509 16.7544 9.64912 16.7544 8.54386 16.0351C5.94737 14.386 2 11.0877 2 6C2 3.66667 3.66667 2 6 2C7.38596 2 8.42105 2.5614 9.19298 3.59649C9.38597 3.8421 9.66667 4 10 4C10.5439 4 11 3.54386 11 3C11 2.77193 10.9298 2.5614 10.807 2.40351Z" fill="#3D424E" />
                                                 </svg>&nbsp;Like
@@ -425,6 +439,10 @@ function Post({ post, setPost, getMyPosts , getSaved }) {
                     setQuoteText={setQuoteText}
                     setPost={setPost}
                 />
+            }
+
+            {
+                loading && <div className="overlay_loading_for_post"></div>
             }
         </>
 

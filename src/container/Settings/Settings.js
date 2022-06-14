@@ -80,15 +80,20 @@ function Settings() {
 
   return (
     <>
-      <div>
-        <h2>Account Settings</h2>
+      <div className="account_settings_div">
+        <h2 className="account_settings">Account Settings</h2>
         <div>
+          <h2>Change Password</h2>
+        </div>
+
+        <div className="delete_profile">
           <h2>Delete Account</h2>
           <p>Would you like to delete your account?
             By deleting your account you will lose all your data
           </p>
-          <button onClick={() => setModal({ password: true, })}>I want to delete my account</button>
+          <button onClick={() => setModal({ password: true, })} className="want_delete">I want to delete my account</button>
         </div>
+
       </div>
 
       {
@@ -105,8 +110,11 @@ function Settings() {
               user?.auth_provider === "email" ? <form onSubmit={deleteAccount}>
                 <label>Password</label>
                 <input onChange={(event) => setCurrent_password(event.target.value)} type="text" required />
-                <button >Delete my account</button>
-              </form> : <button onClick={() => deleteAccWithFbOrGoogle()}>Delete</button>
+                <button className="delete_button">Yes, Delete My Account Forever</button>
+              </form> : <button
+                className="delete_button_google_fb"
+                onClick={() => deleteAccWithFbOrGoogle()}
+              >Delete My Account Forever</button>
             }
 
           </div>

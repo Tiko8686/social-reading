@@ -33,7 +33,7 @@ function CategoryPosts() {
     }, [params.name])
     return (<div className="posts_in_my_category">
         <h1>{params.name}</h1>
-        <div className="">
+        <div className="posts_subcategory">
         {
             posts?.map(post => {
                 return <Post post={post} key={post?.id}></Post>

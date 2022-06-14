@@ -503,29 +503,3 @@
 
 
 
-.overlay_loading {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    z-index: 2000;
-    background-color: rgba(29, 24, 24, 0.8);
-
-}
-
-.modal_for_loading {
-    padding: 10px;
-    z-index: 1000000;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #FFFFFF;
-    box-shadow: 0px 5px 50px rgba(0, 67, 101, 0.1);
-    border-radius: 20px;
-    font-size: 50px;
-}

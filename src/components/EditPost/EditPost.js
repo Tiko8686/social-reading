@@ -18,7 +18,6 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
 
     const [publishedDiv, setPublishedDiv] = useState(false)
     const [published, setPublished] = useState(false)
-    console.log(setPost);
 
 
     //discardi jamanak posty deletea linum

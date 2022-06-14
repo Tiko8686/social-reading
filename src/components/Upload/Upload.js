@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./Upload.css";
 import EditPost from "../EditPost/EditPost";
+import Loading from "../Loading/Loading";
 
 export function Upload() {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm();
@@ -354,13 +355,7 @@ export function Upload() {
 
       {/* loading */}
       {
-        loading && <>
-          <div className="overlay_loading"></div>
-          <div className="modal_for_loading">
-            please wait....
-          </div>
-        </>
-
+        loading && <Loading/>
       }
     </>
   );
@@ -379,39 +374,3 @@ export function Upload() {
 
 
 
-
-
-{/* <canvas width="500px" height="500px" style={{ backgroundColor: textStyle.background, border: "1px solid" }} ref={canvasRef}></canvas> */ }
-
-{/* {textEditor && <div className="editor">
- <Editor
-   editorState={editorState}
-   onEditorStateChange={handleEditorChange}
-   wrapperClassName="wrapper-class"
-   editorClassName="editor-class"
-   toolbarClassName="toolbar-class"
- // value="dad"
- />
-
- <button onClick={() => {
-   if (convertedContent) {
-     axios.patch(`https://www.socialreading.xyz/quotes/${id}/`, { quote_text: convertedContent }).then(res => {
-       console.log(res.data)
-     }).catch((error) => {
-       if (error.response) {
-         console.log("error.response ", error.response);
-       } else if (error.request) {
-         console.log("error.request ", error.request);
-       } else if (error.message) {
-         console.log("error.request ", error.message);
-       }
-     });
-   }
-   
- }} >Save</button>
- <button>cancel</button>
-</div>} */}
-{/* <button onClick={()=> a()}>a</button>
-<div id="node" style={{color:"red", backgroundColor: "blue",fontSize:"50px"}}>
- barev
-</div> */}
