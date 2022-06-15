@@ -5,6 +5,7 @@ import * as htmlToImage from 'html-to-image';
 import EditPost from "../EditPost/EditPost";
 import { useNavigate } from "react-router-dom";
 import Comment from "../../components/Comment/Comment";
+import Parser from 'html-react-parser';
 
 
 function Post({ post, setPost, getMyPosts, getSaved }) {
@@ -94,14 +95,16 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
     const [editor, setEditor] = useState(false)
     const [textStyle, setTextStyle] = useState({ color: "black", font: "", hedline: "", background: "white", size: "16px" })
     const [quoteText, setQuoteText] = useState("")
+    const [quoteCategory, setQuoteCateogry] = useState("")
     const [id, setId] = useState("")
 
     // edit post
-    function editPost(id, style, text) {
+    function editPost(id, style, text, category) {
         setEditor(true)
         setQuoteText(text)
         setId(id)
         setTextStyle(style)
+        setQuoteCateogry(category)
     }
 
 
@@ -244,6 +247,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
 
     //post id for post menu
     const [postIdforMenu, setPostIdforMenu] = useState(false)
+    // console.log("post", post)
     return (
         <>
             {post?.is_active &&
@@ -280,7 +284,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                                             {user?.id === post?.author?.id && <>
                                                 <button
                                                     onClick={() => {
-                                                        editPost(post?.id, JSON.parse(post?.styles), post?.quote_text)
+                                                        editPost(post?.id, JSON.parse(post?.styles), post?.quote_text, post?.book_category)
                                                         setPostIdforMenu(false)
                                                     }}
                                                 >Edit</button>
@@ -310,7 +314,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                         {
                             post?.quote_text.length > 400 ? (
                                 <>
-                                    {lessMore ? <span>{post?.quote_text}&nbsp;
+                                    {lessMore ? <span>{Parser(post?.quote_text)}&nbsp;
                                         {
                                             !downloadPost && <button
                                                 className="show_more_less"
@@ -318,7 +322,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                                                     setLessMore(false);
                                                 }}>Show less</button>
                                         }
-                                    </span> : <span> {post?.quote_text?.substring(0, 400)}...&nbsp;
+                                    </span> : <span> {Parser(post?.quote_text?.substring(0, 400))}...&nbsp;
                                         <button className="show_more_less" onClick={() => {
                                             setLessMore(true);
                                         }
@@ -326,7 +330,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                                     </span>
                                     }
                                 </>
-                            ) : (<span>{post?.quote_text}</span>)
+                            ) : (<span>{Parser(post?.quote_text)}</span>)
                         }
                     </div>
                     <div className="about_post_section">
@@ -433,6 +437,7 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                 editor && <EditPost
                     id={id}
                     quoteText={quoteText}
+                    quoteCategory = {quoteCategory}
                     textStyle={textStyle}
                     setTextEditor={setEditor}
                     setTextStyle={setTextStyle}

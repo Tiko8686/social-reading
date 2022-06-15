@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./editPost.css"
 import fonts from "./../../components/fonts.json"
+import Parser from 'html-react-parser';
 
-function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQuoteText, setPost }) {
+function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQuoteText, setPost, quoteCategory }) {
     const [numbers, setNumbers] = useState([])
     const getNumbers = () => {
         let a = []
@@ -12,13 +13,15 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
         }
         return a
     }
+    const [cat, setCat] = useState("")
+
     useEffect(() => {
         setNumbers(getNumbers())
+        setCat(quoteCategory)
     }, [])
 
     const [publishedDiv, setPublishedDiv] = useState(false)
     const [published, setPublished] = useState(false)
-
 
     //discardi jamanak posty deletea linum
     function deletePost() {
@@ -40,6 +43,7 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                 <div className="overlay"></div>
                 <div className="modal-content-text-editor">
                     <div className="text-editor-left-section">
+
                         <div>
                             <h3 className="your-upload-text">Your upload</h3>
                         </div>
@@ -65,6 +69,14 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                                     return (<option value={number} key={number}>{number}</option>)
                                 })}
                             </select><br />
+
+                            {/* <input
+                                placeholder="Category name"
+                                value={cat}
+                                className="quote_category"
+                                required
+                                onChange={(e) => setCat(e.target.value)}
+                            /> */}
                         </div>
                         <div>
                             <h1>Backgrounds</h1>
@@ -117,7 +129,17 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                         </div>
                     </div>
                     <div className="text-editor-textarea">
-                        <textarea
+                        <div style={{
+                            height: "400px",
+                            overflowY: "auto",
+                            color: textStyle.color,
+                            background: textStyle.background,
+                            fontFamily: textStyle.font,
+                            fontSize: textStyle.size + "px",
+                        }}>
+                            {Parser(quoteText)}
+                        </div>
+                        {/* <textarea
                             value={quoteText}
                             style={{
                                 color: textStyle.color,
@@ -126,7 +148,8 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                                 fontSize: textStyle.size + "px",
                             }}
                             onChange={(e) => { setQuoteText(e.target.value) }}
-                        ></textarea>
+                        ></textarea> */}
+
                     </div>
                 </div>
             </div>
@@ -153,7 +176,7 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                         <button onClick={() => {
                             let a = JSON.stringify(textStyle)
                             axios.patch(`https://www.socialreading.xyz/quotes/${id}/`,
-                                { styles: a, quote_text: quoteText, published, is_active: true }
+                                { styles: a, quote_text: quoteText, published, is_active: true, book_category: cat }
                             ).then(res => {
                                 if (!setPost) {
                                     window.location.reload()

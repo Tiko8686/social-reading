@@ -4,14 +4,17 @@ import "./settings.css"
 import { useNavigate } from "react-router-dom";
 
 function Settings() {
+
   const [userToken, setUserToken] = useState("");
   const [current_password, setCurrent_password] = useState("")
   const [modal, setModal] = useState({ sure: false, password: false })
   const navigate = useNavigate()
   const [user, setUser] = useState("")
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     const userr = JSON.parse(localStorage.getItem("user"));
+
     if (token) {
       setUserToken("JWT " + token.access)
       setUser(userr)
@@ -19,15 +22,32 @@ function Settings() {
       navigate("/")
     }
   }, []);
-  console.log(user)
+
+
+  const [passError, setPassError] = useState(false)
+
   function deleteAccount(event) {
     event.preventDefault()
     console.log(current_password)
-
-    setModal({ sure: true, password: false })
-
+    axios.post("https://socialreading.xyz/auth/jwt/create/", {
+      email: user.email,
+      password: current_password,
+    })
+      .then((resp) => {
+        setModal({ sure: true, password: false })
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+          if (error.response.data.detail) {
+            setPassError(true)
+          }
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
   }
-
   function yesDelete() {
     axios.delete("https://socialreading.xyz/auth/users/me/", {
       headers: {
@@ -109,7 +129,8 @@ function Settings() {
             {
               user?.auth_provider === "email" ? <form onSubmit={deleteAccount}>
                 <label>Password</label>
-                <input onChange={(event) => setCurrent_password(event.target.value)} type="text" required />
+                <input onChange={(event) => { setCurrent_password(event.target.value); setPassError(false) }} type="password" required />
+                {passError && <span className="password_error">Your password is incorrect.</span>}
                 <button className="delete_button">Yes, Delete My Account Forever</button>
               </form> : <button
                 className="delete_button_google_fb"
@@ -122,15 +143,18 @@ function Settings() {
       }
 
       {modal.sure &&
-        <div className="modal">
-          <div className="overlay" onClick={() => setModal({ sure: false, password: false })}></div>
-          <div className="modal-content">
+        <div className="modal_sure">
+          <div className="overlay_sure" onClick={() => setModal({ sure: false, password: false })}></div>
+          <div className="modal_content_sure">
             <p>Are you sure</p>
-            <button onClick={() => yesDelete()}>Yes</button>
-            <button onClick={() => {
-              setModal({ sure: false, password: false });
-              setCurrent_password("")
-            }}>No</button>
+            <div className="sure_buttons">
+              <button onClick={() => yesDelete()}>Yes</button>
+              <button onClick={() => {
+                setModal({ sure: false, password: false });
+                setCurrent_password("")
+              }}>No</button>
+            </div>
+
           </div>
         </div>
       }

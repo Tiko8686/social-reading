@@ -50,6 +50,15 @@
     flex-direction: column;
 }
 
+.quote_category {
+    width: 300px;
+    height: 40px;
+    border: 0.5px solid #A3B0BC;
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+}
+
 .text-editor-select-section>select {
     width: 300px;
     height: 50px;
@@ -97,6 +106,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     /* padding: 0 20px; */
     /* background: #9832FE; */
 
