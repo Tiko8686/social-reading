@@ -51,7 +51,7 @@
   align-items: center;
   flex-direction: column;
   gap: 50px;
-  margin: 20px;
+  margin-top: 20px;
 }
 
 
@@ -95,20 +95,20 @@
     font-size: 12px;
   }
 
-  .quote_image {
+  /* .quote_image {
     width: 290px;
-  }
-  .post__item {
+  } */
+  /* .post__item {
     width: 100;
-  }
-  .add_comment_input{
+  } */
+  /* .add_comment_input{
     width: 360px;
-  }
-  .comment_options_modal{
+  } */
+  /* .comment_options_modal{
     padding: 5px 10px;
     width: 130px;
     height: 80px;
-  }
+  } */
 }
 
 
