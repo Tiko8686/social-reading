@@ -6,13 +6,18 @@
 
 .profile_background {
     width: 100%;
+    /* background-repeat: no-repeat;
+    background-size: cover; */
     height: 350px;
     border-radius: 0px 0px 10px 10px;
     position: relative;
 }
-#profile_photo, #cover_photo {
+
+#profile_photo,
+#cover_photo {
     visibility: hidden;
 }
+
 .edit_profile_pic {
     position: absolute;
     left: 170px;
@@ -27,7 +32,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    user-select:none;
+    user-select: none;
 }
 
 .edit_cover_photo_button {
@@ -43,7 +48,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap:10px;
+    gap: 10px;
     cursor: pointer;
 }
 
@@ -61,10 +66,10 @@
 }
 
 .nameSurnameDiv {
-    width: 300px;
-    position: absolute;
-    top: -50px;
-    left: 250px; 
+     margin-top: -80px;
+}
+.nameSurnameDiv >h3 {
+    font-size: 22px;
 }
 
 .name_and_pic {
@@ -79,7 +84,7 @@
     height: 200px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 20px;
     padding: 0 20px;
 }
 
@@ -130,18 +135,88 @@
 .image_crop {
     background-color: white;
     width: 300px;
-    height: 377px;
-    position: fixed;
-    top: 25%;
-    left: 40%;
-    
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 .image_crop_back {
     width: 800px;
-    height: 500px;
+    height: 400px;
     background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overlay_avatar {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     position: fixed;
-    top: 25%;
-    left: 30%;
+    background-color: rgba(29, 24, 24, 0.8);
+
+}
+
+.overlay_cover {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: rgba(29, 24, 24, 0.8);
+
+}
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .autor_pic {
+        width: 100px;
+        height: 100px;
+        top: -77px;
+        left: -7px;
+    }
+
+    .edit_profile_pic {
+        width: 30px;
+        height: 30px;
+        top: -7px;
+        left: 67px;
+    }
+
+    .nameSurnameDiv {
+        margin-left: -143px;
+        margin-top: -43px;
+    }
+
+    .my_info {
+        height: 100px;
+        gap: 0
+    }
+
+    .nameSurnameDiv>h3 {
+        font-size: 14px;
+    }
+
+    .edit_cover_photo_button {
+        width: 150px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .image_crop_back {
+        width: 100%;
+    }
+    .profilePage {
+        width: 100%;}
 }

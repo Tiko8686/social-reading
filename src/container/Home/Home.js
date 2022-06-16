@@ -42,12 +42,13 @@ function Home() {
           />
         </div>
       </div>
+
       <div className="section_2">
         {
           post.map(post => {
             return (
               post?.published && <Post post={post} setPost={setPost} key={post?.id} />
-             )
+            )
           })
         }
       </div>

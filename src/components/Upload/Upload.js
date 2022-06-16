@@ -182,10 +182,16 @@ export function Upload() {
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
+          setLoading(false)
+          alert("error")
         } else if (error.request) {
           console.log("error.request ", error.request);
+          setLoading(false)
+          alert("error")
         } else if (error.message) {
           console.log("error.request ", error.message);
+          setLoading(false)
+          alert("error")
         }
       });
       toggleModal();
@@ -355,7 +361,7 @@ export function Upload() {
 
       {/* loading */}
       {
-        loading && <Loading/>
+        loading && <Loading />
       }
     </>
   );

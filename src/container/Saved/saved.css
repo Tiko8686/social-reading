@@ -9,3 +9,10 @@
     margin: auto;
     background-color: white;
 }
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .saved_list {
+    width: 100%;
+
+    }
+}

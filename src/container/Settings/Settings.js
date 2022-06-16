@@ -98,14 +98,60 @@ function Settings() {
   }
 
 
+  // change password
+  const [changePassword, setChangePassword] = useState({ current_password: "", new_password: "", re_new_password: "" })
+  function changePass(event) {
+    event.preventDefault()
+    console.log(changePassword)
+    if (changePassword.new === changePassword.reEnter) {
+      console.log(userToken);
+      axios.post("https://socialreading.xyz/auth/users/set_password/", {
+        headers: {
+          Authorization: userToken
+        },
+        data: changePassword
+      }).then((resp) => {
+        console.log(resp);
+      }).catch((error) => {
+        if (error.response) {
+          console.log("error.response ", error.response);
+        } else if (error.request) {
+          console.log("error.request ", error.request);
+        } else if (error.message) {
+          console.log("error.request ", error.message);
+        }
+      });
+    } else {
+      alert("does not match")
+    }
+  }
+
   return (
     <>
       <div className="account_settings_div">
         <h2 className="account_settings">Account Settings</h2>
-        <div>
-          <h2>Change Password</h2>
-        </div>
+        <hr />
 
+        <div className="change_password">
+          <form onSubmit={changePass}>
+            <h2>Change Password</h2>
+            <input 
+            type="text"
+            placeholder="Current password" 
+            onChange={(e) => setChangePassword({ ...changePassword, current_password: e.target.value })} />
+            <input
+            type="text"
+            
+            placeholder="New password" onChange={(e) => setChangePassword({ ...changePassword, new_password: e.target.value })} />
+            <input 
+            type="text"
+
+            placeholder="Re-enter password" onChange={(e) => setChangePassword({ ...changePassword, re_new_password: e.target.value })} />
+            <button type="submit" className="change_password_button">Change password</button>
+
+          </form>
+        </div>
+        <hr />
         <div className="delete_profile">
           <h2>Delete Account</h2>
           <p>Would you like to delete your account?

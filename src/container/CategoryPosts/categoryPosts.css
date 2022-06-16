@@ -16,3 +16,10 @@
     gap: 50px;
     padding: 20px 0;
 }
+
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .posts_in_my_category  {
+        width: 100%;
+    }
+}

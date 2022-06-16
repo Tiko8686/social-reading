@@ -14,7 +14,7 @@ function Profile() {
         const tokenn = JSON.parse(localStorage.getItem("token"));
         if (tokenn) {
             setToken("JWT " + tokenn.access)
-        } 
+        }
 
         if (!tokenn) {
             navigate("/");
@@ -160,10 +160,14 @@ function Profile() {
     return (
         <>
             <div className="profilePage">
-                <div className="profile_background">
+                <div className="profile_background"
+                // style={{backgroundImage : "url("+pictureBack.croppedImg+ ")"}}
+                >
                     {/* bacground photo */}
                     <img
-                        className="background_pic"
+                        width="100%"
+                        height="350px"
+                        // className="background_pic"
                         src={pictureBack.croppedImg}
                         alt="background_pic"
                     />
@@ -182,7 +186,6 @@ function Profile() {
                 <div className="my_info">
                     <div className="name_and_pic">
                         <div className="pic_div">
-                            {/* profile pic */}
                             <img
                                 className="autor_pic"
                                 src={picture.croppedImg}
@@ -198,21 +201,15 @@ function Profile() {
                                 });
                             }} />
                         </div>
-                        <div className="nameSurnameDiv">
-                            <h3>
-                                {
-                                    userInfo ? userInfo?.first_name + " " + userInfo?.last_name
-                                        : ""
-                                }
-                            </h3>
-                        </div>
+
                     </div>
-                    <div>
-                        <Link to="/editProfile">
-                            <button className="edit_btn bi bi-pencil" onClick={() => {
-                                console.log(userInfo);
-                            }}>&nbsp; Edit profile</button>
-                        </Link>
+                    <div className="nameSurnameDiv">
+                        <h3>
+                            {
+                                userInfo ? userInfo?.first_name + " " + userInfo?.last_name
+                                    : ""
+                            }
+                        </h3>
                     </div>
                 </div>
                 <div className="profile_menu">
@@ -230,13 +227,15 @@ function Profile() {
                 </div>
             </div>
             {picture.cropperOpen && (
-                <div className="overlay" >
+                <>
+                    <div className="overlay_avatar" >
+                    </div>
                     <Box display="block" className="image_crop">
                         <AvatarEditor
                             ref={setEditorRef}
                             image={picture.img}
                             width={200}
-                            height={200}
+                            height={100}
                             border={50}
                             color={[255, 255, 255, 0.6]}
                             rotate={0}
@@ -255,11 +254,13 @@ function Profile() {
                             <Button variant="contained" onClick={handleCancel}>Cancel</Button>
                             <Button onClick={handleSave}>Save</Button>
                         </Box>
-                    </Box>
-                </div>
+                    </Box></>
+
             )}
             {pictureBack.cropperOpen && (
-                <div className="overlay" >
+                <>
+                    <div className="overlay_cover" ></div>
+
                     <Box display="block" className="image_crop_back">
                         <AvatarEditor
                             ref={setEditorRefBack}
@@ -283,8 +284,8 @@ function Profile() {
                             <Button variant="contained" onClick={handleCancelBack}>Cancel</Button>
                             <Button onClick={handleSaveBack}>Save</Button>
                         </Box>
-                    </Box>
-                </div>
+                    </Box></>
+
             )}
             <Outlet />
         </>

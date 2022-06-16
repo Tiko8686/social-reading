@@ -1,4 +1,4 @@
-import Gif from "./pleasewait.gif"
+import Gif from "./wait.gif"
 import "./loading.css"
 
 function Loading() {
@@ -6,7 +6,7 @@ function Loading() {
         <>
             <div className="overlay_loading"></div>
             <div className="modal_for_loading">
-                <img src={Gif} width="300px" alt="loading.." style={{ borderRadius: "100%" }} />
+                <img src={Gif}  alt="loading..."  width= "300px" />
             </div>
         </>
     )

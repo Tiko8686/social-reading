@@ -60,7 +60,7 @@ export function Menu() {
             <Link to="/">
               <img
                 src="http://localhost:3000/images/logo.png"
-                width="35px"
+            
                 className="book-icon"
                 alt="book_icon"
               />
@@ -84,13 +84,14 @@ export function Menu() {
         </ul>
         <ul className="right-list">
           <li className="upload-btn">{user ? <Upload /> : <Unauthorized />}</li>
-          <li className="search_input">
+          {/* <li className="search_input">
             <img
               src="https://social-reading-application.herokuapp.com/images/search.svg"
               alt="search_icon"
             />
             <input placeholder="Search" className="search" />
-          </li>
+          </li> */}
+
           <li className="login-btn">
             {
               user ? (
@@ -147,18 +148,19 @@ export function Menu() {
                 </div>) : <Signin />
             }
           </li>
-          <li>
-            <div className="menu" onClick={() => setMenuBool(!menuBool)}>
-              {!menuBool && (
-                <>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </>
-              )}
-              {menuBool && <div className="closeMenu">x</div>}
-            </div>
-          </li>
+
+        </ul>
+        <ul>
+          <div className="menu" onClick={() => setMenuBool(!menuBool)}>
+            {!menuBool && (
+              <>
+                <span></span>
+                <span></span>
+                <span></span>
+              </>
+            )}
+            {menuBool && <div className="closeMenu">x</div>}
+          </div>
         </ul>
       </nav>
       {/* responsive menu */}
@@ -190,14 +192,14 @@ export function Menu() {
                 <Link to="/aboutus">About us</Link>
               </li>
               <li>{user ? <Upload /> : <Unauthorized />} </li>
-              <li >
+              {/* <li >
                 {user ? <img
                   alt="profile_pic"
                   src={user.avatar}
                   onClick={() => { setMenuBool(false); navigate("/profile/posts") }}
                   className="profile_pic_menu"
                 /> : <Signin />}
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

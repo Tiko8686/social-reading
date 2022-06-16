@@ -53,6 +53,103 @@ function Category() {
 
           })
         }
+        {
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }{
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }{
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }{
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }{
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }{
+          categories?.map(category => {
+            return (
+              <div className="category_name" key={category?.id}
+              // onClick={() => setCat(category?.id)}
+              >
+                <Link to={category?.name}
+                // style={cat === category?.id ? { color: "red" } : { color: "#202029" }}
+                >{category?.name}
+                </Link>
+                <button onClick={() => {
+                }}>Delete Category</button>
+              </div>
+            )
+
+          })
+        }
       </div>
       <Outlet />
     </>

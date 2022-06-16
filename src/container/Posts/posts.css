@@ -9,3 +9,8 @@
     flex-direction: column;
     background-color: white;
 }
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .my_post {
+        width: 100%;}
+}

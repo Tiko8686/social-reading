@@ -198,6 +198,7 @@
     gap: 15px;
     font-size: 18px;
 }
+
 .sure_buttons {
     display: flex;
     align-items: center;
@@ -205,11 +206,45 @@
     gap: 15px
 }
 
-.sure_buttons  > button {
+.sure_buttons>button {
     border: none;
     background: #9832FE;
     color: white;
     padding: 8px 20px;
     font-size: 14px;
     border-radius: 10px;
+}
+
+
+
+
+/* change_password */
+
+.change_password>form {
+    width: 300px;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    gap: 10px
+}
+
+.change_password>form>input {
+    width: 100%;
+    height: 40px;
+    border: 0.5px solid #202029;
+    border-radius: 30px;
+    padding: 10px 20px;
+    outline: none;
+}
+
+
+.change_password_button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background: #9832FE;
+    color: white;
+    cursor: pointer;
 }
