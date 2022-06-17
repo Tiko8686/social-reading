@@ -66,12 +66,27 @@
 }
 
 .nameSurnameDiv {
-     margin-top: -80px;
+    margin-top: -80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px
+    /* position: relative; */
 }
-.nameSurnameDiv >h3 {
+/* .pen_icon {
+    position: absolute;
+    top: 4px;
+    left: 115px;
+    width: 14px;
+    height: 14px;
+} */
+.nameSurnameDiv>h3 {
     font-size: 22px;
 }
-
+.pen_icon {
+    width: 16px;
+    height: 16px;
+}
 .name_and_pic {
     display: flex;
     align-items: center;
@@ -217,6 +232,13 @@
     .image_crop_back {
         width: 100%;
     }
+
     .profilePage {
-        width: 100%;}
+        width: 100%;
+    }
+
+    /* .pen_icon {
+        top: 1px;
+        left: 72px;
+    } */
 }

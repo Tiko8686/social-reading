@@ -103,16 +103,16 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .form_style {
-    width: 100%;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px
+    gap: 15px
 }
 
 .form_style>div {
-    width: 354px;
+    width: 100%;
 }
 
 .form_style>div span {
@@ -131,8 +131,8 @@ input[type=number]::-webkit-inner-spin-button {
 .form_style div input {
     font-family: 'Montserrat arm';
     font-style: normal;
-    width: 354px;
-    height: 48px;
+    width: 100%;
+    height: 40px;
     padding: 10px 35px 10px 20px;
     overflow: hidden;
     border-radius: 30px;
@@ -144,7 +144,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 #submit-btn {
-    width: 356px;
+    width: 100%;
     height: 48px;
     background: #9832FE;
     box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
@@ -158,7 +158,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 #send-btn {
-    width: 356px;
+    width: 100%;
     height: 48px;
     background: #9832FE;
     box-shadow: 0px 4px 50px 4px rgba(0, 67, 101, 0.08);
@@ -219,14 +219,11 @@ input[type=number]::-webkit-inner-spin-button {
 
 .password_eye {
     position: absolute;
-    top: 43px;
+    top: 38px;
     right: 15px;
     user-select: none;
 }
 
-/* .email_input::placeholder {
-    font-size: 10px;
-} */
 
 .btn-acc {
     border: none;
@@ -262,5 +259,29 @@ input[type=number]::-webkit-inner-spin-button {
         font-size: 24px;
         text-decoration: none;
         color: black
+    }
+}
+
+
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .modal-content-sign {
+        width: 100%;
+        padding: 40px 15px;
+    }
+    .form_style div input  {
+        height: 35px;
+    margin-top: 5px;
+
+    }
+    .form_style {
+        gap: 10px
+    }
+    #submit-btn {
+        height: 35px;
+        font-size: 16px;
+    }
+    .password_eye {
+        top: 33px
     }
 }

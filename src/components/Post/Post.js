@@ -417,6 +417,9 @@ function Post({ post, setPost, getMyPosts, getSaved }) {
                                             setIdPost(post?.id)
                                         }}
                                         onChange={(e) => setValue(e.target.value)} />
+                                        <button
+                                        className="add_comment_button"
+                                        >Add comment</button>
                                 </form>
                             </div>
                             {

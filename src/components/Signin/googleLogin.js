@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import FacebookLogin from "react-facebook-login";
-
+import googleIcon from "./../../assets/images/google.png"
 const googleClientId = "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com";
 
 function Login() {
@@ -73,9 +73,6 @@ function Login() {
   const responseFacebook = (response) => {
     console.log("hesa", response);
     console.log("token hesa", response.accessToken);
-
-    // setAccessToken(response.accessToken);
-    // console.log("token",accessToken);
     axios
       .post("https://socialreading.xyz/social_auth/facebook/ ", {
         auth_token: response.accessToken,
@@ -168,7 +165,7 @@ function Login() {
           >
             <img
               alt="google_icon"
-              src="https://social-reading-application.herokuapp.com/images/google.png"
+              src={googleIcon}
               width="18px"
             />
           </button>

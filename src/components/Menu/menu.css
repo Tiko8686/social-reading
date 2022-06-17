@@ -4,11 +4,11 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 200px;
+  gap: 165px;
 }
 
 .book-icon {
-  width: 40px;
+  width: 35px;
 }
 
 ul {
@@ -21,7 +21,7 @@ nav>ul {
   align-items: center;
   justify-content: center;
   list-style: none;
-  gap: 30px
+  gap: 100px
 }
 
 nav>ul>li>a {
@@ -122,12 +122,10 @@ nav>ul>li>a {
 
 .responsive_menu {
   width: 100%;
-  position: absolute;
-  z-index: 100;
-  background: linear-gradient(179.25deg, #EDCFFF -35.86%, rgba(226, 214, 255) 26.04%, rgba(249, 216, 255) 55.24%, #FFFFFF 94.1%);
-  top: 60px;
-  left: 0;
+  
   padding: 30px 0;
+  background: linear-gradient(179.25deg, #EDCFFF -35.86%, rgba(226, 214, 255) 26.04%, rgba(249, 216, 255) 55.24%, #FFFFFF 94.1%);
+
 }
 
 .resp_ul {
@@ -161,6 +159,13 @@ nav>ul>li>a {
 
 .resp_menu {
   display: none;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: 1000;
+  /* background:transparent; */
 }
 
 .category_submenu {
@@ -304,7 +309,7 @@ nav>ul>li>a {
   }
 
   nav {
-    gap: 30px
+    gap: 40px
   }
 
   .search {

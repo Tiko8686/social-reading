@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import Post from "../../components/Post/Post";
-
+import logo from "./../../assets/images/logo_home.png"
 function Home() {
   const navigate = useNavigate()
   const [post, setPost] = useState([]);
@@ -35,7 +35,7 @@ function Home() {
         </div>
         <div>
           <img
-            src="https://social-reading-application.herokuapp.com/images/section_1.png"
+            src={logo}
             alt="img"
             width="300px"
             className="section_1_img"

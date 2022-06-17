@@ -133,7 +133,9 @@
     border: none;
     background: #F1F2F5;
     cursor: pointer;
-    color: #878787
+    color: #878787;
+    width: 99px;
+
 }
 
 .canBeFirst{

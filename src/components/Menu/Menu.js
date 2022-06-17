@@ -5,6 +5,8 @@ import { Signin } from "../Signin/Signin";
 import { Unauthorized } from "../Upload/Unauthorized";
 import { Upload } from "../Upload/Upload";
 import "./menu.css";
+import logo from "./../../assets/images/logo.png"
+
 
 export function Menu() {
   const [menuBool, setMenuBool] = useState(false);
@@ -54,13 +56,20 @@ export function Menu() {
 
   return (
     <>
-      <nav onClick={() => { if (bool) setBool(false) }}>
+      <nav onClick={() => {
+        if (bool) {
+          setBool(false)
+        }
+        if (menuBool) {
+          setMenuBool(false)
+        }
+      }}
+      >
         <ul>
           <li>
             <Link to="/">
               <img
-                src="http://localhost:3000/images/logo.png"
-            
+                src={logo}
                 className="book-icon"
                 alt="book_icon"
               />
@@ -85,10 +94,7 @@ export function Menu() {
         <ul className="right-list">
           <li className="upload-btn">{user ? <Upload /> : <Unauthorized />}</li>
           {/* <li className="search_input">
-            <img
-              src="https://social-reading-application.herokuapp.com/images/search.svg"
-              alt="search_icon"
-            />
+            
             <input placeholder="Search" className="search" />
           </li> */}
 
@@ -165,12 +171,14 @@ export function Menu() {
       </nav>
       {/* responsive menu */}
       {menuBool && (
-        <div className="resp_menu">
+        <div className="resp_menu" onClick={() => setMenuBool(false)}>
           <div className="responsive_menu">
             <ul className="resp_ul">
-              <li className="dropdown_resp">
+              <li className="dropdown_resp" onClick={(e) => e.stopPropagation()}>
                 <span className="resp_category">Categories</span>
-                <ul className="category_submenu" onClick={() => setMenuBool(false)}>
+                <ul className="category_submenu"
+                  onClick={() => setMenuBool(false)}
+                >
                   <li>
                     <Link to="/category/professional">Professional</Link>
                   </li>
@@ -188,10 +196,12 @@ export function Menu() {
                   </li>
                 </ul>
               </li>
-              <li onClick={() => setMenuBool(false)}>
+              <li
+              // onClick={() => setMenuBool(false)}
+              >
                 <Link to="/aboutus">About us</Link>
               </li>
-              <li>{user ? <Upload /> : <Unauthorized />} </li>
+              <li onClick={(e) => e.stopPropagation()}>{user ? <Upload /> : <Unauthorized />} </li>
               {/* <li >
                 {user ? <img
                   alt="profile_pic"

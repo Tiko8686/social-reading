@@ -106,6 +106,7 @@ function Profile() {
         zoom: 2,
         croppedImg: ""
     });
+
     const handleSliderBack = (event, value) => {
         setPictureBack({
             ...pictureBack,
@@ -157,6 +158,37 @@ function Profile() {
             });
         }
     };
+
+
+    //change name surname
+    useEffect(() => {
+        setMyInfo({ first_name: userInfo?.first_name, last_name: userInfo?.last_name })
+    }, [userInfo])
+
+    const [nameSurnameInputs, setNameSurnameInputs] = useState(false)
+    const [myInfo, setMyInfo] = useState({ first_name: "", last_name: "" })
+    function changeInfo(event) {
+        event.preventDefault()
+        axios.patch("https://www.socialreading.xyz/auth/users/me/", {
+            first_name: myInfo.first_name,
+            last_name: myInfo.last_name,
+        },
+        { headers: { Authorization: token}}
+        ).then(resp => {
+            console.log(resp);
+            localStorage.setItem('user', JSON.stringify(resp.data));
+            setUserInfo(JSON.parse(localStorage.getItem("user")));
+            setNameSurnameInputs(false)
+        }).catch((error) => {
+            if (error.response) {
+              console.log("error.response ", error.response);
+            } else if (error.request) {
+              console.log("error.request ", error.request);
+            } else if (error.message) {
+              console.log("error.message ", error.message);
+            }
+          });
+    }
     return (
         <>
             <div className="profilePage">
@@ -204,12 +236,35 @@ function Profile() {
 
                     </div>
                     <div className="nameSurnameDiv">
-                        <h3>
-                            {
-                                userInfo ? userInfo?.first_name + " " + userInfo?.last_name
-                                    : ""
-                            }
-                        </h3>
+                        {
+                            !nameSurnameInputs ? <>
+                                <h3>
+                                    {
+                                        userInfo ? userInfo?.first_name + " " + userInfo?.last_name : ""
+                                    }
+                                </h3>
+                                <span className="pen_icon" onClick={() => setNameSurnameInputs(true)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
+                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                                    </svg>
+                                </span>
+                            </> : <form onSubmit={changeInfo}>
+                                <input placeholder="First name" type="text"
+                                    value={myInfo.first_name}
+                                    onChange={e => {
+                                        setMyInfo({ ...myInfo, first_name: e.target.value })
+                                    }}
+                                />
+                                <input placeholder="First name" type="text"
+                                    value={myInfo.last_name}
+                                    onChange={e => {
+                                        setMyInfo({ ...myInfo, last_name: e.target.value })
+                                    }}
+                                />
+                                <button>Change</button>
+                                <button type="button" onClick={() => setNameSurnameInputs(false)}>Discard</button>
+                            </form>
+                        }
                     </div>
                 </div>
                 <div className="profile_menu">

@@ -270,10 +270,11 @@
     }
 
     .btn-modal {
-        font-size: 24px;
+        font-size: 23px;
         color: black;
         background: none;
         border: none;
+        font-family: 'Times New Roman';
     }
 
     .close {

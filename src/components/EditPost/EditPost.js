@@ -8,7 +8,7 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
     const [numbers, setNumbers] = useState([])
     const getNumbers = () => {
         let a = []
-        for (let i = 1; i <= 200; i++) {
+        for (let i = 1; i <= 36; i++) {
             a.push(i)
         }
         return a
@@ -130,8 +130,7 @@ function EditPost({ id, quoteText, textStyle, setTextEditor, setTextStyle, setQu
                     </div>
                     <div className="text-editor-textarea">
                         <div style={{
-                            height: "400px",
-                            overflowY: "auto",
+                           
                             color: textStyle.color,
                             background: textStyle.background,
                             fontFamily: textStyle.font,

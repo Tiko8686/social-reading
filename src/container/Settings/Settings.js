@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import "./settings.css"
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function Settings() {
 
@@ -99,22 +100,27 @@ function Settings() {
 
 
   // change password
-  const [changePassword, setChangePassword] = useState({ current_password: "", new_password: "", re_new_password: "" })
-  function changePass(event) {
-    event.preventDefault()
-    console.log(changePassword)
-    if (changePassword.new === changePassword.reEnter) {
-      console.log(userToken);
-      axios.post("https://socialreading.xyz/auth/users/set_password/", {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+  const [changePassError, setChangePassError] = useState({ re_new: "", current: "" })
+const [changeSuccess,  setChangeSuccess] = useState("")
+  function changePass(data) {
+    if (data.new_password === data.re_new_password) {
+      axios.post("https://socialreading.xyz/auth/users/set_password/", data, {
         headers: {
           Authorization: userToken
-        },
-        data: changePassword
+        }
       }).then((resp) => {
         console.log(resp);
+        reset()
+        setChangeSuccess("Your password has been changed.")
       }).catch((error) => {
         if (error.response) {
           console.log("error.response ", error.response);
+          if (error.response.data.current_password) {
+            setChangePassError({ ...changePassError, current: error.response.data.current_password })
+
+          }
         } else if (error.request) {
           console.log("error.request ", error.request);
         } else if (error.message) {
@@ -122,8 +128,9 @@ function Settings() {
         }
       });
     } else {
-      alert("does not match")
+      setChangePassError({ ...changePassError, re_new: "The password and re-enter password doesn't match" })
     }
+
   }
 
   return (
@@ -132,25 +139,84 @@ function Settings() {
         <h2 className="account_settings">Account Settings</h2>
         <hr />
 
-        <div className="change_password">
-          <form onSubmit={changePass}>
+        <div className="change_password" onClick={() => setChangeSuccess("")}>
+          <form onSubmit={handleSubmit(changePass)}
+              onClick={() => setChangePassError({ ...changePassError, re_new: "", current: "" })}
+          >
             <h2>Change Password</h2>
-            <input 
-            type="text"
-            placeholder="Current password" 
-            onChange={(e) => setChangePassword({ ...changePassword, current_password: e.target.value })} />
+            <p className="successText">{changeSuccess}</p>
             <input
-            type="text"
-            
-            placeholder="New password" onChange={(e) => setChangePassword({ ...changePassword, new_password: e.target.value })} />
-            <input 
-            type="text"
+              type="text"
+              placeholder="Current password"
+              {...register("current_password", {
+                required: true
+              })}
 
-            placeholder="Re-enter password" onChange={(e) => setChangePassword({ ...changePassword, re_new_password: e.target.value })} />
+            />
+            {errors.current_password && errors.current_password.type === "required" && (
+              <span>This is required*</span>
+            )}
+            {changePassError.current && <span>{changePassError.current}</span>}
+            <input
+              type="text"
+              placeholder="New password"
+              {...register("new_password", {
+                required: true,
+                maxLength: 15,
+                minLength: 8,
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+              })}
+            />
+            {errors.new_password && errors.new_password.type === "required" && (
+              <span>This is required*</span>
+            )}
+            {errors.new_password && errors.new_password.type === "maxLength" && (
+              <span>Password can't be more than 15 characters*</span>
+            )}
+            {errors.new_password && errors.new_password.type === "minLength" && (
+              <span>Password can't be less than 8 characters*</span>
+            )}
+            {errors.new_password && errors.new_password.type === "pattern" && (
+              <span>
+                Password must be containe uppercase, lowercase and number*
+              </span>
+            )}
+
+            <input
+              type="text"
+              {...register("re_new_password", {
+                required: true,
+                maxLength: 15,
+                minLength: 8,
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+
+              })}
+              placeholder="Re-enter password"
+            />
+            {errors.re_new_password && errors.re_new_password.type === "required" && (
+              <span>This is required*</span>
+            )}
+            {errors.re_new_password && errors.re_new_password.type === "maxLength" && (
+              <span>Password can't be more than 15 characters*</span>
+            )}
+            {errors.re_new_password && errors.re_new_password.type === "minLength" && (
+              <span>Password can't be less than 8 characters*</span>
+            )}
+            {errors.re_new_password && errors.re_new_password.type === "pattern" && (
+              <span>
+                Password must be containe uppercase, lowercase and number*
+              </span>
+            )}
+            {changePassError.re_new && <span>{changePassError.re_new}</span>}
+
             <button type="submit" className="change_password_button">Change password</button>
-
           </form>
         </div>
+
+
+
+
+
         <hr />
         <div className="delete_profile">
           <h2>Delete Account</h2>
@@ -167,6 +233,8 @@ function Settings() {
         <div className="modal_delete_acc">
           <div className="overlay_delete_acc" onClick={() => setModal({ sure: false, password: false })}></div>
           <div className="modal_content_delete_acc">
+          <button className="close_delete_acc"  onClick={() => setModal({ sure: false, password: false })}>X</button>
+            
             <h2>Delete Your Account</h2>
             <p>We're sorry to see you go.</p>
             <p>If you delete your account, there is no turning back.

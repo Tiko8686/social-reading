@@ -28,6 +28,7 @@ function ForgotPass() {
                 new_password: data.password1
             }).then(res => {
                 console.log("act", res.data)
+                alert("Your password has been changed.")
                 navigate("/");
             }).catch((error) => {
                 if (error.response) {

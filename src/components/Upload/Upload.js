@@ -206,8 +206,7 @@ export function Upload() {
 
   return (
     <>
-      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">
-        &nbsp;&nbsp;Upload</button>
+      <button onClick={toggleModal} className="btn-modal bi bi-cloud-upload">&nbsp;Upload</button>
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
