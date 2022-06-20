@@ -23,6 +23,9 @@ function Comment({ comment, getComments, post }) {
     }, []);
     const [com, setCom] = useState("")
 
+
+
+    
     // delete
     const deleteComment = (id) => {
         axios.delete("https://socialreading.xyz/comments/" + id).then((resp) => {
